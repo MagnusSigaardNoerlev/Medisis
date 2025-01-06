@@ -4,14 +4,17 @@
   <section class="products">
     <div v-if="loading" class="loading">Indlæser produkter...</div>
     <div v-else class="products-container">
-      <div v-for="product in products" :key="product.id" class="product-item">
+      <router-link
+        v-for="product in products"
+        :key="product.id"
+        :to="`/produkt/${product.id}`"
+        class="product-item"
+      >
         <img :src="product.images[0]?.src" :alt="product.name" />
         <h3>{{ product.name }}</h3>
         <p>{{ product.price }} kr</p>
-        <router-link :to="`/produkt/${product.id}`" class="product-link">
-          <button class="product-btn">Tilføj til kurv</button>
-        </router-link>
-      </div>
+        <button class="product-btn">Tilføj til kurv</button>
+      </router-link>
     </div>
   </section>
 </template>
@@ -116,6 +119,8 @@ h2 {
   justify-content: space-between;
   margin-bottom: 50px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  color: inherit;
 }
 
 .product-item:hover {
@@ -154,6 +159,7 @@ h2 {
   padding: 10px 0;
   cursor: pointer;
   margin-top: 10px;
+  pointer-events: none; /* Knappen gør ikke noget */
 }
 
 .product-btn:hover {

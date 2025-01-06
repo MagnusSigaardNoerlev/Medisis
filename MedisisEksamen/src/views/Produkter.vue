@@ -1,6 +1,16 @@
 <template>
-  <h1>Produkter</h1>
-  <div class="produktkategorier">
+<section class="intro">
+  <div class="introText">
+    <h1>Naturlig Kropspleje med Omtanke</h1>
+    <p>
+      Hos Medisis tilbyder vi et bredt udvalg af naturlige kropsplejeprodukter, der er skabt med omtanke for både dig og miljøet. Uanset om du søger massageolier, body lotions, eller produkter til afslappende fodbad, finder du her kvalitetsprodukter, der plejer din hud.
+    </p>
+  </div>
+  <img src="@/assets/medisis-image.jpg" alt="Billede af produkter" />
+</section>
+
+  <section class="produktkategorier">
+    <h3>Produktkategorier</h3>
     <ul>
       <li v-for="produkt in produkter" :key="produkt.id">
         <router-link :to="'/produkter/' + produkt.id" class="card">
@@ -11,7 +21,7 @@
         </router-link>
       </li>
     </ul>
-  </div>
+  </section>
 </template>
 
 
@@ -33,6 +43,25 @@ export default {
 </script>
 
 <style scoped>
+.intro {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin: 0 100px;
+  gap: 100px;
+}
+
+.introText h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.intro img {
+  max-width: 450px;
+  max-height: 500px;
+  height: auto;
+}
+
 .produktkategorier ul {
   display: flex;
   flex-wrap: wrap;

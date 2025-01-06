@@ -16,7 +16,7 @@
         <router-link :to="'/produkter/' + produkt.id" class="card">
           <img :src="produkt.billede" :alt="produkt.navn" />
           <div class="card-content">
-            <h3>{{ produkt.navn }}</h3>
+            <h4>{{ produkt.navn }}</h4>
           </div>
         </router-link>
       </li>
@@ -60,6 +60,11 @@ export default {
   max-width: 450px;
   max-height: 500px;
   height: auto;
+}
+
+.produktkategorier h3 {
+  margin-top: 75px;
+  text-align: center;
 }
 
 .produktkategorier ul {
@@ -107,8 +112,6 @@ export default {
   width: 100%;
   text-align: center;
   padding: 10px;
-  font-size: 18px;
-  font-weight: bold;
   background-color: white;
   transition: background-color 0.3s ease;
 }

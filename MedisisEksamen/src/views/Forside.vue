@@ -108,6 +108,50 @@
       />
     </div>
   </div>
+  <section class="values-section">
+    <h2>Vores værdier</h2>
+    <div class="values-container">
+      <div class="value-item">
+        <img src="@/assets/recycle-icon.png" alt="Genbrugsplast ikon" />
+        <h3>Genbrugsplast</h3>
+        <p>
+          Medisis er engageret i at beskytte miljøet, og derfor bruger vi så
+          vidt muligt genbrugsplast i vores emballage. Ved at vælge
+          genbrugsplast reducerer vi affald og minimerer forbruget af nye
+          ressourcer.
+        </p>
+      </div>
+      <div class="value-item">
+        <img src="@/assets/natural-icon.png" alt="Ægte produkter ikon" />
+        <h3>Ægte produkter</h3>
+        <p>
+          Medisis produkter er skabt med få ingredienser og rene råvarer for at
+          sikre den højeste kvalitet. Vi tror på enkelhed og ægthed, hvilket
+          afspejles i vores produkter, der er både effektive og naturlige.
+        </p>
+      </div>
+      <div class="value-item">
+        <img src="@/assets/service-icon.png" alt="God kundeservice ikon" />
+        <h3>God kundeservice</h3>
+        <p>
+          Kundeservice er hjertet i vores virksomhed. Vi sætter en ære i at
+          lytte til vores kunder, tilbyde tilpassede løsninger og sikre, at alle
+          oplevelser med os er positive. Vi er her for at hjælpe og guide dig på
+          hver eneste step.
+        </p>
+      </div>
+      <div class="value-item">
+        <img src="@/assets/environment-icon.png" alt="Miljøvenligt ikon" />
+        <h3>Miljøvenligt</h3>
+        <p>
+          Vores miljøvenlige produkter hjælper med at reducere affald og
+          CO2-udledning, samtidig med at du får kvalitetsvarer, der er både
+          praktiske og bæredygtige. Gør en forskel med dine køb og vær med til
+          at støtte en grønnere fremtid.
+        </p>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -295,5 +339,46 @@ export default {
 .naturligeikoner img {
   display: flex;
   height: 50px;
+}
+
+.values-section {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.values-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.values-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Responsivt grid */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.value-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.value-item img {
+  width: 100px; /* Ikonstørrelse */
+  height: auto;
+}
+
+.value-item h3 {
+  margin-bottom: 15px;
+}
+
+.value-item p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
 }
 </style>

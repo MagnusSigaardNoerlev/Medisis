@@ -189,6 +189,22 @@
       <span class="slideshow-dot" data-slide="2"></span>
     </div>
   </section>
+  <section class="medisis-section">
+    <div class="card">
+      <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
+      <div class="card-content">
+        <h1>OM MEDISIS</h1>
+        <a href="#" class="card-button">Læs mere om Medisis her</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
+      <div class="card-content">
+        <h1>ENHVERV</h1>
+        <a href="#" class="card-button">Læs mere som erhvervs kunde</a>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -220,16 +236,17 @@ document.addEventListener("DOMContentLoaded", function () {
   setInterval(() => {
     currentIndex = (currentIndex + 1) % slides.length;
     showSlide(currentIndex);
-  }, 4000); // Skift hvert 5. sekund
+  }, 2000);
 });
 </script>
 
 <style scoped>
 .forside-container {
   display: flex;
+  align-items: center;
 
   padding: 20px;
-  margin: 0 100px; /* Tilføj margin til venstre og højre */
+  margin: 0 100px;
   gap: 100px;
 }
 
@@ -256,7 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
 .popular-products {
   text-align: center;
   padding: 50px 0;
-  background-color: #f2f3ee; /* Baggrundsfarve */
+  background-color: #f2f3ee;
 }
 
 .popular-products h2 {
@@ -267,16 +284,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .products-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 kolonner */
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
+}
+.product-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .product-item {
   background-color: white;
   padding: 20px;
-  border: 1px solid #ddd;
+
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -298,8 +319,8 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 .product-btn {
   display: block;
-  width: 100%; /* Gør knappen lige så bred som kortet */
-  background-color: #5f6622; /* Grøn farve */
+  width: 100%;
+  background-color: #5f6622;
   color: white;
   border: none;
   padding: 10px 0;
@@ -312,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 .product-btn:hover {
-  background-color: #3e7732; /* Mørkere grøn ved hover */
+  background-color: #3e7732;
 }
 
 .view-all-btn {
@@ -344,7 +365,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 .column {
-  flex: 1; /* Gør begge kolonner lige brede */
+  flex: 1;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -385,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  margin: 0 50px; /* Tilføj margin til venstre og højre */
+  margin: 0 50px;
 }
 .forside-container-NaturligPleje h3 {
   font-size: 1.8rem;
@@ -446,7 +467,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 .slideshow-section {
   text-align: center;
-  background-color: #f9f9f4; /* Lys grønlig baggrund */
+
   padding: 50px 20px;
 }
 
@@ -495,7 +516,6 @@ document.addEventListener("DOMContentLoaded", function () {
 .slideshow-testimonial p {
   font-size: 1rem;
   line-height: 1.5;
-  color: #555;
 }
 
 .slideshow-controls {
@@ -513,6 +533,58 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 .slideshow-controls .slideshow-dot.active {
-  background-color: #557a4b; /* Mørk grøn farve */
+  background-color: #557a4b;
+}
+
+.medisis-section {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 40px;
+}
+
+.card {
+  position: relative;
+  height: 400px;
+
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card h2 {
+  color: #000000;
+}
+
+.card-button {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  background-color: #6b8e23;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: #556b2f;
 }
 </style>

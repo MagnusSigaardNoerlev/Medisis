@@ -1,0 +1,25 @@
+/* src/assets/styles.css */
+
+/* Generel font for hele body */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f2f3ee;
+}
+
+/* Specifik font for overskrifter */
+h1 {
+  font-family: "Playfair Display", serif; /* Font for headers */
+  font-weight: 700; /* Fed skrift */
+}
+h3 {
+  font-family: "Playfair Display", serif;
+}
+
+/* Specifik font for paragrafer */
+p {
+  font-family: "Open Sans", sans-serif; /* Use Open Sans for paragraphs */
+  font-weight: 400; /* Normal skrift */
+}
+.nav-links {
+  font-family: "Playfair Display", serif; /* Font for headers */
+}

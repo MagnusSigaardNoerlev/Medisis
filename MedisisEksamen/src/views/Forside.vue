@@ -42,14 +42,14 @@
         <button class="product-btn">Tilføj til kurv</button>
       </div>
       <div class="product-item">
-        <img src="@/assets/body-lotion.png" alt="Body Lotion" />
+        <img src="@/assets/kokus.png" alt="Body Lotion" />
         <h3>Body Lotion</h3>
         <p>Med kamille (25ml)</p>
         <p>55,-</p>
         <button class="product-btn">Tilføj til kurv</button>
       </div>
       <div class="product-item">
-        <img src="@/assets/body-lotion.png" alt="Body Lotion" />
+        <img src="@/assets/BodyLotion.png" alt="Body Lotion" />
         <h3>Body Lotion</h3>
         <p>Med kamille (25ml)</p>
         <p>55,-</p>
@@ -297,15 +297,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .product-item {
   background-color: white;
-  padding: 20px;
-
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .product-item img {
   width: 100%;
-  height: auto;
+  height: 300px;
   margin-bottom: 20px;
 }
 
@@ -348,6 +346,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .view-all-btn:hover {
   background-color: #3e7732;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 .column img {
   max-width: 100px;
@@ -399,6 +399,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .btn:hover {
   background-color: #3e7732;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .forside-container-NaturligPleje {

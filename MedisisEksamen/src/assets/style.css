@@ -1,6 +1,7 @@
 /* src/assets/styles.css */
 
 /* Generel font for hele body */
+
 body {
   background-color: #f2f3ee;
   margin: 0 75px;
@@ -30,4 +31,8 @@ p {
 }
 .nav-links {
   font-family: "Playfair Display", serif; /* Font for headers */
+}
+
+.whiteBagground {
+  background-color: white;
 }

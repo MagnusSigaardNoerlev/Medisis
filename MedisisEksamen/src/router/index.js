@@ -14,7 +14,9 @@ const routes = [
     path: "/produkter/:id",
     name: "ProduktDetaljer",
     component: ProduktDetaljer,
+    props: true, // Dette sikrer, at "id" sendes som en prop
   },
+  
 ];
 
 const router = createRouter({

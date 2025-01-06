@@ -32,41 +32,74 @@
     </div>
   </section>
   <section class="popular-products">
-    <h2>Vores populære produkter</h2>
+    <h3>Vores populære produkter</h3>
     <div class="products-container">
       <div class="product-item">
         <img src="@/assets/fodbadesalt.png" alt="Fodbadssalt" />
         <h3>Fodbadesalt</h3>
+        <p>Med kamille (25ml)</p>
         <p>65,-</p>
+        <button class="product-btn">Tilføj til kurv</button>
       </div>
       <div class="product-item">
         <img src="@/assets/body-lotion.png" alt="Body Lotion" />
         <h3>Body Lotion</h3>
         <p>Med kamille (25ml)</p>
         <p>55,-</p>
+        <button class="product-btn">Tilføj til kurv</button>
       </div>
       <div class="product-item">
         <img src="@/assets/body-lotion.png" alt="Body Lotion" />
         <h3>Body Lotion</h3>
         <p>Med kamille (25ml)</p>
         <p>55,-</p>
+        <button class="product-btn">Tilføj til kurv</button>
       </div>
       <div class="product-item">
         <img src="@/assets/body-lotion.png" alt="Body Lotion" />
         <h3>Body Lotion</h3>
         <p>Med kamille (25ml)</p>
         <p>55,-</p>
+        <button class="product-btn">Tilføj til kurv</button>
       </div>
     </div>
     <button class="view-all-btn">Se Alle produkter</button>
   </section>
   <div class="forside-container-NaturligPleje">
     <div class="text-container">
-      <h1>Naturlig Pleje</h1>
+      <h3>Naturlig Pleje</h3>
       <p>
         Vi præsenterer et produkt, der er designet med omtanke og respekt for
         både miljø og mennesker.
       </p>
+      <div class="naturligeikoner">
+        <p>
+          <strong>Rene råvarer:</strong> Vi bruger kun naturlige og
+          uforarbejdede ingredienser.
+        </p>
+        <img src="@/assets/natural-ingredients.png" alt="" />
+      </div>
+      <div class="naturligeikoner">
+        <p>
+          <strong>Få ingredienser:</strong> Simplicitet er nøglen – vi fokuserer
+          på det nødvendige.
+        </p>
+        <img src="@/assets/sustainable.png" alt="" />
+      </div>
+      <div class="naturligeikoner">
+        <p>
+          <strong>Genbrugs emballage:</strong> Vi værner om miljøet ved at vælge
+          bæredygtige løsninger.
+        </p>
+        <img src="@/assets/recycle.png" alt="" />
+      </div>
+      <div class="naturligeikoner">
+        <p>
+          <strong>Skabt med kærlighed:</strong> Hvert produkt er lavet med
+          passion og omsorg for din pleje.
+        </p>
+        <img src="@/assets/plant-a-tree.png" alt="" />
+      </div>
     </div>
     <div class="image-container">
       <img
@@ -148,13 +181,31 @@ export default {
 }
 
 .product-item h3 {
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   margin-bottom: 10px;
 }
 
 .product-item p {
   font-size: 1rem;
   color: #333;
+}
+.product-btn {
+  display: block;
+  width: 100%; /* Gør knappen lige så bred som kortet */
+  background-color: #5f6622; /* Grøn farve */
+  color: white;
+  border: none;
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-transform: uppercase;
+}
+
+.product-btn:hover {
+  background-color: #3e7732; /* Mørkere grøn ved hover */
 }
 
 .view-all-btn {
@@ -168,7 +219,7 @@ export default {
 }
 
 .view-all-btn:hover {
-  background-color: #5f6622;
+  background-color: #3e7732;
 }
 .column img {
   max-width: 100px;
@@ -227,6 +278,22 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  margin: 0 100px; /* Tilføj margin til venstre og højre */
+  margin: 0 50px; /* Tilføj margin til venstre og højre */
+}
+.forside-container-NaturligPleje h3 {
+  font-size: 1.8rem;
+}
+.forside-container-NaturligPleje img {
+  height: 830px;
+}
+.naturligeikoner {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  align-items: center;
+}
+.naturligeikoner img {
+  display: flex;
+  height: 50px;
 }
 </style>

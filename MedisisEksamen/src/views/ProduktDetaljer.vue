@@ -1,17 +1,17 @@
 <template>
-  <div class="popular-products">
-    <h2>Produkter for kategori: {{ id }}</h2>
+  <h2>{{ categoryName }}</h2>
+  <p v-if="categoryDescription" class="category-description">{{ categoryDescription }}</p>
+  <section class="products">
     <div v-if="loading" class="loading">Indlæser produkter...</div>
-    <div v-if="error" class="error">{{ error }}</div>
     <div v-else class="products-container">
       <div v-for="product in products" :key="product.id" class="product-item">
         <img :src="product.images[0]?.src || '/src/assets/default-product.jpg'" :alt="product.name" />
         <h3>{{ product.name }}</h3>
         <p>{{ product.price }} kr</p>
-        <button class="product-btn">Se detaljer</button>
+        <button class="product-btn">Tilføj til kurv</button>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -27,8 +27,29 @@ export default {
   },
   setup(props) {
     const products = ref([]);
+    const categoryName = ref(""); // Kategorinavn
+    const categoryDescription = ref(""); // Kategoribeskrivelse
     const loading = ref(true);
     const error = ref(null);
+
+    const fetchCategoryDetails = async () => {
+      try {
+        const response = await axios.get(
+          `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/categories/${props.id}`,
+          {
+            auth: {
+              username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+              password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+            }
+          }
+        );
+        categoryName.value = response.data.name; // Henter kategorinavn
+        categoryDescription.value = response.data.description; // Henter kategoribeskrivelse
+      } catch (err) {
+        console.error("Fejl ved hentning af kategori:", err);
+        error.value = "Fejl ved hentning af kategori.";
+      }
+    };
 
     const fetchProducts = async () => {
       try {
@@ -39,45 +60,47 @@ export default {
             auth: {
               username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
               password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-            },
+            }
           }
         );
         products.value = response.data;
       } catch (err) {
-        error.value = "Fejl ved hentning af produkter: " + err.message;
-        console.error(err);
+        console.error("Fejl ved hentning af produkter:", err);
+        error.value = "Fejl ved hentning af produkter.";
       } finally {
         loading.value = false;
       }
     };
 
-    onMounted(fetchProducts);
-    watch(() => props.id, fetchProducts);
+    onMounted(() => {
+      fetchCategoryDetails(); // Henter kategorioplysninger
+      fetchProducts(); // Henter produkter
+    });
 
-    return { products, loading, error };
+    watch(() => props.id, () => {
+      fetchCategoryDetails(); // Opdater kategorioplysninger
+      fetchProducts(); // Opdater produkter
+    });
+
+    return { products, categoryName, categoryDescription, loading, error };
   },
 };
 </script>
 
 <style scoped>
-.popular-products {
+h2 {
   text-align: center;
-  padding: 50px 0;
-  background-color: #f2f3ee; /* Baggrundsfarve */
 }
 
-.popular-products h2 {
-  font-size: 2rem;
-  margin-bottom: 40px;
-  font-weight: bold;
+.products .loading {
+  text-align: center;
 }
 
 .products-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 kolonner */
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  margin-bottom: 75px;
 }
 
 .product-item {
@@ -88,20 +111,26 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Sørg for, at alt er jævnt fordelt */
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+.product-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .product-item img {
   width: 100%;
-  height: 200px; /* Sætter en fast højde for alle billeder */
-  object-fit: cover; /* Sørger for, at billeder fylder hele området uden at forvrænge proportionerne */
+  height: auto;
+  object-fit: cover;
   margin-bottom: 20px;
 }
 
 .product-item h3 {
   font-size: 1.8rem;
   margin-bottom: 10px;
-  min-height: 60px; /* Sikrer, at alle overskrifter har samme højde */
+  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,20 +145,22 @@ export default {
 
 .product-btn {
   display: block;
-  width: 100%; /* Gør knappen lige så bred som kortet */
-  background-color: #5f6622; /* Grøn farve */
+  width: 100%;
+  background-color: #5f6622;
   color: white;
   border: none;
   padding: 10px 0;
-  font-size: 1rem;
-  font-weight: bold;
   cursor: pointer;
   margin-top: 10px;
-  border-radius: 5px;
-  text-transform: uppercase;
 }
 
 .product-btn:hover {
-  background-color: #3e7732; /* Mørkere grøn ved hover */
+  background-color: #3e7732;
+}
+
+.category-description {
+  text-align: left;
+  padding: 0 250px;
+  margin-bottom: 75px;
 }
 </style>

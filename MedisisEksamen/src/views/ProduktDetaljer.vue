@@ -9,7 +9,7 @@
         <h3>{{ product.name }}</h3>
         <p>{{ product.price }} kr</p>
         <router-link :to="`/produkt/${product.id}`" class="product-link">
-          <button class="product-btn">Se detaljer</button>
+          <button class="product-btn">Tilføj til kurv</button>
         </router-link>
       </div>
     </div>
@@ -147,7 +147,6 @@ h2 {
 }
 
 .product-btn {
-  display: block;
   width: 100%;
   background-color: #5f6622;
   color: white;

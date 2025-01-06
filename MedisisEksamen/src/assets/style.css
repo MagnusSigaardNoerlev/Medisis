@@ -17,6 +17,11 @@ h3 {
   font-size: 1.8rem;
 }
 
+h4 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.4rem;
+}
+
 /* Specifik font for paragrafer */
 p {
   font-family: "Open Sans", sans-serif; /* Use Open Sans for paragraphs */

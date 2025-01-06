@@ -60,6 +60,21 @@
     </div>
     <button class="view-all-btn">Se Alle produkter</button>
   </section>
+  <div class="forside-container-NaturligPleje">
+    <div class="text-container">
+      <h1>Naturlig Pleje</h1>
+      <p>
+        Vi præsenterer et produkt, der er designet med omtanke og respekt for
+        både miljø og mennesker.
+      </p>
+    </div>
+    <div class="image-container">
+      <img
+        src="@/assets/Naturligpleje.png"
+        alt="Billede af narturlige ingredienser i vores produkter"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -143,7 +158,7 @@ export default {
 }
 
 .view-all-btn {
-  background-color: #4c8f3e;
+  background-color: #5f6622;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -205,5 +220,13 @@ export default {
 
 .btn:hover {
   background-color: #3e7732;
+}
+
+.forside-container-NaturligPleje {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin: 0 100px; /* Tilføj margin til venstre og højre */
 }
 </style>

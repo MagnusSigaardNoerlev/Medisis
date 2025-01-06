@@ -85,7 +85,7 @@ export default {
 .nav-links {
   display: flex;
   justify-content: center; /* Centrer links */
-  gap: 50px; /* Skab afstand mellem links */
+  gap: 70px; /* Skab afstand mellem links */
   margin-top: 10px; /* Afstand til top-bar */
   border-top: 1px solid #ddd; /* Linje over links */
   border-bottom: 1px solid #ddd; /* Linje under links */

@@ -55,6 +55,7 @@
         <p>55,-</p>
         <button class="product-btn">Tilføj til kurv</button>
       </div>
+
       <div class="product-item">
         <img src="@/assets/body-lotion.png" alt="Body Lotion" />
         <h3>Body Lotion</h3>
@@ -324,16 +325,15 @@ document.addEventListener("DOMContentLoaded", function () {
   color: white;
   border: none;
   padding: 10px 0;
-  font-size: 1rem;
-  font-weight: bold;
+
   cursor: pointer;
   margin-top: 10px;
-  border-radius: 5px;
-  text-transform: uppercase;
+  transition: transform 0.3s ease, box-shadow 0, 3 ease;
 }
 
 .product-btn:hover {
   background-color: #3e7732;
+  transform: scale(1.05);
 }
 
 .view-all-btn {
@@ -577,7 +577,7 @@ document.addEventListener("DOMContentLoaded", function () {
   display: inline-block;
   text-decoration: none;
   color: white;
-  background-color: #6b8e23;
+  background-color: #5f6622;
   padding: 10px 20px;
   font-size: 1rem;
   border-radius: 5px;
@@ -585,6 +585,6 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 .card-button:hover {
-  background-color: #556b2f;
+  background-color: #3e7732;
 }
 </style>

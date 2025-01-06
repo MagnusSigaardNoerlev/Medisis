@@ -4,8 +4,10 @@
       <h1>Om Medisis</h1>
       <p>
         Medisis er en mindre producent, måske den mindste af denne type i
-        Danmark. Derfor har Medisis et lille sortiment men med de bedste og ægte
-        produkter.
+        Danmark. Derfor har Medisis et lille sortiment, men med de bedste og
+        ægte produkter, hvor kvalitet altid prioriteres over kvantitet. Hvert
+        produkt er udviklet med stor omhu og baseret på få ingredienser, der er
+        nøje udvalgt for deres rene og naturlige egenskaber.
       </p>
     </div>
     <div class="image-container">
@@ -96,7 +98,8 @@
       <img src="@/assets/ejeren.png" alt="Medisis Produkter" />
     </div>
   </div>
-  <section class="contact-section">
+
+  <section class="contact-section whiteBagground">
     <div class="contact-container">
       <h2>Har du spørgsmål?</h2>
       <p>Hvis du har spørgsmål så kontakt mig endelig på mobil eller E-mail</p>
@@ -106,6 +109,7 @@
       </div>
     </div>
   </section>
+
   <div class="forside-container2">
     <div class="text-container">
       <h3>Hjemmelavede produkter med kærlighed til kvalitet</h3>
@@ -258,11 +262,9 @@ export default {
 }
 
 .contact-section {
-  background-color: #ffffff;
   padding: 60px 20px;
   text-align: center;
 }
-
 .contact-container {
   max-width: 800px;
   margin: 0 auto;
@@ -302,7 +304,7 @@ export default {
 }
 .medisis-section {
   display: flex;
-  gap: 40px;
+  gap: 165px;
   justify-content: center;
   padding: 40px;
 }

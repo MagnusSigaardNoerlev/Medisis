@@ -58,7 +58,7 @@
   </section>
   <div class="forside-container">
     <div class="text-container">
-      <h1>Historien om Medisis</h1>
+      <h3>Historien om Medisis</h3>
       <p>
         Medisis har eksisteret siden 1985 og blev gundlagt af farmaceut Grethe
         Karst. Hun var en del af et forskningsprojekt i hudpleje på Århus
@@ -73,27 +73,104 @@
     </div>
     <div class="image-container">
       <img src="@/assets/Historien.png" alt="Medisis Produkter" />
+    </div>
+  </div>
+  <div class="forside-container2">
+    <div class="text-container">
+      <h3>Vejen fra farmaceut til ejer</h3>
+      <p>
+        Bente Børgesen, den nuværende ejer, overtog virksomheden fra Grethe i
+        2009 efter 25 år som farmaceut. Hendes interesse for produktion skete
+        allerede under læretiden, hvor det var en del af uddannelsen.
+        <br /><br />
+        På apoteket begyndte Bente at købe Medisis-produkter til eget forbrug,
+        hvilket førte til en god kontakt med Grethe. Dette resulterede i, at
+        Bente begyndte at hjælpe Grethe på hendes fridage. Efter at have brugt
+        mange fridage på at assistere, spurgte Grethe, om Bente kunne tænke sig
+        at købe virksomheden. Det sagde Bente ja til, og dermed begyndte hendes
+        rejse med Medisis.Virksomheden blev flyttet fra Grenå til Onsild hvor
+        den ligger i dag.
+      </p>
+    </div>
+    <div class="image-container">
+      <img src="@/assets/ejeren.png" alt="Medisis Produkter" />
+    </div>
+  </div>
+  <section class="contact-section">
+    <div class="contact-container">
+      <h2>Har du spørgsmål?</h2>
+      <p>Hvis du har spørgsmål så kontakt mig endelig på mobil eller E-mail</p>
+      <div class="contact-buttons">
+        <a href="#" class="contact-button">Ring til mig</a>
+        <a href="#" class="contact-button">Send mig en mail</a>
+      </div>
+    </div>
+  </section>
+  <div class="forside-container2">
+    <div class="text-container">
+      <h3>Hjemmelavede produkter med kærlighed til kvalitet</h3>
+      <p>
+        Hos Medisis er vi stolte af at tilbyde en unik serie af hjemmelavede
+        kropspleje- og massageprodukter, skabt med omhu og passion. Hvert
+        produkt bliver fremstillet med naturlige ingredienser, nøje udvalgt for
+        at sikre høj kvalitet og en skånsom pleje til huden. <br /><br />
+        Det, der gør vores produkter særlige, er det håndværk og den dedikation,
+        der ligger bag hver eneste flaske og krukke. Vi tror på at kombinere
+        tradition og innovation for at skabe effektive og bæredygtige løsninger,
+        der gør en forskel i hverdagen. vores produktionsproces designet med
+        omtanke for både kvalitet og miljø. Vi udvælger nøje vores naturlige
+        råvarer fra ansvarlige leverandører, der deler vores værdier omkring
+        bæredygtighed. <br /><br />Vi arbejder aktivt på at minimere spild i
+        produktionen og anvender miljøvenlige emballageløsninger, som kan
+        genbruges eller nedbrydes uden at skade naturen. Vores mål er at
+        kombinere effektivitet og ansvarlighed, så vi kan tilbyde produkter, der
+        ikke kun plejer huden, men også bidrager til en mere bæredygtig fremtid.
+      </p>
+    </div>
+    <div class="image-container">
+      <img src="@/assets/Hjemmelavede.png" alt="Medisis Produkter" />
     </div>
   </div>
   <div class="forside-container">
     <div class="text-container">
-      <h1>Historien om Medisis</h1>
+      <h3>Medisis nuværende private label kunder</h3>
       <p>
-        Medisis har eksisteret siden 1985 og blev gundlagt af farmaceut Grethe
-        Karst. Hun var en del af et forskningsprojekt i hudpleje på Århus
-        universitetshospital, hvor de udviklede 15 forskellige massageprodukter.
-        <br />
-        <br />
-        Mange af disse produkter sælges stadig hos Medisis. Grethe udvidede
-        sortimentet og begyndte at sælge til professionelle behandlere. Da Bente
-        overtog firmaet i 2009 begynde hun at udvide ved at lave private label
-        for en del kunder.
+        <Strong>Baby Kræs</Strong> <br />
+        Med vores private label Baby Kræs tilbyder vi produkter, der er skabt
+        med omtanke for de mindste. Fokus er på naturlige ingredienser og høj
+        kvalitet, som sikrer skånsom pleje til både babyer og småbørn. Alle
+        produkter hos Baby Kræs er dermatologisk testet og fri for skadelige
+        stoffer, så forældre kan føle sig trygge. Fra cremer og olier til
+        badesæber – Baby Kræs gør en forskel for både forældre og deres små
+        guldklumper. <br />
+        <Strong>A-Serve</Strong> <br />
+        A-Serve er vores eksklusive private label, der leverer løsninger til
+        virksomheder inden for wellness, sundhed og servicebranchen. Produkterne
+        hos A-Serve er skabt til at imødekomme professionelle behov med fokus på
+        effektivitet, kvalitet og bæredygtighed. Fra massageolier og
+        desinfektionsløsninger til håndplejeprodukter.
       </p>
     </div>
     <div class="image-container">
-      <img src="@/assets/Historien.png" alt="Medisis Produkter" />
+      <img src="@/assets/privateL.png" alt="Medisis Produkter" />
     </div>
   </div>
+  <section class="medisis-section">
+    <div class="card">
+      <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
+      <div class="card-content">
+        <h1>OM MEDISIS</h1>
+        <a href="#" class="card-button">Læs mere om Medisis her</a>
+      </div>
+    </div>
+    <div class="card">
+      <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
+      <div class="card-content">
+        <h1>ENHVERV</h1>
+        <a href="#" class="card-button">Læs mere som erhvervs kunde</a>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -111,6 +188,14 @@ export default {
   margin: 0 100px;
   gap: 100px;
 }
+.forside-container2 {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  padding: 20px;
+  margin: 0 100px;
+  gap: 100px;
+}
 
 .text-container {
   max-width: 50%;
@@ -123,7 +208,6 @@ export default {
 }
 
 .text-container p {
-  font-size: 1.2rem;
   line-height: 1.6;
 }
 
@@ -171,5 +255,100 @@ export default {
   font-size: 1rem;
   line-height: 1.5;
   color: #333;
+}
+
+.contact-section {
+  background-color: #ffffff;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-container h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.contact-container p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.contact-button {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  background-color: #5f6622;
+  padding: 10px 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #3e7732;
+}
+.medisis-section {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 40px;
+}
+
+.card {
+  position: relative;
+  height: 400px;
+
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card h2 {
+  color: #000000;
+}
+
+.card-button {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  background-color: #5f6622;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: #3e7732;
 }
 </style>

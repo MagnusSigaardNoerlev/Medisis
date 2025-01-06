@@ -31,7 +31,7 @@ export default {
   name: "produkter",
   data() {
     return {
-      kategorier: [], // Henter WooCommerce kategorier
+      kategorier: [],
     };
   },
   mounted() {
@@ -50,14 +50,16 @@ export default {
           }
         );
 
-        // Filtrér kategorier og fjern den ukategoriserede kategori
+    
         this.kategorier = response.data
-          .filter((kategori) => kategori.slug !== "ukategoriseret") // Fjerner "ukategoriseret"
+          .filter((kategori) => kategori.slug !== "ukategoriseret")
           .map((kategori) => ({
             id: kategori.id,
             name: kategori.name,
-            image: kategori.image?.src || "/src/assets/default-category.jpg", // Fallback billede
-          }));
+            description: kategori.description,
+            image: kategori.image?.src,
+          }))
+          .reverse(); // Vend rækkefølgen, så den sidste kategori vises først
       } catch (error) {
         console.error("Fejl ved hentning af kategorier:", error);
       }

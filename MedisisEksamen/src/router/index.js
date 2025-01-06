@@ -16,7 +16,12 @@ const routes = [
     component: ProduktDetaljer,
     props: true, // Dette sikrer, at "id" sendes som en prop
   },
-  
+  {
+    path: "/produkt/:id",
+    name: "ProduktSide",
+    component: () => import("../views/ProduktSide.vue"),
+    props: true,
+  },  
 ];
 
 const router = createRouter({

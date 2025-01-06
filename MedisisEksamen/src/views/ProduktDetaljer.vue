@@ -5,10 +5,12 @@
     <div v-if="loading" class="loading">Indlæser produkter...</div>
     <div v-else class="products-container">
       <div v-for="product in products" :key="product.id" class="product-item">
-        <img :src="product.images[0]?.src || '/src/assets/default-product.jpg'" :alt="product.name" />
+        <img :src="product.images[0]?.src" :alt="product.name" />
         <h3>{{ product.name }}</h3>
         <p>{{ product.price }} kr</p>
-        <button class="product-btn">Tilføj til kurv</button>
+        <router-link :to="`/produkt/${product.id}`" class="product-link">
+          <button class="product-btn">Se detaljer</button>
+        </router-link>
       </div>
     </div>
   </section>
@@ -113,6 +115,7 @@ h2 {
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 50px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-item:hover {

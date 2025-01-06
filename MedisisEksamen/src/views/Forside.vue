@@ -152,21 +152,85 @@
       </div>
     </div>
   </section>
+  <section class="slideshow-section">
+    <h2>Se hvad vores kunder siger</h2>
+    <div class="slideshow-container">
+      <div class="slideshow-slide active">
+        <div class="slideshow-testimonial">
+          <img src="@/assets/karen.png" alt="Karen" />
+          <h3>Karen</h3>
+          <p>
+            "Bestiller olie til min klinik. God olie, super service samt hurtig
+            levering."
+          </p>
+        </div>
+      </div>
+      <div class="slideshow-slide">
+        <div class="slideshow-testimonial">
+          <img src="@/assets/mads.png" alt="Mads" />
+          <h3>Mads</h3>
+          <p>
+            "Super lækre produkter, som jeg selv bruger til mine klienter - som
+            massør. Kan klart anbefales."
+          </p>
+        </div>
+      </div>
+      <div class="slideshow-slide">
+        <div class="slideshow-testimonial">
+          <img src="@/assets/anette.png" alt="Anette" />
+          <h3>Anette</h3>
+          <p>"Super god body lotion til tør hud."</p>
+        </div>
+      </div>
+    </div>
+    <div class="slideshow-controls">
+      <span class="slideshow-dot active" data-slide="0"></span>
+      <span class="slideshow-dot" data-slide="1"></span>
+      <span class="slideshow-dot" data-slide="2"></span>
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
   name: "Forside",
 };
+document.addEventListener("DOMContentLoaded", function () {
+  const slides = document.querySelectorAll(".slideshow-slide");
+  const dots = document.querySelectorAll(".slideshow-dot");
+  let currentIndex = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === index);
+    });
+  }
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      currentIndex = index;
+      showSlide(currentIndex);
+    });
+  });
+
+  // Automatisk slideshow
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }, 4000); // Skift hvert 5. sekund
+});
 </script>
 
 <style scoped>
 .forside-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+
   padding: 20px;
   margin: 0 100px; /* Tilføj margin til venstre og højre */
+  gap: 100px;
 }
 
 .text-container {
@@ -174,21 +238,20 @@ export default {
 }
 
 .text-container h1 {
-  font-size: 50px;
+  font-size: 45px;
   margin-bottom: 10px;
+  margin-top: 0;
 }
 
 .text-container p {
   font-size: 1.2rem;
-  line-height: 1.5;
-  color: #555;
+  line-height: 1.6;
 }
 
 .image-container img {
-  max-width: 500px;
+  max-width: 450px;
   max-height: 500px;
   height: auto;
-  border-radius: 10px;
 }
 .popular-products {
   text-align: center;
@@ -380,5 +443,76 @@ export default {
   font-size: 1rem;
   line-height: 1.5;
   color: #333;
+}
+.slideshow-section {
+  text-align: center;
+  background-color: #f9f9f4; /* Lys grønlig baggrund */
+  padding: 50px 20px;
+}
+
+.slideshow-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.slideshow-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.slideshow-slide {
+  display: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.slideshow-slide.active {
+  display: block;
+}
+
+.slideshow-testimonial {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.slideshow-testimonial img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.slideshow-testimonial h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.slideshow-testimonial p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+.slideshow-controls {
+  margin-top: 20px;
+}
+
+.slideshow-controls .slideshow-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slideshow-controls .slideshow-dot.active {
+  background-color: #557a4b; /* Mørk grøn farve */
 }
 </style>

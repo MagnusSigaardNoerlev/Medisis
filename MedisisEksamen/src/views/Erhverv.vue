@@ -160,9 +160,9 @@ export default {
         {
           id: 2,
           ikon: returIkon,
-          overskrift: "Hvad er jeres returpolitik?",
+          overskrift: "Hvordan kontakter vi jer?",
           beskrivelse:
-            "Medisis tilbyder 14 dages returret på uåbnede og ubeskadigede produkter. Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15 for at arrangere en returnering.",
+            " Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15",
         },
         {
           id: 3,

@@ -3,7 +3,8 @@
     <div v-else-if="error" class="error">{{ error }}</div>
     <section v-else class="product-detail">
       <div class="product-header">
-        <img :src="product.images[0]?.src" :alt="product.name" />
+        <!-- Vis billedet fra den valgte variant eller standard produktbillede -->
+        <img :src="selectedVariant?.image?.src || product.images[0]?.src" :alt="product.name" />
         <div class="product-info">
           <h1>{{ product.name }}</h1>
           <div v-if="product.variations && product.variations.length > 0" class="variants">
@@ -219,6 +220,10 @@
   
   .moms {
     padding: 0;
+    margin: 0;
+  }
+
+  h2 {
     margin: 0;
   }
   

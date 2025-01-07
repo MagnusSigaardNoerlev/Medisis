@@ -326,12 +326,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   cursor: pointer;
   margin-top: 10px;
-  transition: transform 0.3s ease, box-shadow 0, 3 ease;
 }
 
 .product-btn:hover {
   background-color: #3e7732;
-  transform: scale(1.05);
 }
 
 .view-all-btn {

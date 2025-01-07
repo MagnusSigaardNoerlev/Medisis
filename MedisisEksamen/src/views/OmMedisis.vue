@@ -247,7 +247,7 @@ export default {
 }
 
 .value-item img {
-  width: 100px; /* Ikonstørrelse */
+  width: 100px;
   height: auto;
 }
 

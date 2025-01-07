@@ -1,20 +1,25 @@
 <template>
-  <h2>{{ categoryName }}</h2>
-  <p v-if="categoryDescription" class="category-description">{{ categoryDescription }}</p>
   <section class="products">
+    <h2>{{ categoryName }}</h2>
+    <p v-if="categoryDescription" class="category-description">{{ categoryDescription }}</p>
     <div v-if="loading" class="loading">Indlæser produkter...</div>
     <div v-else class="products-container">
-      <router-link
-        v-for="product in products"
-        :key="product.id"
-        :to="`/produkt/${product.id}`"
-        class="product-item"
-      >
-        <img :src="product.images[0]?.src" :alt="product.name" />
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.price }} kr</p>
-        <button class="product-btn">Tilføj til kurv</button>
-      </router-link>
+      <div class="product-card" v-for="product in products" :key="product.id">
+        <!-- Router-link til produkt -->
+        <router-link
+          :to="`/produkt/${product.id}`"
+          class="product-item"
+        >
+          <img :src="product.images[0]?.src" :alt="product.name" />
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.priceRange }}</p>
+        </router-link>
+
+        <!-- Tilføj til kurv knap uden for produktcontaineren -->
+        <div class="product-btn-placeholder">
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -60,7 +65,7 @@ export default {
       try {
         loading.value = true;
         const response = await axios.get(
-          `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products?category=${props.id}`,
+          `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products?category=${props.id}&per_page=20`,
           {
             auth: {
               username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
@@ -68,7 +73,43 @@ export default {
             }
           }
         );
-        products.value = response.data;
+
+        // Hent variationer for hvert produkt og beregn prisspænd
+        const productsWithPrices = await Promise.all(
+          response.data.map(async (product) => {
+            if (product.variations && product.variations.length > 0) {
+              // Hent variationer
+              const variationsResponse = await axios.get(
+                `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${product.id}/variations`,
+                {
+                  auth: {
+                    username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+                    password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+                  }
+                }
+              );
+
+              const prices = variationsResponse.data.map((variation) =>
+                parseFloat(variation.price)
+              );
+              const minPrice = Math.min(...prices);
+              const maxPrice = Math.max(...prices);
+
+              return {
+                ...product,
+                priceRange: `${minPrice} - ${maxPrice} kr`,
+              };
+            } else {
+              // Hvis der ikke er variationer, brug standardpris
+              return {
+                ...product,
+                priceRange: `${product.price} kr`,
+              };
+            }
+          })
+        );
+
+        products.value = productsWithPrices;
       } catch (err) {
         console.error("Fejl ved hentning af produkter:", err);
         error.value = "Fejl ved hentning af produkter.";
@@ -92,9 +133,17 @@ export default {
 };
 </script>
 
+
 <style scoped>
 h2 {
   text-align: center;
+}
+
+.category-description {
+  text-align: left;
+  margin-left: 350px;
+  margin-right: 350px;
+  margin-bottom: 75px;
 }
 
 .products .loading {
@@ -108,6 +157,14 @@ h2 {
   margin-bottom: 75px;
 }
 
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  height: 100%;
+}
+
 .product-item {
   background-color: white;
   padding: 20px;
@@ -117,10 +174,10 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 50px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
   color: inherit;
+  height: 100%; /* Kortene får samme højde */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-item:hover {
@@ -130,8 +187,8 @@ h2 {
 
 .product-item img {
   width: 100%;
-  height: auto;
-  object-fit: cover;
+  height: 200px; /* Ensartet højde for billeder */
+  object-fit: contain; /* Undgå forvrængning */
   margin-bottom: 20px;
 }
 
@@ -149,26 +206,26 @@ h2 {
 .product-item p {
   font-size: 1rem;
   color: #333;
+  margin-bottom: auto; /* Skub teksten opad for at ensrette */
+}
+
+.product-btn-placeholder {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px; /* Mindre afstand mellem knap og kort */
 }
 
 .product-btn {
-  width: 100%;
   background-color: #5f6622;
   color: white;
   border: none;
   padding: 10px 0;
-  cursor: pointer;
-  margin-top: 10px;
-  pointer-events: none; /* Knappen gør ikke noget */
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 50px;
 }
 
 .product-btn:hover {
   background-color: #3e7732;
-}
-
-.category-description {
-  text-align: left;
-  padding: 0 250px;
-  margin-bottom: 75px;
 }
 </style>

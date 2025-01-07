@@ -43,106 +43,190 @@
         </div>
       </div>
     </section>
+
+    <!-- Relaterede produkter -->
+    <section class="related-products">
+  <h2>Du ville måske synes om:</h2>
+  <div class="related-products-container">
+    <div class="related-product" v-for="related in relatedProducts" :key="related.id">
+      <!-- Router-link til produkt -->
+      <router-link :to="`/produkt/${related.id}`" class="related-product-item">
+        <img :src="related.images[0]?.src" :alt="related.name" />
+        <h3>{{ related.name }}</h3>
+        <p>
+          {{ related.price_range || `${related.price} kr` }}
+        </p>
+      </router-link>
+
+      <!-- Tilføj til kurv knap -->
+      <div class="related-product-btn-placeholder">
+        <button class="related-product-btn">Tilføj til kurv</button>
+      </div>
+    </div>
+  </div>
+</section>
   </template>
   
   <script>
-  import axios from "axios";
-  import kortIkon from "@/assets/credit-card-solid.png";
-  import returIkon from "@/assets/undo-solid.png";
-  import leveringIkon from "@/assets/levering-ikon.png";
-  
-  export default {
-    props: {
-      id: {
-        type: String,
-        required: true,
-      },
+import axios from "axios";
+import kortIkon from "@/assets/credit-card-solid.png";
+import returIkon from "@/assets/undo-solid.png";
+import leveringIkon from "@/assets/levering-ikon.png";
+
+export default {
+  props: {
+    id: {
+      type: String,
+      required: true,
     },
-    data() {
-      return {
-        product: null,
-        variants: [],
-        selectedVariant: null,
-        loading: true,
-        error: null,
-        faq: [
-          {
-            id: 1,
-            ikon: kortIkon,
-            overskrift: "Hvilke betalingsmetoder accepterer I?",
-            beskrivelse:
-              "Medisis accepterer betaling med Dankort. Det er helt sikkert at handle hos Medisis, da vi sikrer, at dine betalingsoplysninger bliver behandlet trygt. Hvis du har spørgsmål eller problemer med betaling, kan du altid kontakte os på info@medisis.dk.",
-          },
-          {
-            id: 2,
-            ikon: returIkon,
-            overskrift: "Hvad er jeres returpolitik?",
-            beskrivelse:
-              "Medisis tilbyder 14 dages returret på uåbnede og ubeskadigede produkter. Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15 for at arrangere en returnering.",
-          },
-          {
-            id: 3,
-            ikon: leveringIkon,
-            overskrift: "Hvor lang er leveringstiden?",
-            beskrivelse:
-              "Hos Medisis bliver ordrer typisk sendt inden for 1-2 hverdage. Leveringstiden afhænger af fragtfirmaet, men forventes normalt at være 2-5 hverdage.",
-          },
-        ],
-      };
+  },
+  data() {
+    return {
+      product: null,
+      variants: [],
+      selectedVariant: null,
+      loading: true,
+      error: null,
+      relatedProducts: [],
+      faq: [
+        {
+          id: 1,
+          ikon: kortIkon,
+          overskrift: "Hvilke betalingsmetoder accepterer I?",
+          beskrivelse:
+            "Medisis accepterer betaling med Dankort. Det er helt sikkert at handle hos Medisis, da vi sikrer, at dine betalingsoplysninger bliver behandlet trygt.",
+        },
+        {
+          id: 2,
+          ikon: returIkon,
+          overskrift: "Hvad er jeres returpolitik?",
+          beskrivelse:
+            "Medisis tilbyder 14 dages returret på uåbnede og ubeskadigede produkter. Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15 for at arrangere en returnering.",
+        },
+        {
+          id: 3,
+          ikon: leveringIkon,
+          overskrift: "Hvor lang er leveringstiden?",
+          beskrivelse:
+            "Hos Medisis bliver ordrer typisk sendt inden for 1-2 hverdage. Leveringstiden afhænger af fragtfirmaet, men forventes normalt at være 2-5 hverdage.",
+        },
+      ],
+    };
+  },
+  computed: {
+    sortedVariants() {
+      return [...this.variants].sort((a, b) => {
+        const valueA = parseFloat(a.attributes[0]?.option.replace("L", "").trim());
+        const valueB = parseFloat(b.attributes[0]?.option.replace("L", "").trim());
+        return valueA - valueB;
+      });
     },
-    computed: {
-      sortedVariants() {
-        return [...this.variants].sort((a, b) => {
-          const valueA = parseFloat(a.attributes[0]?.option.replace("L", "").trim());
-          const valueB = parseFloat(b.attributes[0]?.option.replace("L", "").trim());
-          return valueA - valueB;
-        });
-      },
-    },
-    methods: {
-      async fetchProduct() {
-        try {
-          this.loading = true;
-          const response = await axios.get(
-            `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}`,
+  },
+  methods: {
+    async fetchProduct() {
+      try {
+        this.loading = true;
+        const response = await axios.get(
+          `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}`,
+          {
+            auth: {
+              username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+              password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+            },
+          }
+        );
+        this.product = response.data;
+
+        // Hent variationer, hvis produktet er variabelt
+        if (this.product.type === "variable") {
+          const variationsResponse = await axios.get(
+            `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}/variations`,
             {
               auth: {
                 username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
                 password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-              }
+              },
             }
           );
-          this.product = response.data;
-  
-          // Hent variationer, hvis produktet er variabelt
-          if (this.product.type === "variable") {
-            const variationsResponse = await axios.get(
-              `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}/variations`,
-              {
-                auth: {
-                  username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
-                  password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-                }
-              }
-            );
-            this.variants = variationsResponse.data;
-          }
-        } catch (err) {
-          console.error("Fejl ved hentning af produkt:", err);
-          this.error = "Kunne ikke hente produktdata.";
-        } finally {
-          this.loading = false;
+          this.variants = variationsResponse.data;
         }
-      },
-      selectVariant(variant) {
-        this.selectedVariant = variant;
+
+        // Hent relaterede produkter efter produktet er hentet
+        this.fetchRelatedProducts(this.product.categories[0]?.id);
+      } catch (err) {
+        console.error("Fejl ved hentning af produkt:", err);
+        this.error = "Kunne ikke hente produktdata.";
+      } finally {
+        this.loading = false;
+      }
+    },
+    async fetchRelatedProducts(categoryId) {
+      if (!categoryId) {
+        console.error("Kategori-ID er ikke tilgængeligt for relaterede produkter.");
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products`,
+          {
+            auth: {
+              username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+              password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+            },
+            params: {
+              per_page: 4, // Begræns til 4 produkter
+              exclude: [this.id], // Ekskluder det aktuelle produkt
+              category: categoryId, // Produkter fra samme kategori
+            },
+          }
+        );
+
+        // Beregn prisspænd for produkter med varianter
+        this.relatedProducts = await Promise.all(
+          response.data.map(async (product) => {
+            if (product.type === "variable") {
+              const variationsResponse = await axios.get(
+                `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${product.id}/variations`,
+                {
+                  auth: {
+                    username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+                    password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+                  },
+                }
+              );
+              const variations = variationsResponse.data;
+              const prices = variations.map((v) => parseFloat(v.price));
+              const minPrice = Math.min(...prices).toFixed(2);
+              const maxPrice = Math.max(...prices).toFixed(2);
+              return { ...product, price: `${minPrice} - ${maxPrice} kr` };
+            } else {
+              return product;
+            }
+          })
+        );
+      } catch (err) {
+        console.error("Fejl ved hentning af relaterede produkter:", err);
+      }
+    },
+    selectVariant(variant) {
+      this.selectedVariant = variant;
+    },
+  },
+  watch: {
+    id: {
+      immediate: true,
+      handler() {
+        this.fetchProduct(); // Hent produktet ved ID
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // Glidende scroll til toppen
+        });
       },
     },
-    mounted() {
-      this.fetchProduct();
-    },
-  };
-  </script>
+  },
+};
+</script>
   
   <style scoped>
   .loading,
@@ -164,7 +248,6 @@
   
   .product-header img {
     max-width: 300px;
-    border: 1px solid #5e6622;
   }
   
   .product-info h1 {
@@ -278,5 +361,94 @@
     line-height: 1.5;
     color: #666;
   }
+
+  .related-products {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.related-products h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.related-products-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Samme grid-layout som produkter.vue */
+  gap: 20px;
+  margin-bottom: 75px;
+}
+
+.related-product {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Sørger for at kortet fylder hele pladsen */
+  text-align: center;
+  height: 100%; /* Sørger for at kortene udfylder rummet */
+}
+
+.related-product-item {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  color: inherit;
+  height: 100%; /* Kortene får samme højde */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.related-product-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.related-product-item img {
+  width: 100%;
+  height: 200px; /* Ensartet højde for billeder */
+  object-fit: contain; /* Undgå forvrængning */
+  margin-bottom: 20px;
+}
+
+.related-product-item h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.related-product-item p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: auto; /* Skub teksten opad for at ensrette */
+}
+
+.related-product-btn-placeholder {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px; /* Mindre afstand mellem knap og kort */
+}
+
+.related-product-btn {
+  background-color: #5f6622;
+  color: white;
+  border: none;
+  padding: 10px 0;
+  width: 100%; /* Knapbredde matcher kortbredde */
+  max-width: 100%;
+  margin-bottom: 50px;
+}
+
+.related-product-btn:hover {
+  background-color: #3e7732;
+}
   </style>
   

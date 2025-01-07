@@ -14,6 +14,7 @@
         <p>Leveringstiden</p>
         <p>Betalingsmetoder</p>
         <p>Salgs- og leveringsbetingelser</p>
+        <p>FAQ</p>
       </div>
       <div class="vertikal-linje2"></div>
       <div class="footer-section">

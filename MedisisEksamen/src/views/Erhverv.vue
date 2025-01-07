@@ -10,9 +10,42 @@
       <img src="@/assets/KvindeH.jpg" alt="Medisis Produkter" />
     </div>
   </div>
-  <div>
-    <FordeleSection />
-  </div>
+  <section class="values-section">
+    <h2>Fordele for erhvervskunder</h2>
+    <div class="values-container">
+      <div class="value-item">
+        <img src="@/assets/kasse-ikon.png" alt="Genbrugsplast ikon" />
+        <h4>Tilpassede løsningerløsninger</h4>
+        <p>
+          Vi forstår, at hver virksomhed har unikke behov. Derfor tilbyder vi
+          hos Medisis løsninger, der matcher netop jeres ønsker. Uanset om det
+          handler om specialtilpassede produkter, private label-muligheder eller
+          specifikke leveringsaftaler, arbejder vi tæt sammen med jer for at
+          skabe den perfekte løsning til jeres kunder eller medarbejdere."
+        </p>
+      </div>
+      <div class="value-item">
+        <img src="@/assets/baeredygtighed-ikon.png" alt="Ægte produkter ikon" />
+        <h4>Høj kvalitet og bæredygtighed</h4>
+        <p>
+          Hos Medisis er kvalitet og bæredygtighed kernen i alt, hvad vi gør.
+          Vores produkter er fremstillet af nøje udvalgte ingredienser, hvor
+          fokus er på naturlige og miljøvenlige materialer. Vi sikrer, at hver
+          eneste vare lever op til høje standarder for både effektivitet og
+          ansvarlighed.
+        </p>
+      </div>
+      <div class="value-item">
+        <img src="@/assets/levering-ikon.png" alt="God kundeservice ikon" />
+        <h4>Hurtig levering</h4>
+        <p>
+          Hos Medisis bliver ordrer typisk sendt inden for 1-2 hverdage.
+          Leveringstiden afhænger af fragtfirmaet, men forventes normalt at være
+          2-5 hverdage.
+        </p>
+      </div>
+    </div>
+  </section>
   <section class="popular-products">
     <h3>Produktoversigt</h3>
     <div class="products-container">
@@ -71,15 +104,7 @@
   </section>
 </template>
 
-<script>
-import FordeleSection from "@/components/Fordele.vue";
-
-export default {
-  components: {
-    FordeleSection,
-  },
-};
-</script>
+<script></script>
 
 <style scoped>
 .forside-container {
@@ -243,5 +268,45 @@ export default {
 
 .pakke-detaljer button:hover {
   background-color: #3e7732;
+}
+
+.values-section {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.values-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.values-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* Responsivt grid */
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.value-item {
+  padding: 20px;
+}
+
+.value-item img {
+  width: 100px; /* Ikonstørrelse */
+  height: auto;
+}
+
+.value-item h3 {
+  margin-bottom: 15px;
+}
+
+.value-item p {
+  line-height: 1.5;
+  color: #333;
+  text-align: left;
 }
 </style>

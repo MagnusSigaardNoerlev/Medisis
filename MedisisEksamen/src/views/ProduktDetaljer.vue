@@ -32,8 +32,8 @@ export default {
   },
   setup(props) {
     const products = ref([]);
-    const categoryName = ref(""); // Kategorinavn
-    const categoryDescription = ref(""); // Kategoribeskrivelse
+    const categoryName = ref("");
+    const categoryDescription = ref("");
     const loading = ref(true);
     const error = ref(null);
 
@@ -48,8 +48,8 @@ export default {
             }
           }
         );
-        categoryName.value = response.data.name; // Henter kategorinavn
-        categoryDescription.value = response.data.description; // Henter kategoribeskrivelse
+        categoryName.value = response.data.name;
+        categoryDescription.value = response.data.description;
       } catch (err) {
         console.error("Fejl ved hentning af kategori:", err);
         error.value = "Fejl ved hentning af kategori.";

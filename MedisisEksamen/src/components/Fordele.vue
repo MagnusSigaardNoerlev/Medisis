@@ -15,8 +15,8 @@
 
 <script>
 import KasseIkon from "@/assets/kasse-ikon.png";
+import LeveringIkon from "@/assets/levering-ikon.png";
 import BaeredygtighedIkon from "@/assets/baeredygtighed-ikon.png";
-import leveringikon from "@/assets/leveringikon.png";
 
 export default {
   name: "FordeleSection",
@@ -39,7 +39,7 @@ export default {
         },
         {
           id: 3,
-          ikon: leveringikon,
+          ikon: LeveringIkon,
           overskrift: "Hurtig levering",
           beskrivelse:
             "Hos Medisis bliver ordrer typisk sendt inden for 1-2 hverdage. Leveringstiden afhænger af fragtfirmaet, men forventes normalt at være 2-5 hverdage.",

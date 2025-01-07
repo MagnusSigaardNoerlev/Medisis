@@ -19,7 +19,9 @@
         Køb naturlige kropsplejeprodukter direkte fra os og oplev vores
         bæredygtige hjemmelavede kvalitet
       </p>
-      <button class="btn">Se vores produkter</button>
+      <button class="btn">
+        <router-link to="/produkter">Se vores produkter</router-link>
+      </button>
     </div>
     <div class="column">
       <img src="@/assets/b2b.png" alt="Produkt ikon" class="icon" />
@@ -28,7 +30,9 @@
         Vi leverer også til klinikker, butikker og erhverv – med løsninger
         tilpassede til professionelle behov.
       </p>
-      <button class="btn">Se vores B2B løsninger</button>
+      <button class="btn">
+        <router-link to="/erhverv">Se vores B2B løsninger</router-link>
+      </button>
     </div>
   </section>
   <section class="popular-products">
@@ -64,7 +68,9 @@
         <button class="product-btn">Tilføj til kurv</button>
       </div>
     </div>
-    <button class="view-all-btn">Se Alle produkter</button>
+    <button class="view-all-btn">
+      <router-link to="/produkter">Se all vores produkter</router-link>
+    </button>
   </section>
   <div class="forside-container-NaturligPleje">
     <div class="text-container">
@@ -195,14 +201,20 @@
       <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
       <div class="card-content">
         <h1>OM MEDISIS</h1>
-        <a href="#" class="card-button">Læs mere om Medisis her</a>
+        <a href="" class="card-button"
+          ><router-link to="/om-medisis"
+            >Læs mere om Medisis her</router-link
+          ></a
+        >
       </div>
     </div>
     <div class="card">
       <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
       <div class="card-content">
         <h1>ENHVERV</h1>
-        <a href="#" class="card-button">Læs mere som erhvervs kunde</a>
+        <a href="./Erhverv.vue" class="card-button"
+          ><router-link to="/erhverv">Læs mere om erhvervskunde</router-link></a
+        >
       </div>
     </div>
   </section>
@@ -346,6 +358,13 @@ document.addEventListener("DOMContentLoaded", function () {
   background-color: #3e7732;
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.btn a {
+  text-decoration: none;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
 }
 .column img {
   max-width: 100px;
@@ -586,5 +605,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .card-button:hover {
   background-color: #3e7732;
+}
+.card-content a {
+  text-decoration: none;
+  color: white;
+}
+.view-all-btn a {
+  text-decoration: none;
+  color: white;
 }
 </style>

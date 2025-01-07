@@ -102,9 +102,80 @@
       </div>
     </div>
   </section>
+  <!-- FAQ sektion -->
+  <section class="faq">
+    <h2>Ofte stillede spørgsmål</h2>
+    <div class="faq-container">
+      <div class="kort" v-for="item in faq" :key="item.id">
+        <div class="ikon">
+          <img :src="item.ikon" :alt="item.overskrift" />
+        </div>
+        <h3>{{ item.overskrift }}</h3>
+        <p>{{ item.beskrivelse }}</p>
+      </div>
+    </div>
+  </section>
+  <section class="medisis-section">
+    <div class="card">
+      <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
+      <div class="card-content">
+        <h1>OM MEDISIS</h1>
+        <a href="#" class="card-button"
+          ><router-link to="/om-medisis"
+            >Læs mere om Medisis her</router-link
+          ></a
+        >
+      </div>
+    </div>
+  </section>
 </template>
 
-<script></script>
+<script>
+import kortIkon from "@/assets/credit-card-solid.png";
+import returIkon from "@/assets/undo-solid.png";
+import leveringIkon from "@/assets/levering-ikon.png";
+
+export default {
+  props: {
+    id: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      product: null,
+      variants: [],
+      selectedVariant: null,
+      loading: true,
+      error: null,
+      faq: [
+        {
+          id: 1,
+          ikon: kortIkon,
+          overskrift: "konsistensen på produkterne?",
+          beskrivelse:
+            "Medisis accepterer betaling med Dankort. Det er helt sikkert at handle hos Medisis, da vi sikrer, at dine betalingsoplysninger bliver behandlet trygt. Hvis du har spørgsmål eller problemer med betaling, kan du altid kontakte os på info@medisis.dk.",
+        },
+        {
+          id: 2,
+          ikon: returIkon,
+          overskrift: "Hvordan kontakter vi jer?",
+          beskrivelse:
+            " Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15",
+        },
+        {
+          id: 3,
+          ikon: leveringIkon,
+          overskrift: "Allergi",
+          beskrivelse:
+            "vores produkter er udviklet med få ingredienser og rene råvarer for at minimere risikoen for allergiske reaktioner. De er helt fri for parfume.",
+        },
+      ],
+    };
+  },
+};
+</script>
 
 <style scoped>
 .forside-container {
@@ -308,5 +379,111 @@
   line-height: 1.5;
   color: #333;
   text-align: left;
+}
+/* FAQ sektion */
+.faq {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.faq h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.faq-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.kort {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 300px;
+  flex: 1;
+  text-align: left;
+}
+
+.ikon {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.ikon img {
+  width: 60px;
+  height: auto;
+}
+
+.kort h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+.kort p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #666;
+}
+.medisis-section {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding: 40px;
+}
+
+.card {
+  position: relative;
+  height: 400px;
+
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card h2 {
+  color: #000000;
+}
+
+.card-button {
+  display: inline-block;
+  text-decoration: none;
+  color: white;
+  background-color: #5f6622;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.card-button:hover {
+  background-color: #3e7732;
+}
+.card-button a {
+  text-decoration: none;
+  color: white;
 }
 </style>

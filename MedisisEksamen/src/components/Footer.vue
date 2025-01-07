@@ -13,7 +13,11 @@
         <h3>Returpolitik</h3>
         <p>Leveringstiden</p>
         <p>Betalingsmetoder</p>
-        <p>Salgs- og leveringsbetingelser</p>
+        <p>
+          <router-link to="/leveringsbetingelser"
+            >Salgs- og leveringsbetingelser</router-link
+          >
+        </p>
         <p>FAQ</p>
       </div>
       <div class="vertikal-linje2"></div>
@@ -47,7 +51,7 @@ export default {
   background-color: #f2f3ee;
   padding: 40px 0;
   color: #333;
-  position: relative; /* Gør det muligt at bruge positionering for vertikale linjer */
+  position: relative;
   border-top: 1px solid #ddd;
 }
 
@@ -95,10 +99,17 @@ export default {
 }
 
 .vertikal-linje {
-  left: 33%; /* Placér første linje mellem Kontakt og Returpolitik */
+  left: 33%;
 }
 
 .vertikal-linje2 {
-  left: 66%; /* Placér anden linje mellem Returpolitik og Følg os */
+  left: 66%;
+}
+.footer-section a {
+  text-decoration: none;
+  color: black;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
 }
 </style>

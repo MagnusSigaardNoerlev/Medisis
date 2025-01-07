@@ -120,7 +120,11 @@
       <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
       <div class="card-content">
         <h1>OM MEDISIS</h1>
-        <a href="#" class="card-button">Læs mere om Medisis her</a>
+        <a href="#" class="card-button"
+          ><router-link to="/om-medisis"
+            >Læs mere om Medisis her</router-link
+          ></a
+        >
       </div>
     </div>
   </section>
@@ -477,5 +481,9 @@ export default {
 
 .card-button:hover {
   background-color: #3e7732;
+}
+.card-button a {
+  text-decoration: none;
+  color: white;
 }
 </style>

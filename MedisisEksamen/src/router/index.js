@@ -33,6 +33,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition; // Hvis brugeren trykker "tilbage" eller "frem", behold positionen
+    } else {
+      return { top: 0 }; // Scroll til toppen på nye sider
+    }
+  },
 });
 
 export default router;

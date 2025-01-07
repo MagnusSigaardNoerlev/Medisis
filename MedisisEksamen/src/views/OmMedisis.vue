@@ -163,15 +163,19 @@
     <div class="card">
       <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
       <div class="card-content">
-        <h1>OM MEDISIS</h1>
-        <a href="#" class="card-button">Læs mere om Medisis her</a>
+        <h1>Vores produkter</h1>
+        <a href="#" class="card-button"
+          ><router-link to="/produkter">Se alle vores produkter</router-link></a
+        >
       </div>
     </div>
     <div class="card">
       <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
       <div class="card-content">
         <h1>ENHVERV</h1>
-        <a href="#" class="card-button">Læs mere som erhvervs kunde</a>
+        <a href="#" class="card-button"
+          ><router-link to="/erhverv">Læs mere om ehverskunde</router-link></a
+        >
       </div>
     </div>
   </section>
@@ -352,5 +356,9 @@ export default {
 
 .card-button:hover {
   background-color: #3e7732;
+}
+.card-button a {
+  text-decoration: none;
+  color: white;
 }
 </style>

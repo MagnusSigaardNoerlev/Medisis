@@ -4,6 +4,7 @@ import Produkter from "../views/Produkter.vue";
 import OmMedisis from "../views/OmMedisis.vue";
 import Erhverv from "../views/Erhverv.vue";
 import ProduktDetaljer from "../views/ProduktDetaljer.vue";
+import leveringsbetingelser from "@/views/leveringsbetingelser.vue";
 
 const routes = [
   { path: "/", name: "Forside", component: Forside },
@@ -21,7 +22,12 @@ const routes = [
     name: "ProduktSide",
     component: () => import("../views/ProduktSide.vue"),
     props: true,
-  },  
+  },
+  {
+    path: "/leveringsbetingelser",
+    name: "Leveringsbetingelser",
+    component: leveringsbetingelser,
+  },
 ];
 
 const router = createRouter({

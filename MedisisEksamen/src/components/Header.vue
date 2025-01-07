@@ -19,7 +19,35 @@
     <div class="nav-container">
       <nav class="nav-links">
         <router-link to="/" class="nav-link">Forside</router-link>
-        <router-link to="/produkter" class="nav-link">Produkter</router-link>
+        <div
+          class="dropdown"
+          @mouseover="showDropdown"
+          @mouseleave="hideDropdown"
+        >
+          <router-link to="/produkter" class="nav-link">Produkter</router-link>
+          <ul v-show="dropdownVisible" class="dropdown-menu">
+            <li>
+              <router-link to="/produkter/21" class="dropdown-item"
+                >Pleje</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/produkter/20" class="dropdown-item"
+                >Massage</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/produkter/22" class="dropdown-item"
+                >Emballage</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/produkter/23" class="dropdown-item"
+                >Andre Produkter</router-link
+              >
+            </li>
+          </ul>
+        </div>
         <router-link to="/om-medisis" class="nav-link">Om Medisis</router-link>
         <router-link to="/erhverv" class="nav-link">Erhverv</router-link>
       </nav>
@@ -28,14 +56,23 @@
 </template>
 
 <script>
-import logoGreen from "@/assets/logo-green.png"; // Import af billedet
+import logoGreen from "@/assets/logo-green.png";
 
 export default {
   name: "Header",
   data() {
     return {
       logo: logoGreen,
+      dropdownVisible: false, // Styrer dropdownens synlighed
     };
+  },
+  methods: {
+    showDropdown() {
+      this.dropdownVisible = true;
+    },
+    hideDropdown() {
+      this.dropdownVisible = false;
+    },
   },
 };
 </script>
@@ -106,5 +143,35 @@ export default {
 .nav-container {
   display: flex;
   justify-content: center; /* Centrer containeren */
+}
+/* Dropdown-styling */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Placerer menuen under "Produkter" */
+  left: 0;
+  background-color: #f2f3ee;
+  border: 1px solid #ddd;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Sørger for menuen vises over andre elementer */
+  min-width: 100px; /* Gør menuen tilpas bred */
+}
+
+.dropdown-item {
+  padding: 8px 15px;
+  font-size: 16px;
+  color: #000000;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-item:hover {
+  background-color: #f2f3ee;
 }
 </style>

@@ -1,32 +1,34 @@
 <template>
   <section class="sideIndhold">
-  <section class="intro">
-    <div class="introText">
-      <h1>Naturlig Kropspleje med Omtanke</h1>
-      <p>
-        Hos Medisis tilbyder vi et bredt udvalg af naturlige
-        kropsplejeprodukter, der er skabt med omtanke for både dig og miljøet.
-        Uanset om du søger massageolier, body lotions, eller produkter til
-        afslappende fodbad, finder du her kvalitetsprodukter, der plejer din
-        hud.
-      </p>
-    </div>
-    <img src="@/assets/medisis-image.jpg" alt="Billede af produkter" />
-  </section>
+    <section class="sideIndhold">
+      <section class="intro">
+        <div class="introText">
+          <h1>Naturlig Kropspleje med Omtanke</h1>
+          <p>
+            Hos Medisis tilbyder vi et bredt udvalg af naturlige
+            kropsplejeprodukter, der er skabt med omtanke for både dig og
+            miljøet. Uanset om du søger massageolier, body lotions, eller
+            produkter til afslappende fodbad, finder du her kvalitetsprodukter,
+            der plejer din hud.
+          </p>
+        </div>
+        <img src="@/assets/medisis-image.jpg" alt="Billede af produkter" />
+      </section>
 
-  <section class="produktkategorier">
-    <h3>Produktkategorier</h3>
-    <ul>
-      <li v-for="kategori in kategorier" :key="kategori.id">
-        <router-link :to="'/produkter/' + kategori.id" class="card">
-          <img :src="kategori.image" :alt="kategori.name" />
-          <div class="card-content">
-            <h4>{{ kategori.name }}</h4>
-          </div>
-        </router-link>
-      </li>
-    </ul>
-  </section>
+      <section class="produktkategorier">
+        <h3>Produktkategorier</h3>
+        <ul>
+          <li v-for="kategori in kategorier" :key="kategori.id">
+            <router-link :to="'/produkter/' + kategori.id" class="card">
+              <img :src="kategori.image" :alt="kategori.name" />
+              <div class="card-content">
+                <h4>{{ kategori.name }}</h4>
+              </div>
+            </router-link>
+          </li>
+        </ul>
+      </section>
+    </section>
   </section>
 </template>
 

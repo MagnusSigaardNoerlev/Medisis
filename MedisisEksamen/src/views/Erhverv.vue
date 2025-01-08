@@ -1,132 +1,142 @@
 <template>
-  <div class="forside-container">
-    <div class="text-container">
-      <h1>Kvalitetsprodukter til din virksomhed</h1>
-      <p>
-        Klar til at levere produkter, der gør en forskel for din virksomhed.
-      </p>
-    </div>
-    <div class="image-container">
-      <img src="@/assets/KvindeH.jpg" alt="Medisis Produkter" />
-    </div>
-  </div>
-  <section class="values-section">
-    <h2>Fordele for erhvervskunder</h2>
-    <div class="values-container">
-      <div class="value-item">
-        <img src="@/assets/kasse-ikon.png" alt="Genbrugsplast ikon" />
-        <h4>Tilpassede løsningerløsninger</h4>
+  <section class="sideIndhold">
+    <div class="forside-container">
+      <div class="text-container">
+        <h1>Kvalitetsprodukter til din virksomhed</h1>
         <p>
-          Vi forstår, at hver virksomhed har unikke behov. Derfor tilbyder vi
-          hos Medisis løsninger, der matcher netop jeres ønsker. Uanset om det
-          handler om specialtilpassede produkter, private label-muligheder eller
-          specifikke leveringsaftaler, arbejder vi tæt sammen med jer for at
-          skabe den perfekte løsning til jeres kunder eller medarbejdere."
+          Klar til at levere produkter, der gør en forskel for din virksomhed.
         </p>
       </div>
-      <div class="value-item">
-        <img src="@/assets/baeredygtighed-ikon.png" alt="Ægte produkter ikon" />
-        <h4>Høj kvalitet og bæredygtighed</h4>
-        <p>
-          Hos Medisis er kvalitet og bæredygtighed kernen i alt, hvad vi gør.
-          Vores produkter er fremstillet af nøje udvalgte ingredienser, hvor
-          fokus er på naturlige og miljøvenlige materialer. Vi sikrer, at hver
-          eneste vare lever op til høje standarder for både effektivitet og
-          ansvarlighed.
-        </p>
-      </div>
-      <div class="value-item">
-        <img src="@/assets/levering-ikon.png" alt="God kundeservice ikon" />
-        <h4>Hurtig levering</h4>
-        <p>
-          Hos Medisis bliver ordrer typisk sendt inden for 1-2 hverdage.
-          Leveringstiden afhænger af fragtfirmaet, men forventes normalt at være
-          2-5 hverdage.
-        </p>
+      <div class="image-container">
+        <img src="@/assets/KvindeH.jpg" alt="Medisis Produkter" />
       </div>
     </div>
-  </section>
-  <section class="popular-products">
-    <h3>Produktoversigt</h3>
-    <div class="products-container">
-      <div class="product-item">
-        <img src="@/assets/fodbadesalt.png" alt="Fodbadssalt" />
-        <h3>Fodbadesalt</h3>
-        <p>Med kamille (25ml)</p>
-        <p>65,-</p>
-        <button class="product-btn">Tilføj til kurv</button>
-      </div>
-      <div class="product-item">
-        <img src="@/assets/kokus.png" alt="Body Lotion" />
-        <h3>Body Lotion</h3>
-        <p>Med kamille (25ml)</p>
-        <p>55,-</p>
-        <button class="product-btn">Tilføj til kurv</button>
-      </div>
-      <div class="product-item">
-        <img src="@/assets/BodyLotion.png" alt="Body Lotion" />
-        <h3>Body Lotion</h3>
-        <p>Med kamille (25ml)</p>
-        <p>55,-</p>
-        <button class="product-btn">Tilføj til kurv</button>
-      </div>
-
-      <div class="product-item">
-        <img src="@/assets/body-lotion.png" alt="Body Lotion" />
-        <h3>Body Lotion</h3>
-        <p>Med kamille (25ml)</p>
-        <p>55,-</p>
-        <button class="product-btn">Tilføj til kurv</button>
-      </div>
-    </div>
-    <button class="view-all-btn">Se Alle produkter</button>
-  </section>
-  <section class="proevepakke-sektion">
-    <div class="tekst-indhold">
-      <h2>Prøv vores prøvepakker og oplev forskellen</h2>
-      <p>
-        Medisis tilbyder tilpassede prøvepakker, så I kan teste vores produkter,
-        før I træffer en endelig beslutning. Vores prøvepakker giver jer
-        mulighed for at opleve kvaliteten, designet og funktionaliteten af vores
-        løsninger – helt uden binding. Kontakt os i dag og lad os sammensætte en
-        pakke, der matcher jeres behov.
-      </p>
-    </div>
-    <div class="billede-indhold">
-      <div class="billede-container">
-        <img src="@/assets/pravepakke.png" alt="Massageolie prøvepakke" />
-      </div>
-      <div class="pakke-detaljer">
-        <h3>Massageolie prøvepakke</h3>
-        <button>Bestil prøve pakke</button>
-      </div>
-    </div>
-  </section>
-  <!-- FAQ sektion -->
-  <section class="faq">
-    <h2>Ofte stillede spørgsmål</h2>
-    <div class="faq-container">
-      <div class="kort" v-for="item in faq" :key="item.id">
-        <div class="ikon">
-          <img :src="item.ikon" :alt="item.overskrift" />
+    <section class="values-section">
+      <h2>Fordele for erhvervskunder</h2>
+      <div class="values-container">
+        <div class="value-item">
+          <img src="@/assets/kasse-ikon.png" alt="Genbrugsplast ikon" />
+          <h4>Tilpassede løsningerløsninger</h4>
+          <p>
+            Vi forstår, at hver virksomhed har unikke behov. Derfor tilbyder vi
+            hos Medisis løsninger, der matcher netop jeres ønsker. Uanset om det
+            handler om specialtilpassede produkter, private label-muligheder
+            eller specifikke leveringsaftaler, arbejder vi tæt sammen med jer
+            for at skabe den perfekte løsning til jeres kunder eller
+            medarbejdere."
+          </p>
         </div>
-        <h3>{{ item.overskrift }}</h3>
-        <p>{{ item.beskrivelse }}</p>
+        <div class="value-item">
+          <img
+            src="@/assets/baeredygtighed-ikon.png"
+            alt="Ægte produkter ikon"
+          />
+          <h4>Høj kvalitet og bæredygtighed</h4>
+          <p>
+            Hos Medisis er kvalitet og bæredygtighed kernen i alt, hvad vi gør.
+            Vores produkter er fremstillet af nøje udvalgte ingredienser, hvor
+            fokus er på naturlige og miljøvenlige materialer. Vi sikrer, at hver
+            eneste vare lever op til høje standarder for både effektivitet og
+            ansvarlighed.
+          </p>
+        </div>
+        <div class="value-item">
+          <img src="@/assets/levering-ikon.png" alt="God kundeservice ikon" />
+          <h4>Hurtig levering</h4>
+          <p>
+            Hos Medisis bliver ordrer typisk sendt inden for 1-2 hverdage.
+            Leveringstiden afhænger af fragtfirmaet, men forventes normalt at
+            være 2-5 hverdage.
+          </p>
+        </div>
       </div>
-    </div>
-  </section>
-  <section class="medisis-section">
-    <div class="card">
-      <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
-      <div class="card-content">
-        <h1>OM MEDISIS</h1>
-        <a href="#" class="card-button"
-          ><router-link to="/om-medisis"
-            >Læs mere om Medisis her</router-link
-          ></a
-        >
+    </section>
+    <section class="popular-products">
+      <h3>Produktoversigt</h3>
+      <div class="products-container">
+        <div class="product-item">
+          <img src="@/assets/fodbadesalt.png" alt="Fodbadssalt" />
+          <h3>Fodbadesalt</h3>
+          <p>Med kamille (25ml)</p>
+          <p>65,-</p>
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
+        <div class="product-item">
+          <img src="@/assets/kokus.png" alt="Body Lotion" />
+          <h3>Body Lotion</h3>
+          <p>Med kamille (25ml)</p>
+          <p>55,-</p>
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
+        <div class="product-item">
+          <img src="@/assets/BodyLotion.png" alt="Body Lotion" />
+          <h3>Body Lotion</h3>
+          <p>Med kamille (25ml)</p>
+          <p>55,-</p>
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
+
+        <div class="product-item">
+          <img src="@/assets/body-lotion.png" alt="Body Lotion" />
+          <h3>Body Lotion</h3>
+          <p>Med kamille (25ml)</p>
+          <p>55,-</p>
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
       </div>
-    </div>
+      <button class="view-all-btn">Se Alle produkter</button>
+    </section>
+    <section class="proevepakke-sektion">
+      <div class="tekst-indhold">
+        <h2>Prøv vores prøvepakker og oplev forskellen</h2>
+        <p>
+          Medisis tilbyder tilpassede prøvepakker, så I kan teste vores
+          produkter, før I træffer en endelig beslutning. Vores prøvepakker
+          giver jer mulighed for at opleve kvaliteten, designet og
+          funktionaliteten af vores løsninger – helt uden binding. Kontakt os i
+          dag og lad os sammensætte en pakke, der matcher jeres behov.
+        </p>
+      </div>
+      <div class="billede-indhold">
+        <div class="billede-container">
+          <img src="@/assets/pravepakke.png" alt="Massageolie prøvepakke" />
+        </div>
+        <div class="pakke-detaljer">
+          <h3>Massageolie prøvepakke</h3>
+          <button>Bestil prøve pakke</button>
+        </div>
+      </div>
+    </section>
+    <!-- FAQ sektion -->
+    <section class="faq">
+      <h2>Ofte stillede spørgsmål</h2>
+      <div class="faq-container">
+        <div class="kort" v-for="item in faq" :key="item.id">
+          <div class="ikon">
+            <img :src="item.ikon" :alt="item.overskrift" />
+          </div>
+          <h3>{{ item.overskrift }}</h3>
+          <p>{{ item.beskrivelse }}</p>
+        </div>
+      </div>
+    </section>
+    <section class="medisis-section">
+      <div class="card">
+        <img
+          src="@/assets/om-medisis.png"
+          alt="Om Medisis"
+          class="card-image"
+        />
+        <div class="card-content">
+          <h1>OM MEDISIS</h1>
+          <a href="#" class="card-button"
+            ><router-link to="/om-medisis"
+              >Læs mere om Medisis her</router-link
+            ></a
+          >
+        </div>
+      </div>
+    </section>
   </section>
 </template>
 

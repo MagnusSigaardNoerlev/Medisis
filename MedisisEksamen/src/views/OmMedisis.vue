@@ -1,185 +1,198 @@
 <template>
-  <div class="forside-container">
-    <div class="text-container">
-      <h1>Om Medisis</h1>
-      <p>
-        Medisis er en mindre producent, måske den mindste af denne type i
-        Danmark. Derfor har Medisis et lille sortiment, men med de bedste og
-        ægte produkter, hvor kvalitet altid prioriteres over kvantitet. Hvert
-        produkt er udviklet med stor omhu og baseret på få ingredienser, der er
-        nøje udvalgt for deres rene og naturlige egenskaber.
-      </p>
-    </div>
-    <div class="image-container">
-      <img src="@/assets/Ommedisishus.png" alt="Medisis Produkter" />
-    </div>
-  </div>
-  <section class="values-section">
-    <h2>Vores værdier</h2>
-    <div class="values-container">
-      <div class="value-item">
-        <img src="@/assets/recycle-icon.png" alt="Genbrugsplast ikon" />
-        <h3>Genbrugsplast</h3>
+  <section class="sideIndhold">
+    <div class="forside-container">
+      <div class="text-container">
+        <h1>Om Medisis</h1>
         <p>
-          Medisis er engageret i at beskytte miljøet, og derfor bruger vi så
-          vidt muligt genbrugsplast i vores emballage. Ved at vælge
-          genbrugsplast reducerer vi affald og minimerer forbruget af nye
-          ressourcer.
+          Medisis er en mindre producent, måske den mindste af denne type i
+          Danmark. Derfor har Medisis et lille sortiment, men med de bedste og
+          ægte produkter, hvor kvalitet altid prioriteres over kvantitet. Hvert
+          produkt er udviklet med stor omhu og baseret på få ingredienser, der
+          er nøje udvalgt for deres rene og naturlige egenskaber.
         </p>
       </div>
-      <div class="value-item">
-        <img src="@/assets/natural-icon.png" alt="Ægte produkter ikon" />
-        <h3>Ægte produkter</h3>
-        <p>
-          Medisis produkter er skabt med få ingredienser og rene råvarer for at
-          sikre den højeste kvalitet. Vi tror på enkelhed og ægthed, hvilket
-          afspejles i vores produkter, der er både effektive og naturlige.
-        </p>
-      </div>
-      <div class="value-item">
-        <img src="@/assets/service-icon.png" alt="God kundeservice ikon" />
-        <h3>God kundeservice</h3>
-        <p>
-          Kundeservice er hjertet i vores virksomhed. Vi sætter en ære i at
-          lytte til vores kunder, tilbyde tilpassede løsninger og sikre, at alle
-          oplevelser med os er positive. Vi er her for at hjælpe og guide dig på
-          hver eneste step.
-        </p>
-      </div>
-      <div class="value-item">
-        <img src="@/assets/environment-icon.png" alt="Miljøvenligt ikon" />
-        <h3>Miljøvenligt</h3>
-        <p>
-          Vores miljøvenlige produkter hjælper med at reducere affald og
-          CO2-udledning, samtidig med at du får kvalitetsvarer, der er både
-          praktiske og bæredygtige. Gør en forskel med dine køb og vær med til
-          at støtte en grønnere fremtid.
-        </p>
+      <div class="image-container">
+        <img src="@/assets/Ommedisishus.png" alt="Medisis Produkter" />
       </div>
     </div>
-  </section>
-  <div class="forside-container">
-    <div class="text-container">
-      <h3>Historien om Medisis</h3>
-      <p>
-        Medisis har eksisteret siden 1985 og blev gundlagt af farmaceut Grethe
-        Karst. Hun var en del af et forskningsprojekt i hudpleje på Århus
-        universitetshospital, hvor de udviklede 15 forskellige massageprodukter.
-        <br />
-        <br />
-        Mange af disse produkter sælges stadig hos Medisis. Grethe udvidede
-        sortimentet og begyndte at sælge til professionelle behandlere. Da Bente
-        overtog firmaet i 2009 begynde hun at udvide ved at lave private label
-        for en del kunder.
-      </p>
+    <section class="values-section">
+      <h2>Vores værdier</h2>
+      <div class="values-container">
+        <div class="value-item">
+          <img src="@/assets/recycle-icon.png" alt="Genbrugsplast ikon" />
+          <h3>Genbrugsplast</h3>
+          <p>
+            Medisis er engageret i at beskytte miljøet, og derfor bruger vi så
+            vidt muligt genbrugsplast i vores emballage. Ved at vælge
+            genbrugsplast reducerer vi affald og minimerer forbruget af nye
+            ressourcer.
+          </p>
+        </div>
+        <div class="value-item">
+          <img src="@/assets/natural-icon.png" alt="Ægte produkter ikon" />
+          <h3>Ægte produkter</h3>
+          <p>
+            Medisis produkter er skabt med få ingredienser og rene råvarer for
+            at sikre den højeste kvalitet. Vi tror på enkelhed og ægthed,
+            hvilket afspejles i vores produkter, der er både effektive og
+            naturlige.
+          </p>
+        </div>
+        <div class="value-item">
+          <img src="@/assets/service-icon.png" alt="God kundeservice ikon" />
+          <h3>God kundeservice</h3>
+          <p>
+            Kundeservice er hjertet i vores virksomhed. Vi sætter en ære i at
+            lytte til vores kunder, tilbyde tilpassede løsninger og sikre, at
+            alle oplevelser med os er positive. Vi er her for at hjælpe og guide
+            dig på hver eneste step.
+          </p>
+        </div>
+        <div class="value-item">
+          <img src="@/assets/environment-icon.png" alt="Miljøvenligt ikon" />
+          <h3>Miljøvenligt</h3>
+          <p>
+            Vores miljøvenlige produkter hjælper med at reducere affald og
+            CO2-udledning, samtidig med at du får kvalitetsvarer, der er både
+            praktiske og bæredygtige. Gør en forskel med dine køb og vær med til
+            at støtte en grønnere fremtid.
+          </p>
+        </div>
+      </div>
+    </section>
+    <div class="forside-container">
+      <div class="text-container">
+        <h3>Historien om Medisis</h3>
+        <p>
+          Medisis har eksisteret siden 1985 og blev gundlagt af farmaceut Grethe
+          Karst. Hun var en del af et forskningsprojekt i hudpleje på Århus
+          universitetshospital, hvor de udviklede 15 forskellige
+          massageprodukter.
+          <br />
+          <br />
+          Mange af disse produkter sælges stadig hos Medisis. Grethe udvidede
+          sortimentet og begyndte at sælge til professionelle behandlere. Da
+          Bente overtog firmaet i 2009 begynde hun at udvide ved at lave private
+          label for en del kunder.
+        </p>
+      </div>
+      <div class="image-container">
+        <img src="@/assets/Historien.png" alt="Medisis Produkter" />
+      </div>
     </div>
-    <div class="image-container">
-      <img src="@/assets/Historien.png" alt="Medisis Produkter" />
+    <div class="forside-container2">
+      <div class="text-container">
+        <h3>Vejen fra farmaceut til ejer</h3>
+        <p>
+          Bente Børgesen, den nuværende ejer, overtog virksomheden fra Grethe i
+          2009 efter 25 år som farmaceut. Hendes interesse for produktion skete
+          allerede under læretiden, hvor det var en del af uddannelsen.
+          <br /><br />
+          På apoteket begyndte Bente at købe Medisis-produkter til eget forbrug,
+          hvilket førte til en god kontakt med Grethe. Dette resulterede i, at
+          Bente begyndte at hjælpe Grethe på hendes fridage. Efter at have brugt
+          mange fridage på at assistere, spurgte Grethe, om Bente kunne tænke
+          sig at købe virksomheden. Det sagde Bente ja til, og dermed begyndte
+          hendes rejse med Medisis.Virksomheden blev flyttet fra Grenå til
+          Onsild hvor den ligger i dag.
+        </p>
+      </div>
+      <div class="image-container">
+        <img src="@/assets/ejeren.png" alt="Medisis Produkter" />
+      </div>
     </div>
-  </div>
-  <div class="forside-container2">
-    <div class="text-container">
-      <h3>Vejen fra farmaceut til ejer</h3>
-      <p>
-        Bente Børgesen, den nuværende ejer, overtog virksomheden fra Grethe i
-        2009 efter 25 år som farmaceut. Hendes interesse for produktion skete
-        allerede under læretiden, hvor det var en del af uddannelsen.
-        <br /><br />
-        På apoteket begyndte Bente at købe Medisis-produkter til eget forbrug,
-        hvilket førte til en god kontakt med Grethe. Dette resulterede i, at
-        Bente begyndte at hjælpe Grethe på hendes fridage. Efter at have brugt
-        mange fridage på at assistere, spurgte Grethe, om Bente kunne tænke sig
-        at købe virksomheden. Det sagde Bente ja til, og dermed begyndte hendes
-        rejse med Medisis.Virksomheden blev flyttet fra Grenå til Onsild hvor
-        den ligger i dag.
-      </p>
-    </div>
-    <div class="image-container">
-      <img src="@/assets/ejeren.png" alt="Medisis Produkter" />
-    </div>
-  </div>
 
-  <section class="contact-section whiteBagground">
-    <div class="contact-container">
-      <h2>Har du spørgsmål?</h2>
-      <p>Hvis du har spørgsmål så kontakt mig endelig på mobil eller E-mail</p>
-      <div class="contact-buttons">
-        <a href="#" class="contact-button">Ring til mig</a>
-        <a href="#" class="contact-button">Send mig en mail</a>
+    <section class="contact-section whiteBagground">
+      <div class="contact-container">
+        <h2>Har du spørgsmål?</h2>
+        <p>
+          Hvis du har spørgsmål så kontakt mig endelig på mobil eller E-mail
+        </p>
+        <div class="contact-buttons">
+          <a href="#" class="contact-button">Ring til mig</a>
+          <a href="#" class="contact-button">Send mig en mail</a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="forside-container2">
-    <div class="text-container">
-      <h3>Hjemmelavede produkter med kærlighed til kvalitet</h3>
-      <p>
-        Hos Medisis er vi stolte af at tilbyde en unik serie af hjemmelavede
-        kropspleje- og massageprodukter, skabt med omhu og passion. Hvert
-        produkt bliver fremstillet med naturlige ingredienser, nøje udvalgt for
-        at sikre høj kvalitet og en skånsom pleje til huden. <br /><br />
-        Det, der gør vores produkter særlige, er det håndværk og den dedikation,
-        der ligger bag hver eneste flaske og krukke. Vi tror på at kombinere
-        tradition og innovation for at skabe effektive og bæredygtige løsninger,
-        der gør en forskel i hverdagen. vores produktionsproces designet med
-        omtanke for både kvalitet og miljø. Vi udvælger nøje vores naturlige
-        råvarer fra ansvarlige leverandører, der deler vores værdier omkring
-        bæredygtighed. <br /><br />Vi arbejder aktivt på at minimere spild i
-        produktionen og anvender miljøvenlige emballageløsninger, som kan
-        genbruges eller nedbrydes uden at skade naturen. Vores mål er at
-        kombinere effektivitet og ansvarlighed, så vi kan tilbyde produkter, der
-        ikke kun plejer huden, men også bidrager til en mere bæredygtig fremtid.
-      </p>
-    </div>
-    <div class="image-container">
-      <img src="@/assets/Hjemmelavede.png" alt="Medisis Produkter" />
-    </div>
-  </div>
-  <div class="forside-container">
-    <div class="text-container">
-      <h3>Medisis nuværende private label kunder</h3>
-      <h4>Baby Kræs</h4>
-      <p>
-        Med vores private label Baby Kræs tilbyder vi produkter, der er skabt
-        med omtanke for de mindste. Fokus er på naturlige ingredienser og høj
-        kvalitet, som sikrer skånsom pleje til både babyer og småbørn. Alle
-        produkter hos Baby Kræs er dermatologisk testet og fri for skadelige
-        stoffer, så forældre kan føle sig trygge. Fra cremer og olier til
-        badesæber – Baby Kræs gør en forskel for både forældre og deres små
-        guldklumper. <br />
-      </p>
-      <h4>A-Serve</h4>
-      <p>
-        A-Serve er vores eksklusive private label, der leverer løsninger til
-        virksomheder inden for wellness, sundhed og servicebranchen. Produkterne
-        hos A-Serve er skabt til at imødekomme professionelle behov med fokus på
-        effektivitet, kvalitet og bæredygtighed. Fra massageolier og
-        desinfektionsløsninger til håndplejeprodukter.
-      </p>
-    </div>
-    <div class="image-container">
-      <img src="@/assets/privateL.png" alt="Medisis Produkter" />
-    </div>
-  </div>
-  <section class="medisis-section">
-    <div class="card">
-      <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
-      <div class="card-content">
-        <h1>Vores produkter</h1>
-        <a href="#" class="card-button"
-          ><router-link to="/produkter">Se alle vores produkter</router-link></a
-        >
+    <div class="forside-container2">
+      <div class="text-container">
+        <h3>Hjemmelavede produkter med kærlighed til kvalitet</h3>
+        <p>
+          Hos Medisis er vi stolte af at tilbyde en unik serie af hjemmelavede
+          kropspleje- og massageprodukter, skabt med omhu og passion. Hvert
+          produkt bliver fremstillet med naturlige ingredienser, nøje udvalgt
+          for at sikre høj kvalitet og en skånsom pleje til huden. <br /><br />
+          Det, der gør vores produkter særlige, er det håndværk og den
+          dedikation, der ligger bag hver eneste flaske og krukke. Vi tror på at
+          kombinere tradition og innovation for at skabe effektive og
+          bæredygtige løsninger, der gør en forskel i hverdagen. vores
+          produktionsproces designet med omtanke for både kvalitet og miljø. Vi
+          udvælger nøje vores naturlige råvarer fra ansvarlige leverandører, der
+          deler vores værdier omkring bæredygtighed. <br /><br />Vi arbejder
+          aktivt på at minimere spild i produktionen og anvender miljøvenlige
+          emballageløsninger, som kan genbruges eller nedbrydes uden at skade
+          naturen. Vores mål er at kombinere effektivitet og ansvarlighed, så vi
+          kan tilbyde produkter, der ikke kun plejer huden, men også bidrager
+          til en mere bæredygtig fremtid.
+        </p>
+      </div>
+      <div class="image-container">
+        <img src="@/assets/Hjemmelavede.png" alt="Medisis Produkter" />
       </div>
     </div>
-    <div class="card">
-      <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
-      <div class="card-content">
-        <h1>ENHVERV</h1>
-        <a href="#" class="card-button"
-          ><router-link to="/erhverv">Læs mere om ehverskunde</router-link></a
-        >
+    <div class="forside-container">
+      <div class="text-container">
+        <h3>Medisis nuværende private label kunder</h3>
+        <h4>Baby Kræs</h4>
+        <p>
+          Med vores private label Baby Kræs tilbyder vi produkter, der er skabt
+          med omtanke for de mindste. Fokus er på naturlige ingredienser og høj
+          kvalitet, som sikrer skånsom pleje til både babyer og småbørn. Alle
+          produkter hos Baby Kræs er dermatologisk testet og fri for skadelige
+          stoffer, så forældre kan føle sig trygge. Fra cremer og olier til
+          badesæber – Baby Kræs gør en forskel for både forældre og deres små
+          guldklumper. <br />
+        </p>
+        <h4>A-Serve</h4>
+        <p>
+          A-Serve er vores eksklusive private label, der leverer løsninger til
+          virksomheder inden for wellness, sundhed og servicebranchen.
+          Produkterne hos A-Serve er skabt til at imødekomme professionelle
+          behov med fokus på effektivitet, kvalitet og bæredygtighed. Fra
+          massageolier og desinfektionsløsninger til håndplejeprodukter.
+        </p>
+      </div>
+      <div class="image-container">
+        <img src="@/assets/privateL.png" alt="Medisis Produkter" />
       </div>
     </div>
+    <section class="medisis-section">
+      <div class="card">
+        <img
+          src="@/assets/om-medisis.png"
+          alt="Om Medisis"
+          class="card-image"
+        />
+        <div class="card-content">
+          <h1>Vores produkter</h1>
+          <a href="#" class="card-button"
+            ><router-link to="/produkter"
+              >Se alle vores produkter</router-link
+            ></a
+          >
+        </div>
+      </div>
+      <div class="card">
+        <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
+        <div class="card-content">
+          <h1>ENHVERV</h1>
+          <a href="#" class="card-button"
+            ><router-link to="/erhverv">Læs mere om ehverskunde</router-link></a
+          >
+        </div>
+      </div>
+    </section>
   </section>
 </template>
 

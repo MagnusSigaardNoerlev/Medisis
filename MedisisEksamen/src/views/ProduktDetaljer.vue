@@ -1,26 +1,27 @@
 <template>
-  <section class="products">
-    <h2>{{ categoryName }}</h2>
-    <p v-if="categoryDescription" class="category-description">{{ categoryDescription }}</p>
-    <div v-if="loading" class="loading">Indlæser produkter...</div>
-    <div v-else class="products-container">
-      <div class="product-card" v-for="product in products" :key="product.id">
-        <!-- Router-link til produkt -->
-        <router-link
-          :to="`/produkt/${product.id}`"
-          class="product-item"
-        >
-          <img :src="product.images[0]?.src" :alt="product.name" />
-          <h3>{{ product.name }}</h3>
-          <p>{{ product.priceRange }}</p>
-        </router-link>
+  <section class="sideIndhold">
+    <section class="products">
+      <h2>{{ categoryName }}</h2>
+      <p v-if="categoryDescription" class="category-description">
+        {{ categoryDescription }}
+      </p>
+      <div v-if="loading" class="loading">Indlæser produkter...</div>
+      <div v-else class="products-container">
+        <div class="product-card" v-for="product in products" :key="product.id">
+          <!-- Router-link til produkt -->
+          <router-link :to="`/produkt/${product.id}`" class="product-item">
+            <img :src="product.images[0]?.src" :alt="product.name" />
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.priceRange }}</p>
+          </router-link>
 
-        <!-- Tilføj til kurv knap uden for produktcontaineren -->
-        <div class="product-btn-placeholder">
-          <button class="product-btn">Tilføj til kurv</button>
+          <!-- Tilføj til kurv knap uden for produktcontaineren -->
+          <div class="product-btn-placeholder">
+            <button class="product-btn">Tilføj til kurv</button>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   </section>
 </template>
 
@@ -50,7 +51,7 @@ export default {
             auth: {
               username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
               password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-            }
+            },
           }
         );
         categoryName.value = response.data.name;
@@ -70,7 +71,7 @@ export default {
             auth: {
               username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
               password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-            }
+            },
           }
         );
 
@@ -85,7 +86,7 @@ export default {
                   auth: {
                     username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
                     password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-                  }
+                  },
                 }
               );
 
@@ -123,16 +124,18 @@ export default {
       fetchProducts(); // Henter produkter
     });
 
-    watch(() => props.id, () => {
-      fetchCategoryDetails(); // Opdater kategorioplysninger
-      fetchProducts(); // Opdater produkter
-    });
+    watch(
+      () => props.id,
+      () => {
+        fetchCategoryDetails(); // Opdater kategorioplysninger
+        fetchProducts(); // Opdater produkter
+      }
+    );
 
     return { products, categoryName, categoryDescription, loading, error };
   },
 };
 </script>
-
 
 <style scoped>
 h2 {

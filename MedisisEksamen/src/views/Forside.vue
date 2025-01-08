@@ -1,222 +1,232 @@
 <template>
-  <div class="forside-container">
-    <div class="text-container">
-      <h1>Velkommen til Medisis</h1>
-      <p>
-        Vi producerer kropspleje- og massageprodukter af rene råvarer – til både
-        private og erhverv. Oplev kvalitet og omtanke i hvert eneste produkt.
-      </p>
-    </div>
-    <div class="image-container">
-      <img src="@/assets/medisis-image.jpg" alt="Medisis Produkter" />
-    </div>
-  </div>
-  <section class="two-columns">
-    <div class="column">
-      <img src="@/assets/shopping-bag.png" alt="Produkt ikon" class="icon" />
-      <h3>Naturlige produkter</h3>
-      <p>
-        Køb naturlige kropsplejeprodukter direkte fra os og oplev vores
-        bæredygtige hjemmelavede kvalitet
-      </p>
-      <button class="btn">
-        <router-link to="/produkter">Se vores produkter</router-link>
-      </button>
-    </div>
-    <div class="column">
-      <img src="@/assets/b2b.png" alt="Produkt ikon" class="icon" />
-      <h3>Løsninger til erhverv</h3>
-      <p>
-        Vi leverer også til klinikker, butikker og erhverv – med løsninger
-        tilpassede til professionelle behov.
-      </p>
-      <button class="btn">
-        <router-link to="/erhverv">Se vores B2B løsninger</router-link>
-      </button>
-    </div>
-  </section>
-  <section class="popular-products">
-    <h3>Vores populære produkter</h3>
-    <div class="products-container">
-      <div class="product-item">
-        <img src="@/assets/fodbadesalt.png" alt="Fodbadssalt" />
-        <h3>Fodbadesalt</h3>
-        <p>Med kamille (25ml)</p>
-        <p>65,-</p>
-        <button class="product-btn">Tilføj til kurv</button>
+  <section class="sideIndhold">
+    <div class="forside-container">
+      <div class="text-container">
+        <h1>Velkommen til Medisis</h1>
+        <p>
+          Vi producerer kropspleje- og massageprodukter af rene råvarer – til
+          både private og erhverv. Oplev kvalitet og omtanke i hvert eneste
+          produkt.
+        </p>
       </div>
-      <div class="product-item">
-        <img src="@/assets/kokus.png" alt="Body Lotion" />
-        <h3>Body Lotion</h3>
-        <p>Med kamille (25ml)</p>
-        <p>55,-</p>
-        <button class="product-btn">Tilføj til kurv</button>
+      <div class="image-container">
+        <img src="@/assets/medisis-image.jpg" alt="Medisis Produkter" />
       </div>
-      <div class="product-item">
-        <img src="@/assets/BodyLotion.png" alt="Body Lotion" />
-        <h3>Body Lotion</h3>
-        <p>Med kamille (25ml)</p>
-        <p>55,-</p>
-        <button class="product-btn">Tilføj til kurv</button>
+    </div>
+    <section class="two-columns">
+      <div class="column">
+        <img src="@/assets/shopping-bag.png" alt="Produkt ikon" class="icon" />
+        <h3>Naturlige produkter</h3>
+        <p>
+          Køb naturlige kropsplejeprodukter direkte fra os og oplev vores
+          bæredygtige hjemmelavede kvalitet
+        </p>
+        <button class="btn">
+          <router-link to="/produkter">Se vores produkter</router-link>
+        </button>
       </div>
+      <div class="column">
+        <img src="@/assets/b2b.png" alt="Produkt ikon" class="icon" />
+        <h3>Løsninger til erhverv</h3>
+        <p>
+          Vi leverer også til klinikker, butikker og erhverv – med løsninger
+          tilpassede til professionelle behov.
+        </p>
+        <button class="btn">
+          <router-link to="/erhverv">Se vores B2B løsninger</router-link>
+        </button>
+      </div>
+    </section>
+    <section class="popular-products">
+      <h3>Vores populære produkter</h3>
+      <div class="products-container">
+        <div class="product-item">
+          <img src="@/assets/fodbadesalt.png" alt="Fodbadssalt" />
+          <h3>Fodbadesalt</h3>
+          <p>Med kamille (25ml)</p>
+          <p>65,-</p>
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
+        <div class="product-item">
+          <img src="@/assets/kokus.png" alt="Body Lotion" />
+          <h3>Body Lotion</h3>
+          <p>Med kamille (25ml)</p>
+          <p>55,-</p>
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
+        <div class="product-item">
+          <img src="@/assets/BodyLotion.png" alt="Body Lotion" />
+          <h3>Body Lotion</h3>
+          <p>Med kamille (25ml)</p>
+          <p>55,-</p>
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
 
-      <div class="product-item">
-        <img src="@/assets/body-lotion.png" alt="Body Lotion" />
-        <h3>Body Lotion</h3>
-        <p>Med kamille (25ml)</p>
-        <p>55,-</p>
-        <button class="product-btn">Tilføj til kurv</button>
+        <div class="product-item">
+          <img src="@/assets/body-lotion.png" alt="Body Lotion" />
+          <h3>Body Lotion</h3>
+          <p>Med kamille (25ml)</p>
+          <p>55,-</p>
+          <button class="product-btn">Tilføj til kurv</button>
+        </div>
       </div>
-    </div>
-    <button class="view-all-btn">
-      <router-link to="/produkter">Se all vores produkter</router-link>
-    </button>
-  </section>
-  <div class="forside-container-NaturligPleje">
-    <div class="text-container">
-      <h3>Naturlig Pleje</h3>
-      <p>
-        Vi præsenterer et produkt, der er designet med omtanke og respekt for
-        både miljø og mennesker.
-      </p>
-      <div class="naturligeikoner">
+      <button class="view-all-btn">
+        <router-link to="/produkter">Se all vores produkter</router-link>
+      </button>
+    </section>
+    <div class="forside-container-NaturligPleje">
+      <div class="text-container">
+        <h3>Naturlig Pleje</h3>
         <p>
-          <strong>Rene råvarer:</strong> Vi bruger kun naturlige og
-          uforarbejdede ingredienser.
+          Vi præsenterer et produkt, der er designet med omtanke og respekt for
+          både miljø og mennesker.
         </p>
-        <img src="@/assets/natural-ingredients.png" alt="" />
-      </div>
-      <div class="naturligeikoner">
-        <p>
-          <strong>Få ingredienser:</strong> Simplicitet er nøglen – vi fokuserer
-          på det nødvendige.
-        </p>
-        <img src="@/assets/sustainable.png" alt="" />
-      </div>
-      <div class="naturligeikoner">
-        <p>
-          <strong>Genbrugs emballage:</strong> Vi værner om miljøet ved at vælge
-          bæredygtige løsninger.
-        </p>
-        <img src="@/assets/recycle.png" alt="" />
-      </div>
-      <div class="naturligeikoner">
-        <p>
-          <strong>Skabt med kærlighed:</strong> Hvert produkt er lavet med
-          passion og omsorg for din pleje.
-        </p>
-        <img src="@/assets/plant-a-tree.png" alt="" />
-      </div>
-    </div>
-    <div class="image-container">
-      <img
-        src="@/assets/Naturligpleje.png"
-        alt="Billede af narturlige ingredienser i vores produkter"
-      />
-    </div>
-  </div>
-  <section class="values-section">
-    <h2>Vores værdier</h2>
-    <div class="values-container">
-      <div class="value-item">
-        <img src="@/assets/recycle-icon.png" alt="Genbrugsplast ikon" />
-        <h3>Genbrugsplast</h3>
-        <p>
-          Medisis er engageret i at beskytte miljøet, og derfor bruger vi så
-          vidt muligt genbrugsplast i vores emballage. Ved at vælge
-          genbrugsplast reducerer vi affald og minimerer forbruget af nye
-          ressourcer.
-        </p>
-      </div>
-      <div class="value-item">
-        <img src="@/assets/natural-icon.png" alt="Ægte produkter ikon" />
-        <h3>Ægte produkter</h3>
-        <p>
-          Medisis produkter er skabt med få ingredienser og rene råvarer for at
-          sikre den højeste kvalitet. Vi tror på enkelhed og ægthed, hvilket
-          afspejles i vores produkter, der er både effektive og naturlige.
-        </p>
-      </div>
-      <div class="value-item">
-        <img src="@/assets/service-icon.png" alt="God kundeservice ikon" />
-        <h3>God kundeservice</h3>
-        <p>
-          Kundeservice er hjertet i vores virksomhed. Vi sætter en ære i at
-          lytte til vores kunder, tilbyde tilpassede løsninger og sikre, at alle
-          oplevelser med os er positive. Vi er her for at hjælpe og guide dig på
-          hver eneste step.
-        </p>
-      </div>
-      <div class="value-item">
-        <img src="@/assets/environment-icon.png" alt="Miljøvenligt ikon" />
-        <h3>Miljøvenligt</h3>
-        <p>
-          Vores miljøvenlige produkter hjælper med at reducere affald og
-          CO2-udledning, samtidig med at du får kvalitetsvarer, der er både
-          praktiske og bæredygtige. Gør en forskel med dine køb og vær med til
-          at støtte en grønnere fremtid.
-        </p>
-      </div>
-    </div>
-  </section>
-  <section class="slideshow-section">
-    <h2>Se hvad vores kunder siger</h2>
-    <div class="slideshow-container">
-      <div class="slideshow-slide active">
-        <div class="slideshow-testimonial">
-          <img src="@/assets/karen.png" alt="Karen" />
-          <h3>Karen</h3>
+        <div class="naturligeikoner">
           <p>
-            "Bestiller olie til min klinik. God olie, super service samt hurtig
-            levering."
+            <strong>Rene råvarer:</strong> Vi bruger kun naturlige og
+            uforarbejdede ingredienser.
+          </p>
+          <img src="@/assets/natural-ingredients.png" alt="" />
+        </div>
+        <div class="naturligeikoner">
+          <p>
+            <strong>Få ingredienser:</strong> Simplicitet er nøglen – vi
+            fokuserer på det nødvendige.
+          </p>
+          <img src="@/assets/sustainable.png" alt="" />
+        </div>
+        <div class="naturligeikoner">
+          <p>
+            <strong>Genbrugs emballage:</strong> Vi værner om miljøet ved at
+            vælge bæredygtige løsninger.
+          </p>
+          <img src="@/assets/recycle.png" alt="" />
+        </div>
+        <div class="naturligeikoner">
+          <p>
+            <strong>Skabt med kærlighed:</strong> Hvert produkt er lavet med
+            passion og omsorg for din pleje.
+          </p>
+          <img src="@/assets/plant-a-tree.png" alt="" />
+        </div>
+      </div>
+      <div class="image-container">
+        <img
+          src="@/assets/Naturligpleje.png"
+          alt="Billede af narturlige ingredienser i vores produkter"
+        />
+      </div>
+    </div>
+    <section class="values-section">
+      <h2>Vores værdier</h2>
+      <div class="values-container">
+        <div class="value-item">
+          <img src="@/assets/recycle-icon.png" alt="Genbrugsplast ikon" />
+          <h3>Genbrugsplast</h3>
+          <p>
+            Medisis er engageret i at beskytte miljøet, og derfor bruger vi så
+            vidt muligt genbrugsplast i vores emballage. Ved at vælge
+            genbrugsplast reducerer vi affald og minimerer forbruget af nye
+            ressourcer.
+          </p>
+        </div>
+        <div class="value-item">
+          <img src="@/assets/natural-icon.png" alt="Ægte produkter ikon" />
+          <h3>Ægte produkter</h3>
+          <p>
+            Medisis produkter er skabt med få ingredienser og rene råvarer for
+            at sikre den højeste kvalitet. Vi tror på enkelhed og ægthed,
+            hvilket afspejles i vores produkter, der er både effektive og
+            naturlige.
+          </p>
+        </div>
+        <div class="value-item">
+          <img src="@/assets/service-icon.png" alt="God kundeservice ikon" />
+          <h3>God kundeservice</h3>
+          <p>
+            Kundeservice er hjertet i vores virksomhed. Vi sætter en ære i at
+            lytte til vores kunder, tilbyde tilpassede løsninger og sikre, at
+            alle oplevelser med os er positive. Vi er her for at hjælpe og guide
+            dig på hver eneste step.
+          </p>
+        </div>
+        <div class="value-item">
+          <img src="@/assets/environment-icon.png" alt="Miljøvenligt ikon" />
+          <h3>Miljøvenligt</h3>
+          <p>
+            Vores miljøvenlige produkter hjælper med at reducere affald og
+            CO2-udledning, samtidig med at du får kvalitetsvarer, der er både
+            praktiske og bæredygtige. Gør en forskel med dine køb og vær med til
+            at støtte en grønnere fremtid.
           </p>
         </div>
       </div>
-      <div class="slideshow-slide">
-        <div class="slideshow-testimonial">
-          <img src="@/assets/mads.png" alt="Mads" />
-          <h3>Mads</h3>
-          <p>
-            "Super lækre produkter, som jeg selv bruger til mine klienter - som
-            massør. Kan klart anbefales."
-          </p>
+    </section>
+    <section class="slideshow-section">
+      <h2>Se hvad vores kunder siger</h2>
+      <div class="slideshow-container">
+        <div class="slideshow-slide active">
+          <div class="slideshow-testimonial">
+            <img src="@/assets/karen.png" alt="Karen" />
+            <h3>Karen</h3>
+            <p>
+              "Bestiller olie til min klinik. God olie, super service samt
+              hurtig levering."
+            </p>
+          </div>
+        </div>
+        <div class="slideshow-slide">
+          <div class="slideshow-testimonial">
+            <img src="@/assets/mads.png" alt="Mads" />
+            <h3>Mads</h3>
+            <p>
+              "Super lækre produkter, som jeg selv bruger til mine klienter -
+              som massør. Kan klart anbefales."
+            </p>
+          </div>
+        </div>
+        <div class="slideshow-slide">
+          <div class="slideshow-testimonial">
+            <img src="@/assets/anette.png" alt="Anette" />
+            <h3>Anette</h3>
+            <p>"Super god body lotion til tør hud."</p>
+          </div>
         </div>
       </div>
-      <div class="slideshow-slide">
-        <div class="slideshow-testimonial">
-          <img src="@/assets/anette.png" alt="Anette" />
-          <h3>Anette</h3>
-          <p>"Super god body lotion til tør hud."</p>
+      <div class="slideshow-controls">
+        <span class="slideshow-dot active" data-slide="0"></span>
+        <span class="slideshow-dot" data-slide="1"></span>
+        <span class="slideshow-dot" data-slide="2"></span>
+      </div>
+    </section>
+    <section class="medisis-section">
+      <div class="card">
+        <img
+          src="@/assets/om-medisis.png"
+          alt="Om Medisis"
+          class="card-image"
+        />
+        <div class="card-content">
+          <h1>OM MEDISIS</h1>
+          <a href="" class="card-button"
+            ><router-link to="/om-medisis"
+              >Læs mere om Medisis her</router-link
+            ></a
+          >
         </div>
       </div>
-    </div>
-    <div class="slideshow-controls">
-      <span class="slideshow-dot active" data-slide="0"></span>
-      <span class="slideshow-dot" data-slide="1"></span>
-      <span class="slideshow-dot" data-slide="2"></span>
-    </div>
-  </section>
-  <section class="medisis-section">
-    <div class="card">
-      <img src="@/assets/om-medisis.png" alt="Om Medisis" class="card-image" />
-      <div class="card-content">
-        <h1>OM MEDISIS</h1>
-        <a href="" class="card-button"
-          ><router-link to="/om-medisis"
-            >Læs mere om Medisis her</router-link
-          ></a
-        >
+      <div class="card">
+        <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
+        <div class="card-content">
+          <h1>ENHVERV</h1>
+          <a href="./Erhverv.vue" class="card-button"
+            ><router-link to="/erhverv"
+              >Læs mere om erhvervskunde</router-link
+            ></a
+          >
+        </div>
       </div>
-    </div>
-    <div class="card">
-      <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
-      <div class="card-content">
-        <h1>ENHVERV</h1>
-        <a href="./Erhverv.vue" class="card-button"
-          ><router-link to="/erhverv">Læs mere om erhvervskunde</router-link></a
-        >
-      </div>
-    </div>
+    </section>
   </section>
 </template>
 

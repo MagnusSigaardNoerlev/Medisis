@@ -614,4 +614,89 @@ document.addEventListener("DOMContentLoaded", function () {
   text-decoration: none;
   color: white;
 }
+
+/* Skærmstørrelser på 1024px eller mindre (tablets og små laptops) */
+@media (max-width: 1024px) {
+  .forside-container {
+    flex-direction: column;
+    margin: 0 50px;
+    gap: 50px;
+  }
+
+  .text-container {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .text-container h1 {
+    font-size: 35px;
+  }
+
+  .two-columns .column {
+    text-align: center;
+    flex-direction: column;
+  }
+  .two-columns {
+    flex-direction: column;
+  }
+}
+
+/* Skærmstørrelser på 768px eller mindre (tablets) */
+@media (max-width: 768px) {
+  .forside-container {
+    margin: 0 20px;
+    gap: 20px;
+  }
+
+  .text-container h1 {
+    font-size: 28px;
+  }
+
+  .image-container img {
+    max-width: 90%;
+  }
+
+  .popular-products .products-container {
+    grid-template-columns: 1fr 1fr;
+  }
+  .forside-container-NaturligPleje img {
+    display: none;
+  }
+  .two-columns {
+    text-align: center;
+    margin: 0 0px;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+/* Skærmstørrelser på 480px eller mindre (mobiltelefoner) */
+@media (max-width: 480px) {
+  .forside-container {
+    margin: 0 10px;
+    gap: 10px;
+  }
+
+  .text-container h1 {
+    font-size: 22px;
+  }
+
+  .popular-products .products-container {
+    grid-template-columns: 1fr;
+  }
+
+  .values-section .values-container {
+    grid-template-columns: 1fr;
+  }
+
+  .slideshow-container img {
+    width: 100%;
+  }
+
+  .medisis-section .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
 </style>

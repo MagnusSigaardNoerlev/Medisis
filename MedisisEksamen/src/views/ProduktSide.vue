@@ -1,34 +1,51 @@
 <template>
-    <div v-if="loading" class="loading">Indlæser produkt...</div>
-    <div v-else-if="error" class="error">{{ error }}</div>
-    <section v-else class="product-detail">
-      <div class="product-header">
-        <!-- Vis billedet fra den valgte variant eller standard produktbillede -->
-        <img :src="selectedVariant?.image?.src || product.images[0]?.src" :alt="product.name" />
-        <div class="product-info">
-          <h1>{{ product.name }}</h1>
-          <div v-if="product.variations && product.variations.length > 0" class="variants">
-            <ul>
-              <li v-for="variant in sortedVariants" :key="variant.id">
-                <button
-                  @click="selectVariant(variant)"
-                  :class="{ active: selectedVariant?.id === variant.id }"
-                >
-                  {{ variant.attributes[0]?.option }}
-                </button>
-              </li>
-            </ul>
-          </div>
-          <p v-if="product.description" v-html="product.description"></p>
-          <h2>{{ selectedVariant?.price || product.price }} kr</h2>
-          <p class="moms">Inkl. moms</p>
-          <div class="product-indeholder">
-            <h3>Indeholder:</h3>
-            <div class="contains-content" v-html="product.short_description"></div>
-          </div>
+  <div v-if="loading" class="loading">Indlæser produkt...</div>
+  <div v-else-if="error" class="error">{{ error }}</div>
+  <section v-else class="product-detail">
+    <div class="product-header">
+      <!-- Varebillede og galleri -->
+      <div class="product-image-container">
+        <!-- Hovedbillede -->
+        <img :src="mainImage" alt="Produktbillede" class="main-image" />
+
+<!-- Galleribilleder -->
+<div class="product-gallery">
+  <img
+    v-for="(galleryImage, index) in product.images"
+    :key="index"
+    :src="galleryImage.src"
+    :alt="galleryImage.alt"
+    @click="selectGalleryImage(galleryImage.src)"
+    :class="['gallery-thumbnail', { active: galleryImage.src === selectedImage }]"
+  />
+</div>
+</div>
+
+      <!-- Produktinformation -->
+      <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <div v-if="product.variations && product.variations.length > 0" class="variants">
+          <ul>
+            <li v-for="variant in sortedVariants" :key="variant.id">
+              <button
+                @click="selectVariant(variant)"
+                :class="{ active: selectedVariant?.id === variant.id }"
+              >
+                {{ variant.attributes[0]?.option }}
+              </button>
+            </li>
+          </ul>
+        </div>
+        <p v-if="product.description" v-html="product.description"></p>
+        <h2>{{ selectedVariant?.price || product.price }} kr</h2>
+        <p class="moms">Inkl. moms</p>
+        <div class="product-indeholder">
+          <h3>Indeholder:</h3>
+          <div class="contains-content" v-html="product.short_description"></div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
   
     <!-- FAQ sektion -->
     <section class="faq">
@@ -66,8 +83,7 @@
   </div>
 </section>
   </template>
-  
-  <script>
+<script>
 import axios from "axios";
 import kortIkon from "@/assets/credit-card-solid.png";
 import returIkon from "@/assets/undo-solid.png";
@@ -85,6 +101,7 @@ export default {
       product: null,
       variants: [],
       selectedVariant: null,
+      selectedImage: null, // Til at håndtere det valgte billede
       loading: true,
       error: null,
       relatedProducts: [],
@@ -120,6 +137,14 @@ export default {
         const valueB = parseFloat(b.attributes[0]?.option.replace("L", "").trim());
         return valueA - valueB;
       });
+    },
+    mainImage() {
+      // Returnér det valgte billede, ellers standardbilledet
+      return this.selectedImage || (this.selectedVariant?.image?.src || this.product?.images[0]?.src);
+    },
+    galleryImages() {
+      // Ekskluder det første billede (hovedbilledet) fra galleriet
+      return this.product?.images?.slice(1) || [];
     },
   },
   methods: {
@@ -211,6 +236,10 @@ export default {
     },
     selectVariant(variant) {
       this.selectedVariant = variant;
+      this.selectedImage = variant.image?.src || null; // Opdater hovedbilledet, når en variant vælges
+    },
+    selectGalleryImage(imageSrc) {
+      this.selectedImage = imageSrc; // Opdater hovedbilledet
     },
   },
   watch: {
@@ -243,11 +272,11 @@ export default {
   .product-header {
     display: grid;
     grid-template-columns: 300px 1fr;
-    gap: 75px;
+    gap: 120px;
   }
   
   .product-header img {
-    max-width: 300px;
+    max-width: 400px;
   }
   
   .product-info h1 {
@@ -319,6 +348,7 @@ export default {
   .faq h2 {
     font-size: 2rem;
     margin-bottom: 20px;
+    margin-top: 40px;
     color: #333;
   }
   
@@ -369,6 +399,7 @@ export default {
 
 .related-products h2 {
   font-size: 2rem;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
@@ -442,13 +473,49 @@ export default {
   color: white;
   border: none;
   padding: 10px 0;
-  width: 100%; /* Knapbredde matcher kortbredde */
+  width: 100%;
   max-width: 100%;
   margin-bottom: 50px;
 }
 
 .related-product-btn:hover {
   background-color: #3e7732;
+}
+
+.product-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-image {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.product-gallery {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.gallery-thumbnail {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.gallery-thumbnail:hover {
+  border-color: #5f6622;
+}
+
+.gallery-thumbnail.active {
+  border-color: #5f6622;
 }
   </style>
   

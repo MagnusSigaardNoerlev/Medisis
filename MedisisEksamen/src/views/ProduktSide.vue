@@ -436,7 +436,7 @@ h2 {
   grid-template-columns: repeat(
     4,
     1fr
-  ); /* Samme grid-layout som produkter.vue */
+  );
   gap: 20px;
   margin-bottom: 75px;
 }
@@ -444,9 +444,9 @@ h2 {
 .related-product {
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Sørger for at kortet fylder hele pladsen */
+  align-items: stretch;
   text-align: center;
-  height: 100%; /* Sørger for at kortene udfylder rummet */
+  height: 100%;
 }
 
 .related-product-item {
@@ -460,7 +460,7 @@ h2 {
   justify-content: space-between;
   text-decoration: none;
   color: inherit;
-  height: 100%; /* Kortene får samme højde */
+  height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -471,8 +471,8 @@ h2 {
 
 .related-product-item img {
   width: 100%;
-  height: 200px; /* Ensartet højde for billeder */
-  object-fit: contain; /* Undgå forvrængning */
+  height: 200px;
+  object-fit: contain;
   margin-bottom: 20px;
 }
 
@@ -490,13 +490,13 @@ h2 {
 .related-product-item p {
   font-size: 1rem;
   color: #333;
-  margin-bottom: auto; /* Skub teksten opad for at ensrette */
+  margin-bottom: auto;
 }
 
 .related-product-btn-placeholder {
   width: 100%;
   text-align: center;
-  margin-top: 10px; /* Mindre afstand mellem knap og kort */
+  margin-top: 10px;
 }
 
 .related-product-btn {

@@ -1,289 +1,260 @@
 <template>
-  <section class="sideIndhold">
-    <div v-if="loading" class="loading">Indlæser produkt...</div>
-    <div v-else-if="error" class="error">{{ error }}</div>
-    <section v-else class="product-detail">
-      <div class="product-header">
-        <!-- Varebillede og galleri -->
-        <div class="product-image-container">
-          <!-- Hovedbillede -->
-          <img :src="mainImage" alt="Produktbillede" class="main-image" />
-
-          <!-- Galleribilleder -->
-          <div class="product-gallery">
-            <img
-              v-for="(galleryImage, index) in product.images"
-              :key="index"
-              :src="galleryImage.src"
-              :alt="galleryImage.alt"
-              @click="selectGalleryImage(galleryImage.src)"
-              :class="[
-                'gallery-thumbnail',
-                { active: galleryImage.src === selectedImage },
-              ]"
-            />
+    <section class="sideIndhold">
+      <div v-if="loading" class="loading">Indlæser produkt...</div>
+      <div v-else-if="error" class="error">{{ error }}</div>
+      <section v-else class="product-detail">
+        <div class="product-header">
+          <!-- Varebillede og galleri -->
+          <div class="product-image-container">
+            <!-- Hovedbillede -->
+            <img :src="mainImage" alt="Produktbillede" class="main-image" />
+  
+            <!-- Galleribilleder -->
+            <div class="product-gallery">
+              <img
+                v-for="(galleryImage, index) in product.images"
+                :key="index"
+                :src="galleryImage.src"
+                :alt="galleryImage.alt"
+                @click="selectGalleryImage(galleryImage.src)"
+                :class="[
+                  'gallery-thumbnail',
+                  { active: galleryImage.src === selectedImage },
+                ]"
+              />
+            </div>
           </div>
-        </div>
-
-        <!-- Produktinformation -->
-        <div class="product-info">
-          <h1>{{ product.name }}</h1>
-          <div
-            v-if="product.variations && product.variations.length > 0"
-            class="variants"
-          >
-            <ul>
-              <li v-for="variant in sortedVariants" :key="variant.id">
-                <button
-                  @click="selectVariant(variant)"
-                  :class="{ active: selectedVariant?.id === variant.id }"
-                >
-                  {{ variant.attributes[0]?.option }}
-                </button>
-              </li>
-            </ul>
-          </div>
-          <p v-if="product.description" v-html="product.description"></p>
-          <h2>{{ selectedVariant?.price || product.price }} kr</h2>
-          <p class="moms">Inkl. moms</p>
-          <div class="product-indeholder">
-            <h3>Indeholder:</h3>
+  
+          <!-- Produktinformation -->
+          <div class="product-info">
+            <h1>{{ product.name }}</h1>
             <div
-              class="contains-content"
-              v-html="product.short_description"
-            ></div>
+              v-if="product.variations && product.variations.length > 0"
+              class="variants"
+            >
+              <ul>
+                <li v-for="variant in sortedVariants" :key="variant.id">
+                  <button
+                    @click="selectVariant(variant)"
+                    :class="{ active: selectedVariant?.id === variant.id }"
+                  >
+                    {{ variant.attributes[0]?.option }}
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <p v-if="product.description" v-html="product.description"></p>
+            <h2>{{ selectedVariant?.price || product.price }} kr</h2>
+            <p class="moms">Inkl. moms</p>
+            <div class="product-indeholder">
+              <h3>Indeholder:</h3>
+              <div
+                class="contains-content"
+                v-html="product.short_description"
+              ></div>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- FAQ sektion -->
-    <section class="faq">
-      <h2>Ofte stillede spørgsmål</h2>
-      <div class="faq-container">
-        <div class="kort" v-for="item in faq" :key="item.id">
-          <div class="ikon">
-            <img :src="item.ikon" :alt="item.overskrift" />
+      </section>
+  
+      <!-- FAQ sektion -->
+      <section class="faq">
+        <h2>Ofte stillede spørgsmål</h2>
+        <div class="faq-container">
+          <div class="kort" v-for="item in faq" :key="item.id">
+            <div class="ikon">
+              <img :src="item.ikon" :alt="item.overskrift" />
+            </div>
+            <h3>{{ item.overskrift }}</h3>
+            <p>{{ item.beskrivelse }}</p>
           </div>
-          <h3>{{ item.overskrift }}</h3>
-          <p>{{ item.beskrivelse }}</p>
         </div>
-      </div>
-    </section>
-
-    <!-- Relaterede produkter -->
-    <section class="related-products">
-      <h2>Du ville måske synes om:</h2>
-      <div class="related-products-container">
-        <div
-          class="related-product"
-          v-for="related in relatedProducts"
-          :key="related.id"
-        >
-          <!-- Router-link til produkt -->
-          <router-link
-            :to="`/produkt/${related.id}`"
-            class="related-product-item"
+      </section>
+  
+      <!-- Relaterede produkter -->
+      <section class="related-products">
+        <h2>Du ville måske synes om:</h2>
+        <div class="related-products-container">
+          <div
+            class="related-product"
+            v-for="related in relatedProducts"
+            :key="related.id"
           >
-            <img :src="related.images[0]?.src" :alt="related.name" />
-            <h3>{{ related.name }}</h3>
-            <p>
-              {{ related.price_range || `${related.price} kr` }}
-            </p>
-          </router-link>
-
-          <!-- Tilføj til kurv knap -->
-          <div class="related-product-btn-placeholder">
-            <button class="related-product-btn">Tilføj til kurv</button>
+            <!-- Router-link til produkt -->
+            <router-link
+              :to="{ name: 'ProduktSide', params: { id: related.id } }"
+              class="related-product-item"
+            >
+              <img :src="related.images[0]?.src" :alt="related.name" />
+              <h3>{{ related.name }}</h3>
+              <p>
+                {{ related.price_range || `${related.price} kr` }}
+              </p>
+            </router-link>
+  
+            <!-- Tilføj til kurv knap -->
+            <div class="related-product-btn-placeholder">
+              <button class="related-product-btn">Tilføj til kurv</button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </section>
-  </section>
-</template>
-<script>
-import axios from "axios";
-import kortIkon from "@/assets/credit-card-solid.png";
-import returIkon from "@/assets/undo-solid.png";
-import leveringIkon from "@/assets/levering-ikon.png";
-
-export default {
-  props: {
-    id: {
-      type: String,
-      required: true,
+  </template>
+  
+  <script>
+  import axios from "axios";
+  import kortIkon from "@/assets/credit-card-solid.png";
+  import returIkon from "@/assets/undo-solid.png";
+  import leveringIkon from "@/assets/levering-ikon.png";
+  
+  const API_AUTH = {
+    username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+    password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+  };
+  
+  export default {
+    props: {
+      id: {
+        type: String,
+        required: true,
+      },
     },
-  },
-  data() {
-    return {
-      product: null,
-      variants: [],
-      selectedVariant: null,
-      selectedImage: null, // Til at håndtere det valgte billede
-      loading: true,
-      error: null,
-      relatedProducts: [],
-      faq: [
-        {
-          id: 1,
-          ikon: kortIkon,
-          overskrift: "Hvilke betalingsmetoder accepterer I?",
-          beskrivelse:
-            "Medisis accepterer betaling med Dankort. Det er helt sikkert at handle hos Medisis, da vi sikrer, at dine betalingsoplysninger bliver behandlet trygt.",
-        },
-        {
-          id: 2,
-          ikon: returIkon,
-          overskrift: "Hvad er jeres returpolitik?",
-          beskrivelse:
-            "Medisis tilbyder 14 dages returret på uåbnede og ubeskadigede produkter. Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15 for at arrangere en returnering.",
-        },
-        {
-          id: 3,
-          ikon: leveringIkon,
-          overskrift: "Hvor lang er leveringstiden?",
-          beskrivelse:
-            "Hos Medisis bliver ordrer typisk sendt inden for 1-2 hverdage. Leveringstiden afhænger af fragtfirmaet, men forventes normalt at være 2-5 hverdage.",
-        },
-      ],
-    };
-  },
-  computed: {
-    sortedVariants() {
-      return [...this.variants].sort((a, b) => {
-        const valueA = parseFloat(
-          a.attributes[0]?.option.replace("L", "").trim()
-        );
-        const valueB = parseFloat(
-          b.attributes[0]?.option.replace("L", "").trim()
-        );
-        return valueA - valueB;
-      });
-    },
-    mainImage() {
-      // Returnér det valgte billede, ellers standardbilledet
-      return (
-        this.selectedImage ||
-        this.selectedVariant?.image?.src ||
-        this.product?.images[0]?.src
-      );
-    },
-    galleryImages() {
-      // Ekskluder det første billede (hovedbilledet) fra galleriet
-      return this.product?.images?.slice(1) || [];
-    },
-  },
-  methods: {
-    async fetchProduct() {
-      try {
-        this.loading = true;
-        const response = await axios.get(
-          `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}`,
+    data() {
+      return {
+        product: null,
+        variants: [],
+        selectedVariant: null,
+        selectedImage: null,
+        loading: true,
+        error: null,
+        relatedProducts: [],
+        faq: [
           {
-            auth: {
-              username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
-              password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-            },
-          }
+            id: 1,
+            ikon: kortIkon,
+            overskrift: "Hvilke betalingsmetoder accepterer I?",
+            beskrivelse:
+              "Medisis accepterer betaling med Dankort. Det er helt sikkert at handle hos Medisis, da vi sikrer, at dine betalingsoplysninger bliver behandlet trygt.",
+          },
+          {
+            id: 2,
+            ikon: returIkon,
+            overskrift: "Hvad er jeres returpolitik?",
+            beskrivelse:
+              "Medisis tilbyder 14 dages returret på uåbnede og ubeskadigede produkter. Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15 for at arrangere en returnering.",
+          },
+          {
+            id: 3,
+            ikon: leveringIkon,
+            overskrift: "Hvor lang er leveringstiden?",
+            beskrivelse:
+              "Hos Medisis bliver ordrer typisk sendt inden for 1-2 hverdage. Leveringstiden afhænger af fragtfirmaet, men forventes normalt at være 2-5 hverdage.",
+          },
+        ],
+      };
+    },
+    computed: {
+      sortedVariants() {
+        return [...this.variants].sort((a, b) => {
+          const valueA = parseFloat(
+            a.attributes[0]?.option.replace("L", "").trim()
+          );
+          const valueB = parseFloat(
+            b.attributes[0]?.option.replace("L", "").trim()
+          );
+          return valueA - valueB;
+        });
+      },
+      mainImage() {
+        return (
+          this.selectedImage ||
+          this.selectedVariant?.image?.src ||
+          this.product?.images[0]?.src
         );
-        this.product = response.data;
-
-        // Hent variationer, hvis produktet er variabelt
-        if (this.product.type === "variable") {
+      },
+    },
+    methods: {
+      async fetchProduct() {
+        try {
+          this.loading = true;
+          const response = await axios.get(
+            `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}`,
+            { auth: API_AUTH }
+          );
+          this.product = response.data;
+  
+          if (this.product.type === "variable") {
+            await this.fetchVariations();
+          }
+  
+          this.fetchRelatedProducts(this.product.categories[0]?.id);
+        } catch (err) {
+          console.error("Fejl ved hentning af produkt:", err);
+          this.error = "Kunne ikke hente produktdata.";
+        } finally {
+          this.loading = false;
+          this.selectedImage = null;
+        }
+      },
+      async fetchVariations() {
+        try {
           const variationsResponse = await axios.get(
             `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}/variations`,
+            { auth: API_AUTH }
+          );
+          this.variants = variationsResponse.data;
+        } catch (err) {
+          console.error("Fejl ved hentning af variationer:", err);
+        }
+      },
+      async fetchRelatedProducts(categoryId) {
+        if (!categoryId) {
+          console.error("Kategori-ID er ikke tilgængeligt for relaterede produkter.");
+          return;
+        }
+  
+        try {
+          const response = await axios.get(
+            `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products`,
             {
-              auth: {
-                username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
-                password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+              auth: API_AUTH,
+              params: {
+                per_page: 4,
+                exclude: [this.id],
+                category: categoryId,
               },
             }
           );
-          this.variants = variationsResponse.data;
+  
+          this.relatedProducts = response.data;
+        } catch (err) {
+          console.error("Fejl ved hentning af relaterede produkter:", err);
         }
-
-        // Hent relaterede produkter efter produktet er hentet
-        this.fetchRelatedProducts(this.product.categories[0]?.id);
-      } catch (err) {
-        console.error("Fejl ved hentning af produkt:", err);
-        this.error = "Kunne ikke hente produktdata.";
-      } finally {
-        this.loading = false;
-      }
-    },
-    async fetchRelatedProducts(categoryId) {
-      if (!categoryId) {
-        console.error(
-          "Kategori-ID er ikke tilgængeligt for relaterede produkter."
-        );
-        return;
-      }
-
-      try {
-        const response = await axios.get(
-          `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products`,
-          {
-            auth: {
-              username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
-              password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-            },
-            params: {
-              per_page: 4, // Begræns til 4 produkter
-              exclude: [this.id], // Ekskluder det aktuelle produkt
-              category: categoryId, // Produkter fra samme kategori
-            },
-          }
-        );
-
-        // Beregn prisspænd for produkter med varianter
-        this.relatedProducts = await Promise.all(
-          response.data.map(async (product) => {
-            if (product.type === "variable") {
-              const variationsResponse = await axios.get(
-                `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${product.id}/variations`,
-                {
-                  auth: {
-                    username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
-                    password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
-                  },
-                }
-              );
-              const variations = variationsResponse.data;
-              const prices = variations.map((v) => parseFloat(v.price));
-              const minPrice = Math.min(...prices).toFixed(2);
-              const maxPrice = Math.max(...prices).toFixed(2);
-              return { ...product, price: `${minPrice} - ${maxPrice} kr` };
-            } else {
-              return product;
-            }
-          })
-        );
-      } catch (err) {
-        console.error("Fejl ved hentning af relaterede produkter:", err);
-      }
-    },
-    selectVariant(variant) {
-      this.selectedVariant = variant;
-      this.selectedImage = variant.image?.src || null; // Opdater hovedbilledet, når en variant vælges
-    },
-    selectGalleryImage(imageSrc) {
-      this.selectedImage = imageSrc; // Opdater hovedbilledet
-    },
-  },
-  watch: {
-    id: {
-      immediate: true,
-      handler() {
-        this.fetchProduct(); // Hent produktet ved ID
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth", // Glidende scroll til toppen
-        });
+      },
+      selectVariant(variant) {
+        this.selectedVariant = variant;
+        this.selectedImage = variant.image?.src || null;
+      },
+      selectGalleryImage(imageSrc) {
+        this.selectedImage = imageSrc;
       },
     },
-  },
-};
-</script>
+    watch: {
+      id: {
+        immediate: true,
+        handler() {
+          this.fetchProduct();
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        },
+      },
+    },
+  };
+  </script>
+  
 
 <style scoped>
 .loading,
@@ -436,7 +407,7 @@ h2 {
   grid-template-columns: repeat(
     4,
     1fr
-  ); /* Samme grid-layout som produkter.vue */
+  );
   gap: 20px;
   margin-bottom: 75px;
 }
@@ -444,9 +415,9 @@ h2 {
 .related-product {
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Sørger for at kortet fylder hele pladsen */
+  align-items: stretch;
   text-align: center;
-  height: 100%; /* Sørger for at kortene udfylder rummet */
+  height: 100%;
 }
 
 .related-product-item {
@@ -460,7 +431,7 @@ h2 {
   justify-content: space-between;
   text-decoration: none;
   color: inherit;
-  height: 100%; /* Kortene får samme højde */
+  height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -471,8 +442,8 @@ h2 {
 
 .related-product-item img {
   width: 100%;
-  height: 200px; /* Ensartet højde for billeder */
-  object-fit: contain; /* Undgå forvrængning */
+  height: 200px;
+  object-fit: contain;
   margin-bottom: 20px;
 }
 
@@ -490,13 +461,13 @@ h2 {
 .related-product-item p {
   font-size: 1rem;
   color: #333;
-  margin-bottom: auto; /* Skub teksten opad for at ensrette */
+  margin-bottom: auto;
 }
 
 .related-product-btn-placeholder {
   width: 100%;
   text-align: center;
-  margin-top: 10px; /* Mindre afstand mellem knap og kort */
+  margin-top: 10px;
 }
 
 .related-product-btn {

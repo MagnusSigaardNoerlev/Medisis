@@ -268,7 +268,6 @@ document.addEventListener("DOMContentLoaded", function () {
   display: flex;
   align-items: center;
   margin: 0 100px;
-  padding: 20px;
   gap: 100px;
 }
 
@@ -277,14 +276,8 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 .text-container h1 {
-  font-size: 45px;
   margin-bottom: 10px;
   margin-top: 0;
-}
-
-.text-container p {
-  font-size: 1.2rem;
-  line-height: 1.6;
 }
 
 .image-container img {

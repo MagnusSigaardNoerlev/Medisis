@@ -72,6 +72,10 @@ export default {
 </script>
 
 <style scoped>
+body {
+  margin: 0 5000px;
+}
+
 .intro {
   display: flex;
   align-items: center;

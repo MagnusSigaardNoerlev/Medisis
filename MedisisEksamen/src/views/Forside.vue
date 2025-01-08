@@ -19,7 +19,7 @@
         <h3>Naturlige produkter</h3>
         <p>
           Køb naturlige kropsplejeprodukter direkte fra os og oplev vores
-          bæredygtige hjemmelavede kvalitet
+          bæredygtige hjemmelavede kvalitet.
         </p>
         <button class="btn">
           <router-link to="/produkter">Se vores produkter</router-link>
@@ -37,43 +37,39 @@
         </button>
       </div>
     </section>
-    <section class="popular-products">
-      <h3>Vores populære produkter</h3>
-      <div class="products-container">
-        <div class="product-item">
-          <img src="@/assets/fodbadesalt.png" alt="Fodbadssalt" />
-          <h3>Fodbadesalt</h3>
-          <p>Med kamille (25ml)</p>
-          <p>65,-</p>
-          <button class="product-btn">Tilføj til kurv</button>
-        </div>
-        <div class="product-item">
-          <img src="@/assets/kokus.png" alt="Body Lotion" />
-          <h3>Body Lotion</h3>
-          <p>Med kamille (25ml)</p>
-          <p>55,-</p>
-          <button class="product-btn">Tilføj til kurv</button>
-        </div>
-        <div class="product-item">
-          <img src="@/assets/BodyLotion.png" alt="Body Lotion" />
-          <h3>Body Lotion</h3>
-          <p>Med kamille (25ml)</p>
-          <p>55,-</p>
-          <button class="product-btn">Tilføj til kurv</button>
-        </div>
-
-        <div class="product-item">
-          <img src="@/assets/body-lotion.png" alt="Body Lotion" />
-          <h3>Body Lotion</h3>
-          <p>Med kamille (25ml)</p>
-          <p>55,-</p>
-          <button class="product-btn">Tilføj til kurv</button>
-        </div>
+    <section class="newest-products">
+  <h3>Se nogle af vores produkter</h3>
+  <div v-if="loading" class="loading">Indlæser produkter...</div>
+  <div v-else class="newest-products-container">
+    <!-- Loop gennem de nyeste produkter -->
+    <div
+      class="newest-product"
+      v-for="product in productsForForside"
+      :key="product.id"
+    >
+      <router-link
+        :to="{ name: 'ProduktSide', params: { id: product.id } }"
+        class="newest-product-item"
+      >
+        <img
+          :src="product.images[0]?.src"
+          :alt="product.name"
+          class="newest-product-image"
+        />
+        <h4 class="newest-product-title">{{ product.name }}</h4>
+        <p class="newest-product-price">{{ product.priceRange }}</p>
+      </router-link>
+      <!-- Tilføj til kurv knap -->
+      <div class="newest-product-btn-placeholder">
+        <button class="newest-product-btn">Tilføj til kurv</button>
       </div>
-      <button class="view-all-btn">
-        <router-link to="/produkter">Se all vores produkter</router-link>
-      </button>
-    </section>
+    </div>
+  </div>
+  <button class="view-all-btn">
+    <router-link to="/produkter">Se alle vores produkter</router-link>
+  </button>
+</section>
+
     <div class="forside-container-NaturligPleje">
       <div class="text-container">
         <h3>Naturlig Pleje</h3>
@@ -113,7 +109,7 @@
       <div class="image-container">
         <img
           src="@/assets/Naturligpleje.png"
-          alt="Billede af narturlige ingredienser i vores produkter"
+          alt="Billede af naturlige ingredienser i vores produkter"
         />
       </div>
     </div>
@@ -230,10 +226,93 @@
   </section>
 </template>
 
+
 <script>
+import axios from "axios";
+
+// API-autentificering
+const API_AUTH = {
+  username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+  password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+};
+
 export default {
   name: "Forside",
+  data() {
+    return {
+      productsForForside: [], // Liste over produkter til forsiden
+      loading: true, // Indikator for indlæsning
+    };
+  },
+  methods: {
+    // Henter variationer for produkter og beregner prisspænd
+    async fetchVariations(product) {
+      try {
+        const response = await axios.get(
+          `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${product.id}/variations`,
+          { auth: API_AUTH }
+        );
+        const prices = response.data.map((variation) =>
+          parseFloat(variation.price)
+        );
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+
+        return minPrice === maxPrice
+          ? `${minPrice} kr`
+          : `${minPrice} - ${maxPrice} kr`;
+      } catch (error) {
+        console.error(
+          `Fejl ved hentning af variationer for produkt ${product.id}:`,
+          error
+        );
+        return `${product.price} kr`; // Fallback hvis der er en fejl
+      }
+    },
+
+    // Henter de nyeste produkter og beregner prisspænd
+    async fetchNewestProducts() {
+      try {
+        this.loading = true;
+
+        const response = await axios.get(
+          "https://medisis.magnusnoerlev.com/wp-json/wc/v3/products",
+          {
+            auth: API_AUTH,
+            params: {
+              per_page: 4, // Antal produkter at hente
+              orderby: "date", // Sorter efter dato
+              order: "desc", // Nyeste produkter først
+            },
+          }
+        );
+
+        // Hent variationer for hvert produkt og beregn prisspænd
+        const productsWithPrices = await Promise.all(
+          response.data.map(async (product) => {
+            if (product.type === "variable") {
+              product.priceRange = await this.fetchVariations(product);
+            } else {
+              product.priceRange = `${product.price} kr`;
+            }
+            return product;
+          })
+        );
+
+        this.productsForForside = productsWithPrices;
+      } catch (error) {
+        console.error("Fejl ved hentning af produkter:", error);
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+  mounted() {
+    // Kalder funktionen, når komponenten loades
+    this.fetchNewestProducts();
+  },
 };
+
 document.addEventListener("DOMContentLoaded", function () {
   const slides = document.querySelectorAll(".slideshow-slide");
   const dots = document.querySelectorAll(".slideshow-dot");
@@ -263,6 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+
 <style scoped>
 .forside-container {
   display: flex;
@@ -284,65 +364,112 @@ document.addEventListener("DOMContentLoaded", function () {
   max-height: 500px;
   height: auto;
 }
-.popular-products {
+.newest-products {
+  padding: 40px 0;
   text-align: center;
-  padding: 50px 0;
-  background-color: #f2f3ee;
 }
 
-.popular-products h2 {
+.newest-products h3 {
   font-size: 2rem;
-  margin-bottom: 40px;
-  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
-.products-container {
+.newest-products-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
 }
-.product-item:hover {
+
+.newest-product {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: center;
+  height: 100%;
+}
+
+.newest-product-item {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.newest-product-item:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
-.product-item {
-  background-color: white;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.product-item img {
+.newest-product-item img {
   width: 100%;
-  height: 300px;
+  height: 200px;
+  object-fit: contain;
   margin-bottom: 20px;
 }
 
-.product-item h3 {
+.newest-product-item h4 {
   font-size: 1.8rem;
   margin-bottom: 10px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.2;
 }
 
-.product-item p {
+.newest-product-item p {
   font-size: 1rem;
   color: #333;
+  margin-bottom: auto;
 }
-.product-btn {
-  display: block;
+
+.newest-product-btn-placeholder {
   width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.newest-product-btn {
   background-color: #5f6622;
   color: white;
   border: none;
   padding: 10px 0;
-
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 50px;
   cursor: pointer;
-  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.product-btn:hover {
+.newest-product-btn:hover {
   background-color: #3e7732;
+  transform: scale(1.05);
+}
+
+.view-all-btn {
+  background-color: #5f6622;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.view-all-btn:hover {
+  background-color: #3e7732;
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .view-all-btn {
@@ -606,6 +733,7 @@ document.addEventListener("DOMContentLoaded", function () {
   text-decoration: none;
   color: white;
 }
+
 .view-all-btn a {
   text-decoration: none;
   color: white;
@@ -652,7 +780,7 @@ document.addEventListener("DOMContentLoaded", function () {
     max-width: 90%;
   }
 
-  .popular-products .products-container {
+  .popular-products {
     grid-template-columns: 1fr 1fr;
   }
   .forside-container-NaturligPleje img {
@@ -677,7 +805,7 @@ document.addEventListener("DOMContentLoaded", function () {
     font-size: 22px;
   }
 
-  .popular-products .products-container {
+  .popular-products {
     grid-template-columns: 1fr;
   }
 

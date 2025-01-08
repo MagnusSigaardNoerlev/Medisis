@@ -390,7 +390,7 @@ export default {
 }
 /* FAQ sektion */
 .faq {
-  padding: 40px 20px;
+  padding: 40px 0;
   text-align: center;
 }
 
@@ -409,7 +409,6 @@ export default {
 
 .kort {
   background-color: #fff;
-  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 40px;
   max-width: 300px;

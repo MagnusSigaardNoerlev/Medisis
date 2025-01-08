@@ -1,21 +1,23 @@
 <template>
-  <section class="faq-sektion">
-    <h2>Salgs- og leveringsbetingelser</h2>
-    <div class="accordion">
-      <div
-        v-for="(item, index) in accordionItems"
-        :key="index"
-        class="accordion-item"
-      >
-        <button class="accordion-header" @click="toggleAccordion(index)">
-          {{ item.title }}
-          <span :class="{ active: activeIndex === index }">▼</span>
-        </button>
-        <div class="accordion-content" v-show="activeIndex === index">
-          <p>{{ item.content }}</p>
+  <section class="sideIndhold">
+    <section class="faq-sektion">
+      <h2>Salgs- og leveringsbetingelser</h2>
+      <div class="accordion">
+        <div
+          v-for="(item, index) in accordionItems"
+          :key="index"
+          class="accordion-item"
+        >
+          <button class="accordion-header" @click="toggleAccordion(index)">
+            {{ item.title }}
+            <span :class="{ active: activeIndex === index }">▼</span>
+          </button>
+          <div class="accordion-content" v-show="activeIndex === index">
+            <p>{{ item.content }}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   </section>
 </template>
 

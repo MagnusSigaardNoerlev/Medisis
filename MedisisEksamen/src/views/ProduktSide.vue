@@ -1,52 +1,62 @@
 <template>
-  <div v-if="loading" class="loading">Indlæser produkt...</div>
-  <div v-else-if="error" class="error">{{ error }}</div>
-  <section v-else class="product-detail">
-    <div class="product-header">
-      <!-- Varebillede og galleri -->
-      <div class="product-image-container">
-        <!-- Hovedbillede -->
-        <img :src="mainImage" alt="Produktbillede" class="main-image" />
+  <section class="sideIndhold">
+    <div v-if="loading" class="loading">Indlæser produkt...</div>
+    <div v-else-if="error" class="error">{{ error }}</div>
+    <section v-else class="product-detail">
+      <div class="product-header">
+        <!-- Varebillede og galleri -->
+        <div class="product-image-container">
+          <!-- Hovedbillede -->
+          <img :src="mainImage" alt="Produktbillede" class="main-image" />
 
-<!-- Galleribilleder -->
-<div class="product-gallery">
-  <img
-    v-for="(galleryImage, index) in product.images"
-    :key="index"
-    :src="galleryImage.src"
-    :alt="galleryImage.alt"
-    @click="selectGalleryImage(galleryImage.src)"
-    :class="['gallery-thumbnail', { active: galleryImage.src === selectedImage }]"
-  />
-</div>
-</div>
-
-      <!-- Produktinformation -->
-      <div class="product-info">
-        <h1>{{ product.name }}</h1>
-        <div v-if="product.variations && product.variations.length > 0" class="variants">
-          <ul>
-            <li v-for="variant in sortedVariants" :key="variant.id">
-              <button
-                @click="selectVariant(variant)"
-                :class="{ active: selectedVariant?.id === variant.id }"
-              >
-                {{ variant.attributes[0]?.option }}
-              </button>
-            </li>
-          </ul>
+          <!-- Galleribilleder -->
+          <div class="product-gallery">
+            <img
+              v-for="(galleryImage, index) in product.images"
+              :key="index"
+              :src="galleryImage.src"
+              :alt="galleryImage.alt"
+              @click="selectGalleryImage(galleryImage.src)"
+              :class="[
+                'gallery-thumbnail',
+                { active: galleryImage.src === selectedImage },
+              ]"
+            />
+          </div>
         </div>
-        <p v-if="product.description" v-html="product.description"></p>
-        <h2>{{ selectedVariant?.price || product.price }} kr</h2>
-        <p class="moms">Inkl. moms</p>
-        <div class="product-indeholder">
-          <h3>Indeholder:</h3>
-          <div class="contains-content" v-html="product.short_description"></div>
+
+        <!-- Produktinformation -->
+        <div class="product-info">
+          <h1>{{ product.name }}</h1>
+          <div
+            v-if="product.variations && product.variations.length > 0"
+            class="variants"
+          >
+            <ul>
+              <li v-for="variant in sortedVariants" :key="variant.id">
+                <button
+                  @click="selectVariant(variant)"
+                  :class="{ active: selectedVariant?.id === variant.id }"
+                >
+                  {{ variant.attributes[0]?.option }}
+                </button>
+              </li>
+            </ul>
+          </div>
+          <p v-if="product.description" v-html="product.description"></p>
+          <h2>{{ selectedVariant?.price || product.price }} kr</h2>
+          <p class="moms">Inkl. moms</p>
+          <div class="product-indeholder">
+            <h3>Indeholder:</h3>
+            <div
+              class="contains-content"
+              v-html="product.short_description"
+            ></div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-  
+    </section>
+
     <!-- FAQ sektion -->
     <section class="faq">
       <h2>Ofte stillede spørgsmål</h2>
@@ -63,26 +73,34 @@
 
     <!-- Relaterede produkter -->
     <section class="related-products">
-  <h2>Du ville måske synes om:</h2>
-  <div class="related-products-container">
-    <div class="related-product" v-for="related in relatedProducts" :key="related.id">
-      <!-- Router-link til produkt -->
-      <router-link :to="`/produkt/${related.id}`" class="related-product-item">
-        <img :src="related.images[0]?.src" :alt="related.name" />
-        <h3>{{ related.name }}</h3>
-        <p>
-          {{ related.price_range || `${related.price} kr` }}
-        </p>
-      </router-link>
+      <h2>Du ville måske synes om:</h2>
+      <div class="related-products-container">
+        <div
+          class="related-product"
+          v-for="related in relatedProducts"
+          :key="related.id"
+        >
+          <!-- Router-link til produkt -->
+          <router-link
+            :to="`/produkt/${related.id}`"
+            class="related-product-item"
+          >
+            <img :src="related.images[0]?.src" :alt="related.name" />
+            <h3>{{ related.name }}</h3>
+            <p>
+              {{ related.price_range || `${related.price} kr` }}
+            </p>
+          </router-link>
 
-      <!-- Tilføj til kurv knap -->
-      <div class="related-product-btn-placeholder">
-        <button class="related-product-btn">Tilføj til kurv</button>
+          <!-- Tilføj til kurv knap -->
+          <div class="related-product-btn-placeholder">
+            <button class="related-product-btn">Tilføj til kurv</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-  </template>
+    </section>
+  </section>
+</template>
 <script>
 import axios from "axios";
 import kortIkon from "@/assets/credit-card-solid.png";
@@ -133,14 +151,22 @@ export default {
   computed: {
     sortedVariants() {
       return [...this.variants].sort((a, b) => {
-        const valueA = parseFloat(a.attributes[0]?.option.replace("L", "").trim());
-        const valueB = parseFloat(b.attributes[0]?.option.replace("L", "").trim());
+        const valueA = parseFloat(
+          a.attributes[0]?.option.replace("L", "").trim()
+        );
+        const valueB = parseFloat(
+          b.attributes[0]?.option.replace("L", "").trim()
+        );
         return valueA - valueB;
       });
     },
     mainImage() {
       // Returnér det valgte billede, ellers standardbilledet
-      return this.selectedImage || (this.selectedVariant?.image?.src || this.product?.images[0]?.src);
+      return (
+        this.selectedImage ||
+        this.selectedVariant?.image?.src ||
+        this.product?.images[0]?.src
+      );
     },
     galleryImages() {
       // Ekskluder det første billede (hovedbilledet) fra galleriet
@@ -187,7 +213,9 @@ export default {
     },
     async fetchRelatedProducts(categoryId) {
       if (!categoryId) {
-        console.error("Kategori-ID er ikke tilgængeligt for relaterede produkter.");
+        console.error(
+          "Kategori-ID er ikke tilgængeligt for relaterede produkter."
+        );
         return;
       }
 
@@ -256,143 +284,143 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
-  .loading,
-  .error {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .product-detail {
-    max-width: 1200px;
-    margin: 20px auto;
-  }
-  
-  .product-header {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 120px;
-  }
-  
-  .product-header img {
-    max-width: 400px;
-  }
-  
-  .product-info h1 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-  }
-  
-  .variants {
-    margin: 10px 0 20px;
-  }
-  
-  .variants ul {
-    display: flex;
-    gap: 10px;
-    padding: 0;
-    list-style: none;
-  }
-  
-  .variants ul li:hover {
-    transform: scale(1.05);
-  }
-  
-  .variants button {
-    background-color: #5f6622;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .variants button.active {
-    background-color: #3e7732;
-  }
-  
-  .product-info p {
-    margin-bottom: 20px;
-    max-width: 60ch;
-  }
-  
-  .product-info h2 {
-    font-size: 1.5rem;
-    color: #5f6622;
-  }
-  
-  .product-indeholder {
-    margin-top: 20px;
-  }
-  
-  .product-indeholder h3 {
-    margin-bottom: 10px;
-  }
-  
-  .moms {
-    padding: 0;
-    margin: 0;
-  }
 
-  h2 {
-    margin: 0;
-  }
-  
-  /* FAQ sektion */
-  .faq {
-    padding: 40px 20px;
-    text-align: center;
-  }
-  
-  .faq h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    margin-top: 40px;
-    color: #333;
-  }
-  
-  .faq-container {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  .kort {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    max-width: 300px;
-    flex: 1;
-    text-align: left;
-  }
-  
-  .ikon {
-    text-align: center;
-    margin-bottom: 15px;
-  }
-  
-  .ikon img {
-    width: 60px;
-    height: auto;
-  }
-  
-  .kort h3 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #333;
-    text-align: center;
-  }
-  
-  .kort p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #666;
-  }
+<style scoped>
+.loading,
+.error {
+  text-align: center;
+  margin-top: 20px;
+}
 
-  .related-products {
+.product-detail {
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.product-header {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 120px;
+}
+
+.product-header img {
+  max-width: 400px;
+}
+
+.product-info h1 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.variants {
+  margin: 10px 0 20px;
+}
+
+.variants ul {
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+
+.variants ul li:hover {
+  transform: scale(1.05);
+}
+
+.variants button {
+  background-color: #5f6622;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.variants button.active {
+  background-color: #3e7732;
+}
+
+.product-info p {
+  margin-bottom: 20px;
+  max-width: 60ch;
+}
+
+.product-info h2 {
+  font-size: 1.5rem;
+  color: #5f6622;
+}
+
+.product-indeholder {
+  margin-top: 20px;
+}
+
+.product-indeholder h3 {
+  margin-bottom: 10px;
+}
+
+.moms {
+  padding: 0;
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+/* FAQ sektion */
+.faq {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.faq h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  color: #333;
+}
+
+.faq-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.kort {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 300px;
+  flex: 1;
+  text-align: left;
+}
+
+.ikon {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.ikon img {
+  width: 60px;
+  height: auto;
+}
+
+.kort h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+.kort p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #666;
+}
+
+.related-products {
   padding: 40px 20px;
   text-align: center;
 }
@@ -405,7 +433,10 @@ export default {
 
 .related-products-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Samme grid-layout som produkter.vue */
+  grid-template-columns: repeat(
+    4,
+    1fr
+  ); /* Samme grid-layout som produkter.vue */
   gap: 20px;
   margin-bottom: 75px;
 }
@@ -517,5 +548,4 @@ export default {
 .gallery-thumbnail.active {
   border-color: #5f6622;
 }
-  </style>
-  
+</style>

@@ -8,19 +8,20 @@ body {
 
 .sideIndhold {
   display: grid;
-  grid-template-columns: 1fr min(1200px, 90%) 1fr; /* Centreret indhold */
-  gap: 20px; /* Afstand mellem rækker */
-  padding: 20px 0; /* Indvendig afstand op og ned */
+  grid-template-columns: 1fr min(1200px, 90%) 1fr;
+  gap: 20px;
+  padding: 20px 0;
 }
 
 .sideIndhold > * {
-  grid-column: 2; /* Placer alt indhold i midterkolonnen */
+  grid-column: 2;
 }
 
 /* Specifik font for overskrifter */
 h1 {
   font-family: "Playfair Display", serif;
   font-weight: 700;
+  font-size: 2.5rem;
   margin-top: 0;
 }
 h3 {

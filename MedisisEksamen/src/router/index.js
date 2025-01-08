@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Forside from "../views/Forside.vue";
 import Produkter from "../views/Produkter.vue";
 import OmMedisis from "../views/OmMedisis.vue";

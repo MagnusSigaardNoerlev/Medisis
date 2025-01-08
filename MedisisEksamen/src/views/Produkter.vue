@@ -1,4 +1,5 @@
 <template>
+  <section class="sideIndhold">
   <section class="intro">
     <div class="introText">
       <h1>Naturlig Kropspleje med Omtanke</h1>
@@ -25,6 +26,7 @@
         </router-link>
       </li>
     </ul>
+  </section>
   </section>
 </template>
 
@@ -72,10 +74,6 @@ export default {
 </script>
 
 <style scoped>
-body {
-  margin: 0 5000px;
-}
-
 .intro {
   display: flex;
   align-items: center;

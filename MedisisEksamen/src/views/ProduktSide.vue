@@ -114,8 +114,9 @@
     </section>
   </template>
   
-  
+
   <script>
+// Importerer Axios til API-kald og ikoner til brug i FAQ-sektionen
 import axios from "axios";
 import kortIkon from "@/assets/credit-card-solid.png";
 import returIkon from "@/assets/undo-solid.png";
@@ -128,6 +129,7 @@ const API_AUTH = {
 };
 
 export default {
+  // Props til at få produkt-ID fra routeren
   props: {
     id: {
       type: String,
@@ -143,6 +145,7 @@ export default {
       loading: true, // Indikerer, om produktdata er ved at blive indlæst
       relatedProducts: [], // Liste over relaterede produkter til det aktuelle produkt
       faq: [
+        // Data til FAQ-sektionen
         {
           id: 1,
           ikon: kortIkon,
@@ -168,6 +171,7 @@ export default {
     };
   },
   computed: {
+    // Sorterer produktvarianter baseret på størrelse eller værdi
     sortedVariants() {
       return [...this.variants].sort((a, b) => {
         const valueA = parseFloat(
@@ -179,6 +183,7 @@ export default {
         return valueA - valueB;
       });
     },
+    // Returnerer det aktuelle varebillede (valgt billede, variantbillede, eller standardbillede)
     mainImage() {
       return (
         this.selectedImage ||
@@ -188,30 +193,36 @@ export default {
     },
   },
   methods: {
+    // Henter data om det aktuelle produkt fra API'et
     async fetchProduct() {
       try {
         this.loading = true;
+
+        // Nulstil valgt variant og billede inden nyt produkt hentes
+        this.selectedVariant = null;
+        this.selectedImage = null;
+
         const response = await axios.get(
           `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}`,
           { auth: API_AUTH }
         );
         this.product = response.data;
 
-        // Hent varianter, hvis produktet har nogle
+        // Hvis produktet har varianter, henter vi dem også
         if (this.product.type === "variable") {
           await this.fetchVariations();
         }
 
-        // Hent relaterede produkter
+        // Henter relaterede produkter
         this.fetchRelatedProducts(this.product.categories[0]?.id);
       } catch (err) {
         console.error("Fejl ved hentning af produkt:", err);
         this.error = "Kunne ikke hente produktdata.";
       } finally {
         this.loading = false;
-        this.selectedImage = null; // Nulstil det valgte billede
       }
     },
+    // Henter varianter af det aktuelle produkt
     async fetchVariations() {
       try {
         const variationsResponse = await axios.get(
@@ -219,10 +230,17 @@ export default {
           { auth: API_AUTH }
         );
         this.variants = variationsResponse.data;
+
+        // Nulstil valgt variant, hvis der er varianter
+        if (this.variants.length > 0) {
+          this.selectedVariant = this.sortedVariants[0]; // Vælg den første (mindste) variant
+          this.selectedImage = this.sortedVariants[0]?.image?.src || null;
+        }
       } catch (err) {
         console.error("Fejl ved hentning af variationer:", err);
       }
     },
+    // Henter relaterede produkter fra samme kategori og beregner prisspænd
     async fetchRelatedProducts(categoryId) {
       if (!categoryId) {
         console.error("Kategori-ID er ikke tilgængeligt for relaterede produkter.");
@@ -242,24 +260,52 @@ export default {
           }
         );
 
-        this.relatedProducts = response.data;
+        // Hent variationer for hvert produkt og beregn prisspænd
+        const productsWithPrices = await Promise.all(
+          response.data.map(async (product) => {
+            if (product.type === "variable") {
+              const variationsResponse = await axios.get(
+                `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${product.id}/variations`,
+                { auth: API_AUTH }
+              );
+
+              const prices = variationsResponse.data.map((variation) =>
+                parseFloat(variation.price)
+              );
+              const minPrice = Math.min(...prices);
+              const maxPrice = Math.max(...prices);
+              product.priceRange =
+                minPrice === maxPrice
+                  ? `${minPrice} kr`
+                  : `${minPrice} - ${maxPrice} kr`;
+            } else {
+              product.priceRange = `${product.price} kr`;
+            }
+            return product;
+          })
+        );
+
+        this.relatedProducts = productsWithPrices;
       } catch (err) {
         console.error("Fejl ved hentning af relaterede produkter:", err);
       }
     },
+    // Opdaterer den valgte variant og dens billede
     selectVariant(variant) {
       this.selectedVariant = variant;
       this.selectedImage = variant.image?.src || null;
     },
+    // Opdaterer det valgte billede, når der klikkes på et galleribillede
     selectGalleryImage(imageSrc) {
       this.selectedImage = imageSrc;
     },
   },
   watch: {
+    // Overvåger ændringer i produkt-ID og henter nyt produktdata
     id: {
       immediate: true,
       handler() {
-        this.fetchProduct(); // Genindlæs produktet, når ID ændres
+        this.fetchProduct();
         window.scrollTo({
           top: 0,
           behavior: "smooth",
@@ -269,7 +315,6 @@ export default {
   },
 };
 </script>
-  
 
 <style scoped>
 .loading,

@@ -93,9 +93,9 @@ export default {
   width: 1px;
   background-color: #ddd;
   position: absolute;
-  top: 50%; /* Centrer linjerne vertikalt */
-  transform: translateY(-50%); /* Sørg for, at linjen er centreret */
-  height: 347px; /* Juster højden på linjerne, så de ikke går for højt op */
+  top: 50%;
+  transform: translateY(-50%);
+  height: 347px;
 }
 
 .vertikal-linje {
@@ -111,5 +111,38 @@ export default {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   line-height: 1.6;
+}
+@media (max-width: 1024px) {
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .vertikal-linje,
+  .vertikal-linje2 {
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .vertikal-linje,
+  .vertikal-linje2 {
+    display: none;
+  }
+
+  .footer-section h3 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .social-links {
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .social-links img {
+    width: 25px;
+    height: 25px;
+  }
 }
 </style>

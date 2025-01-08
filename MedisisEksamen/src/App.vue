@@ -2,7 +2,6 @@
   <div id="app">
     <Header />
     <router-view />
-    <!-- Andre komponenter eller indhold her -->
     <Footer />
   </div>
 </template>
@@ -20,6 +19,4 @@ export default {
 };
 </script>
 
-<style>
-/* Global styling her, hvis nødvendigt */
-</style>
+<style></style>

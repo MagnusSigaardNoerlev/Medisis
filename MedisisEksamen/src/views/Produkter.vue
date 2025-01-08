@@ -145,4 +145,54 @@ export default {
   background-color: white;
   transition: background-color 0.3s ease;
 }
+@media (max-width: 1024px) {
+  .intro {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+  }
+
+  .intro img {
+    order: 1;
+    margin-top: 20px;
+  }
+
+  .introText {
+    order: 0;
+  }
+
+  .produktkategorier ul {
+    flex-direction: column;
+  }
+
+  .produktkategorier li {
+    max-width: 100%;
+    margin: 10px 0;
+  }
+}
+@media (max-width: 768px) {
+  .intro {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+  }
+
+  .intro img {
+    order: 1;
+    margin-top: 20px;
+  }
+
+  .introText {
+    order: 0;
+  }
+
+  .produktkategorier ul {
+    flex-direction: column;
+  }
+
+  .produktkategorier li {
+    max-width: 100%;
+    margin: 10px 0;
+  }
+}
 </style>

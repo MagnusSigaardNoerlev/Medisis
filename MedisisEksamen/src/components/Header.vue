@@ -63,7 +63,7 @@ export default {
   data() {
     return {
       logo: logoGreen,
-      dropdownVisible: false, // Styrer dropdownens synlighed
+      dropdownVisible: false,
     };
   },
   methods: {
@@ -79,31 +79,31 @@ export default {
 
 <style scoped>
 .medisis-header {
-  background-color: #f2f3ee; /* Lys beige farve */
+  background-color: #f2f3ee;
   padding: 10px 0;
 }
 
 .top-bar {
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* Tre kolonner */
-  align-items: center; /* Juster elementerne lodret */
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
   padding: 0 20px;
 }
 
 .logo-container {
-  grid-column: 2; /* Placer logoet i midten */
+  grid-column: 2;
   text-align: center;
 }
 
 .logo-container img {
-  height: 55px; /* Tilpas logoets højde */
+  height: 55px;
   margin-bottom: 20px;
 }
 
 .icons {
   display: flex;
-  justify-content: center; /* Juster ikoner til højre */
-  gap: 15px; /* Skab afstand mellem ikoner */
+  justify-content: center;
+  gap: 15px;
   margin-left: 220px;
 }
 
@@ -116,16 +116,16 @@ export default {
 }
 
 .icon-btn:hover {
-  color: #6b6b3e; /* Lysere grøn ved hover */
+  color: #6b6b3e;
 }
 
 .nav-links {
   display: flex;
-  justify-content: center; /* Centrer links */
-  gap: 70px; /* Skab afstand mellem links */
-  margin-top: 10px; /* Afstand til top-bar */
-  border-top: 1px solid #ddd; /* Linje over links */
-  border-bottom: 1px solid #ddd; /* Linje under links */
+  justify-content: center;
+  gap: 70px;
+  margin-top: 10px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   padding: 15px 0;
   width: 83%;
 }
@@ -142,7 +142,7 @@ export default {
 }
 .nav-container {
   display: flex;
-  justify-content: center; /* Centrer containeren */
+  justify-content: center;
 }
 /* Dropdown-styling */
 .dropdown {
@@ -151,7 +151,7 @@ export default {
 
 .dropdown-menu {
   position: absolute;
-  top: 100%; /* Placerer menuen under "Produkter" */
+  top: 100%;
   left: 0;
   background-color: #f2f3ee;
   border: 1px solid #ddd;
@@ -159,8 +159,8 @@ export default {
   padding: 10px 0;
   margin: 0;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Sørger for menuen vises over andre elementer */
-  min-width: 100px; /* Gør menuen tilpas bred */
+  z-index: 1000;
+  min-width: 100px;
 }
 
 .dropdown-item {

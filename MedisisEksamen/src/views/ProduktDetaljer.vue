@@ -230,4 +230,26 @@ h2 {
 .product-btn:hover {
   background-color: #3e7732;
 }
+
+@media (max-width: 1024px) {
+  .products-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .category-description {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+@media (max-width: 480px) {
+  .products-container {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    justify-content: center;
+  }
+  .category-description {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <section class="sideIndhold">
   <section class="intro">
     <div class="introText">
       <h1>Naturlig Kropspleje med Omtanke</h1>
@@ -25,6 +26,7 @@
         </router-link>
       </li>
     </ul>
+  </section>
   </section>
 </template>
 

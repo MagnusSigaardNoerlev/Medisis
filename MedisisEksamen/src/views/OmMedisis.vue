@@ -313,7 +313,7 @@ export default {
 }
 .medisis-section {
   display: flex;
-  gap: 165px;
+  gap: 40px;
   justify-content: center;
   padding: 40px;
 }
@@ -365,5 +365,64 @@ export default {
 .card-button a {
   text-decoration: none;
   color: white;
+}
+/* Tablet og mindre skærme (1024px) */
+@media (max-width: 1024px) {
+  .forside-container,
+  .forside-container2 {
+    margin: 0 50px;
+    gap: 50px;
+  }
+
+  .text-container {
+    max-width: 60%; /* Tilpas bredde */
+  }
+
+  .image-container img {
+    max-width: 400px;
+  }
+}
+
+/* Små tablets (768px) */
+@media (max-width: 768px) {
+  .forside-container,
+  .forside-container2 {
+    flex-direction: column;
+    margin: 0 20px;
+    text-align: center; /* Centrer indhold */
+  }
+
+  .text-container {
+    max-width: 100%; /* Fuld bredde */
+  }
+
+  .image-container img {
+    max-width: 350px;
+  }
+}
+
+/* Mobiltelefoner (480px) */
+@media (max-width: 480px) {
+  .forside-container,
+  .forside-container2 {
+    padding: 10px;
+    gap: 20px;
+  }
+
+  .text-container h1 {
+    font-size: 30px; /* Mindre overskrift */
+  }
+
+  .image-container img {
+    max-width: 300px;
+  }
+
+  .values-container {
+    grid-template-columns: 1fr; /* Én kolonne layout */
+  }
+
+  .values-section h2 {
+    font-size: 1.5rem;
+  }
 }
 </style>

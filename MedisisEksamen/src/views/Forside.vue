@@ -257,9 +257,8 @@ document.addEventListener("DOMContentLoaded", function () {
 .forside-container {
   display: flex;
   align-items: center;
-
-  padding: 20px;
   margin: 0 100px;
+  padding: 20px;
   gap: 100px;
 }
 
@@ -378,7 +377,6 @@ document.addEventListener("DOMContentLoaded", function () {
   justify-content: space-between;
   gap: 100px;
   padding: 50px 20px;
-  margin: 0 100px;
 }
 
 .column {
@@ -425,7 +423,6 @@ document.addEventListener("DOMContentLoaded", function () {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  margin: 0 50px;
 }
 .forside-container-NaturligPleje h3 {
   font-size: 1.8rem;

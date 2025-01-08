@@ -141,9 +141,9 @@
 </template>
 
 <script>
-import kortIkon from "@/assets/credit-card-solid.png";
+import kortIkon from "@/assets/kasse-ikon.png";
 import returIkon from "@/assets/undo-solid.png";
-import leveringIkon from "@/assets/levering-ikon.png";
+import leveringIkon from "@/assets/baeredygtighed-ikon.png";
 
 export default {
   props: {
@@ -163,9 +163,9 @@ export default {
         {
           id: 1,
           ikon: kortIkon,
-          overskrift: "konsistensen på produkterne?",
+          overskrift: "Kan vi få adgang til produktprøver?",
           beskrivelse:
-            "Medisis accepterer betaling med Dankort. Det er helt sikkert at handle hos Medisis, da vi sikrer, at dine betalingsoplysninger bliver behandlet trygt. Hvis du har spørgsmål eller problemer med betaling, kan du altid kontakte os på info@medisis.dk.",
+            "Ja, det kan I godt. Vi tilbyder gerne produktprøver, så I kan vurdere kvaliteten af vores produkter. I kan kontakte os for at aftale detaljerne, og vi vil sørge for at sende de ønskede prøver til jer. Hvis I har specifikke produkter, I er interesserede i at prøve, så lad os gerne vide det!",
         },
         {
           id: 2,
@@ -191,9 +191,7 @@ export default {
 .forside-container {
   display: flex;
   align-items: center;
-
   padding: 20px;
-  margin: 0 100px;
   gap: 100px;
 }
 
@@ -213,7 +211,7 @@ export default {
 }
 
 .image-container img {
-  max-width: 450px;
+  max-width: 600px;
   max-height: 500px;
   height: auto;
 }
@@ -299,7 +297,7 @@ export default {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   align-items: start;
-  padding: 40px;
+  margin-top: 40px;
 }
 
 .tekst-indhold h2 {

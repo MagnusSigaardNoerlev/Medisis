@@ -1,16 +1,17 @@
 <template>
-
   <section class="sideIndhold">
+    <!-- Loading-indikator -->
     <div v-if="loading" class="loading">Indlæser produkt...</div>
+    
+    <!-- Fejlmeddelelse -->
     <div v-else-if="error" class="error">{{ error }}</div>
+
+    <!-- Produktdetaljer -->
     <section v-else class="product-detail">
       <div class="product-header">
-        <!-- Varebillede og galleri -->
+        <!-- Produktbillede og galleri -->
         <div class="product-image-container">
-          <!-- Hovedbillede -->
           <img :src="mainImage" alt="Produktbillede" class="main-image" />
-
-          <!-- Galleribilleder -->
           <div class="product-gallery">
             <img
               v-for="(galleryImage, index) in product.images"
@@ -20,7 +21,7 @@
               @click="selectGalleryImage(galleryImage.src)"
               :class="[
                 'gallery-thumbnail',
-                { active: galleryImage.src === selectedImage },
+                { active: galleryImage.src === selectedImage }
               ]"
             />
           </div>
@@ -30,99 +31,11 @@
         <div class="product-info">
           <h1>{{ product.name }}</h1>
 
-    <section class="sideIndhold">
-      <!-- Vi viser en loading tekst, hvis data stadig indlæses -->
-      <div v-if="loading" class="loading">Indlæser produkt...</div>
-  
-      <!-- Når data er indlæst, vises produktdetaljerne -->
-      <section v-else class="product-detail">
-        <div class="product-header">
-          <!-- Produktbillede og galleri -->
-          <div class="product-image-container">
-            <!-- Hovedbillede -->
-            <img :src="mainImage" alt="Produktbillede" class="main-image" />
-  
-            <!-- Galleribilleder -->
-            <div class="product-gallery">
-              <img
-                v-for="(galleryImage, index) in product.images"
-                :key="index"
-                :src="galleryImage.src"
-                :alt="galleryImage.alt"
-                @click="selectGalleryImage(galleryImage.src)"
-                :class="[
-                  'gallery-thumbnail',
-                  { active: galleryImage.src === selectedImage }
-                ]"
-              />
-            </div>
-          </div>
-  
-          <!-- Produktinformation -->
-          <div class="product-info">
-            <h1>{{ product.name }}</h1>
-  
-            <!-- Produktvarianter -->
-            <div
-              v-if="product.variations && product.variations.length > 0"
-              class="variants"
-            >
-              <ul>
-                <li v-for="variant in sortedVariants" :key="variant.id">
-                  <button
-                    @click="selectVariant(variant)"
-                    :class="{ active: selectedVariant?.id === variant.id }"
-                  >
-                    {{ variant.attributes[0]?.option }}
-                  </button>
-                </li>
-              </ul>
-            </div>
-  
-            <!-- Produktbeskrivelse -->
-            <p v-if="product.description" v-html="product.description"></p>
-  
-            <!-- Produktpris -->
-            <h2>{{ selectedVariant?.price || product.price }} kr</h2>
-            <p class="moms">Inkl. moms</p>
-  
-            <!-- Produktindhold -->
-            <div class="product-indeholder">
-              <h3>Indeholder:</h3>
-              <div
-                class="contains-content"
-                v-html="product.short_description"
-              ></div>
-            </div>
-          </div>
-        </div>
-      </section>
-  
-      <!-- FAQ sektion -->
-      <section class="faq">
-        <h2>Ofte stillede spørgsmål</h2>
-        <div class="faq-container">
-          <div class="kort" v-for="item in faq" :key="item.id">
-            <div class="ikon">
-              <img :src="item.ikon" :alt="item.overskrift" />
-            </div>
-            <h3>{{ item.overskrift }}</h3>
-            <p>{{ item.beskrivelse }}</p>
-          </div>
-        </div>
-      </section>
-  
-      <!-- Relaterede produkter -->
-      <section class="related-products">
-        <h2>Du ville måske synes om:</h2>
-        <div class="related-products-container">
-          <!-- Loop gennem relaterede produkter -->
-
+          <!-- Produktvarianter -->
           <div
             v-if="product.variations && product.variations.length > 0"
             class="variants"
           >
-
             <ul>
               <li v-for="variant in sortedVariants" :key="variant.id">
                 <button
@@ -134,57 +47,78 @@
               </li>
             </ul>
           </div>
+
+          <!-- Produktbeskrivelse -->
           <p v-if="product.description" v-html="product.description"></p>
           <h2>{{ selectedVariant?.price || product.price }} kr</h2>
           <p class="moms">Inkl. moms</p>
+
+          <!-- Produktindhold -->
           <div class="product-indeholder">
             <h3>Indeholder:</h3>
             <div
               class="contains-content"
               v-html="product.short_description"
             ></div>
-
-            <!-- Link til produktdetaljeside -->
-            <router-link
-              :to="{ name: 'ProduktSide', params: { id: related.id } }"
-              class="related-product-item"
-            >
-              <img :src="related.images[0]?.src" :alt="related.name" />
-              <h3>{{ related.name }}</h3>
-              <!-- Viser prisspænd eller standardpris -->
-              <p>
-                {{ related.priceRange || `${related.price} kr` }}
-              </p>
-            </router-link>
-  
-            <!-- "Tilføj til kurv"-knap -->
-            <div class="related-product-btn-placeholder">
-              <button class="related-product-btn">Tilføj til kurv</button>
-            </div>
           </div>
         </div>
-      </section>
+      </div>
     </section>
-  </template>
+
+    <!-- FAQ sektion -->
+    <section class="faq">
+      <h2>Ofte stillede spørgsmål</h2>
+      <div class="faq-container">
+        <div class="kort" v-for="item in faq" :key="item.id">
+          <div class="ikon">
+            <img :src="item.ikon" :alt="item.overskrift" />
+          </div>
+          <h3>{{ item.overskrift }}</h3>
+          <p>{{ item.beskrivelse }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Relaterede produkter -->
+    <section class="related-products">
+      <h2>Du ville måske synes om:</h2>
+      <div class="related-products-container">
+        <div
+          class="related-product"
+          v-for="related in relatedProducts"
+          :key="related.id"
+        >
+          <router-link
+            :to="{ name: 'ProduktSide', params: { id: related.id } }"
+            class="related-product-item"
+          >
+            <img :src="related.images[0]?.src" :alt="related.name" />
+            <h3>{{ related.name }}</h3>
+            <p>{{ related.priceRange || `${related.price} kr` }}</p>
+          </router-link>
+          <div class="related-product-btn-placeholder">
+            <button class="related-product-btn">Tilføj til kurv</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</template>
   
   
-  <script>
+<script>
 import axios from "axios";
 import kortIkon from "@/assets/credit-card-solid.png";
 import returIkon from "@/assets/undo-solid.png";
 import leveringIkon from "@/assets/levering-ikon.png";
 
-
-
 // Her gemmer vi API-autorisering som en konstant
-
 const API_AUTH = {
   username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
   password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
 };
 
 export default {
-  // Props til at få produkt-ID fra routeren
   props: {
     id: {
       type: String,
@@ -193,7 +127,6 @@ export default {
   },
   data() {
     return {
-
       product: null,
       variants: [],
       selectedVariant: null,
@@ -201,16 +134,7 @@ export default {
       loading: true,
       error: null,
       relatedProducts: [],
-
-      product: null, // Her gemmes data om det aktuelle produkt
-      variants: [], // Liste over produktets varianter (hvis nogen)
-      selectedVariant: null, // Den valgte variant af produktet
-      selectedImage: null, // Det billede, som brugeren aktuelt har valgt at se
-      loading: true, // Indikerer, om produktdata er ved at blive indlæst
-      relatedProducts: [], // Liste over relaterede produkter til det aktuelle produkt
-
       faq: [
-        // Data til FAQ-sektionen
         {
           id: 1,
           ikon: kortIkon,
@@ -236,26 +160,17 @@ export default {
     };
   },
   computed: {
-    // Sorterer produktvarianter baseret på størrelse eller værdi
     sortedVariants() {
       return [...this.variants].sort((a, b) => {
         const valueA = parseFloat(
- 
-          a.attributes[0]?.option.replace("L", "").trim()
-        );
-        const valueB = parseFloat(
-          b.attributes[0]?.option.replace("L", "").trim()
-
           a.attributes[0]?.option.replace(",", ".").replace("L", "").trim()
         );
         const valueB = parseFloat(
           b.attributes[0]?.option.replace(",", ".").replace("L", "").trim()
-
         );
         return valueA - valueB;
       });
     },
-    // Returnerer det aktuelle varebillede (valgt billede, variantbillede, eller standardbillede)
     mainImage() {
       return (
         this.selectedImage ||
@@ -265,12 +180,9 @@ export default {
     },
   },
   methods: {
-    // Henter data om det aktuelle produkt fra API'et
     async fetchProduct() {
       try {
         this.loading = true;
-
-        // Nulstil valgt variant og billede inden nyt produkt hentes
         this.selectedVariant = null;
         this.selectedImage = null;
 
@@ -280,25 +192,17 @@ export default {
         );
         this.product = response.data;
 
-
-
-        // Hent varianter, hvis produktet har nogle
         if (this.product.type === "variable") {
           await this.fetchVariations();
         }
-
-
-        // Hent relaterede produkter
         this.fetchRelatedProducts(this.product.categories[0]?.id);
       } catch (err) {
         console.error("Fejl ved hentning af produkt:", err);
         this.error = "Kunne ikke hente produktdata.";
       } finally {
         this.loading = false;
-        this.selectedImage = null; // Nulstil det valgte billede
       }
     },
-    // Henter varianter af det aktuelle produkt
     async fetchVariations() {
       try {
         const variationsResponse = await axios.get(
@@ -307,25 +211,17 @@ export default {
         );
         this.variants = variationsResponse.data;
 
-        // Nulstil valgt variant, hvis der er varianter
         if (this.variants.length > 0) {
-          this.selectedVariant = this.sortedVariants[0]; // Vælg den første (mindste) variant
+          this.selectedVariant = this.sortedVariants[0];
           this.selectedImage = this.sortedVariants[0]?.image?.src || null;
         }
       } catch (err) {
         console.error("Fejl ved hentning af variationer:", err);
       }
     },
-    // Henter relaterede produkter fra samme kategori og beregner prisspænd
     async fetchRelatedProducts(categoryId) {
       if (!categoryId) {
-
-        console.error(
-          "Kategori-ID er ikke tilgængeligt for relaterede produkter."
-        );
-
         console.error("Kategori-ID er ikke tilgængeligt for relaterede produkter.");
-
         return;
       }
 
@@ -342,7 +238,6 @@ export default {
           }
         );
 
-        // Hent variationer for hvert produkt og beregn prisspænd
         const productsWithPrices = await Promise.all(
           response.data.map(async (product) => {
             if (product.type === "variable") {
@@ -372,22 +267,19 @@ export default {
         console.error("Fejl ved hentning af relaterede produkter:", err);
       }
     },
-    // Opdaterer den valgte variant og dens billede
     selectVariant(variant) {
       this.selectedVariant = variant;
       this.selectedImage = variant.image?.src || null;
     },
-    // Opdaterer det valgte billede, når der klikkes på et galleribillede
     selectGalleryImage(imageSrc) {
       this.selectedImage = imageSrc;
     },
   },
   watch: {
-    // Overvåger ændringer i produkt-ID og henter nyt produktdata
     id: {
       immediate: true,
       handler() {
-        this.fetchProduct(); // Genindlæs produktet, når ID ændres
+        this.fetchProduct();
         window.scrollTo({
           top: 0,
           behavior: "smooth",
@@ -397,6 +289,7 @@ export default {
   },
 };
 </script>
+
   
 
 <style scoped>

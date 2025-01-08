@@ -1,4 +1,5 @@
 <template>
+
   <section class="sideIndhold">
     <div v-if="loading" class="loading">Indlæser produkt...</div>
     <div v-else-if="error" class="error">{{ error }}</div>
@@ -28,10 +29,100 @@
         <!-- Produktinformation -->
         <div class="product-info">
           <h1>{{ product.name }}</h1>
+
+    <section class="sideIndhold">
+      <!-- Vi viser en loading tekst, hvis data stadig indlæses -->
+      <div v-if="loading" class="loading">Indlæser produkt...</div>
+  
+      <!-- Når data er indlæst, vises produktdetaljerne -->
+      <section v-else class="product-detail">
+        <div class="product-header">
+          <!-- Produktbillede og galleri -->
+          <div class="product-image-container">
+            <!-- Hovedbillede -->
+            <img :src="mainImage" alt="Produktbillede" class="main-image" />
+  
+            <!-- Galleribilleder -->
+            <div class="product-gallery">
+              <img
+                v-for="(galleryImage, index) in product.images"
+                :key="index"
+                :src="galleryImage.src"
+                :alt="galleryImage.alt"
+                @click="selectGalleryImage(galleryImage.src)"
+                :class="[
+                  'gallery-thumbnail',
+                  { active: galleryImage.src === selectedImage }
+                ]"
+              />
+            </div>
+          </div>
+  
+          <!-- Produktinformation -->
+          <div class="product-info">
+            <h1>{{ product.name }}</h1>
+  
+            <!-- Produktvarianter -->
+            <div
+              v-if="product.variations && product.variations.length > 0"
+              class="variants"
+            >
+              <ul>
+                <li v-for="variant in sortedVariants" :key="variant.id">
+                  <button
+                    @click="selectVariant(variant)"
+                    :class="{ active: selectedVariant?.id === variant.id }"
+                  >
+                    {{ variant.attributes[0]?.option }}
+                  </button>
+                </li>
+              </ul>
+            </div>
+  
+            <!-- Produktbeskrivelse -->
+            <p v-if="product.description" v-html="product.description"></p>
+  
+            <!-- Produktpris -->
+            <h2>{{ selectedVariant?.price || product.price }} kr</h2>
+            <p class="moms">Inkl. moms</p>
+  
+            <!-- Produktindhold -->
+            <div class="product-indeholder">
+              <h3>Indeholder:</h3>
+              <div
+                class="contains-content"
+                v-html="product.short_description"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+  
+      <!-- FAQ sektion -->
+      <section class="faq">
+        <h2>Ofte stillede spørgsmål</h2>
+        <div class="faq-container">
+          <div class="kort" v-for="item in faq" :key="item.id">
+            <div class="ikon">
+              <img :src="item.ikon" :alt="item.overskrift" />
+            </div>
+            <h3>{{ item.overskrift }}</h3>
+            <p>{{ item.beskrivelse }}</p>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Relaterede produkter -->
+      <section class="related-products">
+        <h2>Du ville måske synes om:</h2>
+        <div class="related-products-container">
+          <!-- Loop gennem relaterede produkter -->
+
           <div
             v-if="product.variations && product.variations.length > 0"
             class="variants"
           >
+
             <ul>
               <li v-for="variant in sortedVariants" :key="variant.id">
                 <button
@@ -52,10 +143,30 @@
               class="contains-content"
               v-html="product.short_description"
             ></div>
+
+            <!-- Link til produktdetaljeside -->
+            <router-link
+              :to="{ name: 'ProduktSide', params: { id: related.id } }"
+              class="related-product-item"
+            >
+              <img :src="related.images[0]?.src" :alt="related.name" />
+              <h3>{{ related.name }}</h3>
+              <!-- Viser prisspænd eller standardpris -->
+              <p>
+                {{ related.priceRange || `${related.price} kr` }}
+              </p>
+            </router-link>
+  
+            <!-- "Tilføj til kurv"-knap -->
+            <div class="related-product-btn-placeholder">
+              <button class="related-product-btn">Tilføj til kurv</button>
+            </div>
+
           </div>
         </div>
       </div>
     </section>
+
 
     <!-- FAQ sektion -->
     <section class="faq">
@@ -108,6 +219,10 @@ import kortIkon from "@/assets/credit-card-solid.png";
 import returIkon from "@/assets/undo-solid.png";
 import leveringIkon from "@/assets/levering-ikon.png";
 
+
+
+// Her gemmer vi API-autorisering som en konstant
+
 const API_AUTH = {
   username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
   password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
@@ -122,6 +237,7 @@ export default {
   },
   data() {
     return {
+
       product: null,
       variants: [],
       selectedVariant: null,
@@ -129,6 +245,14 @@ export default {
       loading: true,
       error: null,
       relatedProducts: [],
+
+      product: null, // Her gemmes data om det aktuelle produkt
+      variants: [], // Liste over produktets varianter (hvis nogen)
+      selectedVariant: null, // Den valgte variant af produktet
+      selectedImage: null, // Det billede, som brugeren aktuelt har valgt at se
+      loading: true, // Indikerer, om produktdata er ved at blive indlæst
+      relatedProducts: [], // Liste over relaterede produkter til det aktuelle produkt
+
       faq: [
         {
           id: 1,
@@ -158,10 +282,17 @@ export default {
     sortedVariants() {
       return [...this.variants].sort((a, b) => {
         const valueA = parseFloat(
+ 
           a.attributes[0]?.option.replace("L", "").trim()
         );
         const valueB = parseFloat(
           b.attributes[0]?.option.replace("L", "").trim()
+
+          a.attributes[0]?.option.replace(",", ".").replace("L", "").trim()
+        );
+        const valueB = parseFloat(
+          b.attributes[0]?.option.replace(",", ".").replace("L", "").trim()
+
         );
         return valueA - valueB;
       });
@@ -184,9 +315,16 @@ export default {
         );
         this.product = response.data;
 
+
+
+        // Hent varianter, hvis produktet har nogle
+
         if (this.product.type === "variable") {
           await this.fetchVariations();
         }
+
+
+        // Hent relaterede produkter
 
         this.fetchRelatedProducts(this.product.categories[0]?.id);
       } catch (err) {
@@ -194,7 +332,11 @@ export default {
         this.error = "Kunne ikke hente produktdata.";
       } finally {
         this.loading = false;
+
         this.selectedImage = null;
+
+        this.selectedImage = null; // Nulstil det valgte billede
+
       }
     },
     async fetchVariations() {
@@ -210,9 +352,13 @@ export default {
     },
     async fetchRelatedProducts(categoryId) {
       if (!categoryId) {
+
         console.error(
           "Kategori-ID er ikke tilgængeligt for relaterede produkter."
         );
+
+        console.error("Kategori-ID er ikke tilgængeligt for relaterede produkter.");
+
         return;
       }
 
@@ -246,7 +392,10 @@ export default {
     id: {
       immediate: true,
       handler() {
+
         this.fetchProduct();
+
+        this.fetchProduct(); // Genindlæs produktet, når ID ændresdf9271601b9da3099a27c41300368b8b2d
         window.scrollTo({
           top: 0,
           behavior: "smooth",
@@ -255,7 +404,6 @@ export default {
     },
   },
 };
-</script>
 
 <style scoped>
 .loading,
@@ -341,7 +489,7 @@ h2 {
 
 /* FAQ sektion */
 .faq {
-  padding: 40px 20px;
+  padding: 40px 0;
   text-align: center;
 }
 
@@ -361,7 +509,6 @@ h2 {
 
 .kort {
   background-color: #fff;
-  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 40px;
   max-width: 300px;
@@ -393,7 +540,7 @@ h2 {
 }
 
 .related-products {
-  padding: 40px 20px;
+  padding: 40px 0;
   text-align: center;
 }
 
@@ -606,4 +753,5 @@ h2 {
     justify-content: center;
   }
 }
+
 </style>

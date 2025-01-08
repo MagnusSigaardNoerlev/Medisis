@@ -3,7 +3,11 @@
     <div class="introText">
       <h1>Naturlig Kropspleje med Omtanke</h1>
       <p>
-        Hos Medisis tilbyder vi et bredt udvalg af naturlige kropsplejeprodukter, der er skabt med omtanke for både dig og miljøet. Uanset om du søger massageolier, body lotions, eller produkter til afslappende fodbad, finder du her kvalitetsprodukter, der plejer din hud.
+        Hos Medisis tilbyder vi et bredt udvalg af naturlige
+        kropsplejeprodukter, der er skabt med omtanke for både dig og miljøet.
+        Uanset om du søger massageolier, body lotions, eller produkter til
+        afslappende fodbad, finder du her kvalitetsprodukter, der plejer din
+        hud.
       </p>
     </div>
     <img src="@/assets/medisis-image.jpg" alt="Billede af produkter" />
@@ -50,7 +54,6 @@ export default {
           }
         );
 
-    
         this.kategorier = response.data
           .filter((kategori) => kategori.slug !== "ukategoriseret")
           .map((kategori) => ({

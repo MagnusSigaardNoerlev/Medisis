@@ -486,4 +486,100 @@ export default {
   text-decoration: none;
   color: white;
 }
+/* Media Queries */
+/* Tablet og mindre skærme (1024px) */
+@media (max-width: 1024px) {
+  .forside-container {
+    flex-direction: column;
+    text-align: center;
+    margin: 0 50px;
+    gap: 50px;
+  }
+
+  .text-container {
+    max-width: 100%;
+  }
+
+  .products-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  .image-container img {
+    max-width: 400px;
+    max-height: 450px;
+  }
+  .proevepakke-sektion {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Små tablets (768px) */
+@media (max-width: 768px) {
+  .forside-container {
+    margin: 0 20px;
+    gap: 20px;
+  }
+
+  .text-container h1 {
+    font-size: 35px;
+  }
+
+  .text-container p {
+    font-size: 1rem;
+  }
+
+  .products-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .image-container img {
+    max-width: 350px;
+    max-height: 400px;
+  }
+  .proevepakke-sektion {
+    grid-template-columns: 1fr;
+    justify-content: center;
+  }
+  .faq-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Mobiltelefoner (480px) */
+@media (max-width: 480px) {
+  .forside-container {
+    margin: 0 10px;
+    gap: 10px;
+  }
+
+  .text-container h1 {
+    font-size: 28px;
+  }
+
+  .text-container p {
+    font-size: 0.9rem;
+  }
+
+  .products-container {
+    grid-template-columns: 1fr;
+  }
+
+  .image-container img {
+    max-width: 300px;
+    max-height: 350px;
+  }
+
+  .view-all-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+  .proevepakke-sektion {
+    grid-template-columns: 1fr;
+  }
+  .faq-container {
+    flex-direction: column;
+  }
+}
 </style>

@@ -138,8 +138,8 @@
   <div class="forside-container">
     <div class="text-container">
       <h3>Medisis nuværende private label kunder</h3>
+      <h4>Baby Kræs</h4>
       <p>
-        <Strong>Baby Kræs</Strong> <br />
         Med vores private label Baby Kræs tilbyder vi produkter, der er skabt
         med omtanke for de mindste. Fokus er på naturlige ingredienser og høj
         kvalitet, som sikrer skånsom pleje til både babyer og småbørn. Alle
@@ -147,7 +147,9 @@
         stoffer, så forældre kan føle sig trygge. Fra cremer og olier til
         badesæber – Baby Kræs gør en forskel for både forældre og deres små
         guldklumper. <br />
-        <Strong>A-Serve</Strong> <br />
+      </p>
+      <h4>A-Serve</h4>
+      <p>
         A-Serve er vores eksklusive private label, der leverer løsninger til
         virksomheder inden for wellness, sundhed og servicebranchen. Produkterne
         hos A-Serve er skabt til at imødekomme professionelle behov med fokus på
@@ -213,6 +215,9 @@ export default {
   font-size: 45px;
   margin-bottom: 10px;
   margin-top: 0;
+}
+.text-container h4 {
+  margin: 0;
 }
 
 .text-container p {

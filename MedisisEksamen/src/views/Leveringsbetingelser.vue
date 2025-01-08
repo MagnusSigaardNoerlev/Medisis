@@ -91,7 +91,6 @@ export default {
           content:
             "Alle tvister om ordre eller kontrakter skal, medmindre andet er bestemt, anlægges ved MEDISIS værneting og afgøres efter dansk ret. Dette lovvalg omfatter dog ikke dansk rets internationale privatretlige regler. MEDISIS kan altid vælge at sagsøge køber ved dennes værneting, eller lade sagen behandle ved voldgift i overensstemmelse med loven.",
         },
-        // Tilføj flere elementer her
       ],
     };
   },
@@ -151,7 +150,7 @@ export default {
 }
 
 .accordion-header span.active {
-  transform: rotate(180deg); /* Vend pilen, når aktiv */
+  transform: rotate(180deg);
 }
 
 .accordion-content {

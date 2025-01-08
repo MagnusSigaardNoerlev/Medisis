@@ -72,8 +72,6 @@ export default {
 .intro {
   display: flex;
   align-items: center;
-  padding: 20px;
-  margin: 0 100px;
   gap: 100px;
 }
 

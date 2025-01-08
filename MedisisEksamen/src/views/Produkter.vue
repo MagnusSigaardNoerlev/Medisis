@@ -87,7 +87,7 @@ export default {
 }
 
 .intro img {
-  max-width: 450px;
+  max-width: 600px;
   max-height: 500px;
   height: auto;
 }

@@ -10,7 +10,7 @@
         </p>
       </div>
       <div class="image-container">
-        <img src="@/assets/medisis-image.jpg" alt="Medisis Produkter" />
+        <img src="@/assets/forsidebillede.jpg" alt="Medisis Produkter" />
       </div>
     </div>
     <section class="two-columns">
@@ -267,7 +267,6 @@ document.addEventListener("DOMContentLoaded", function () {
 .forside-container {
   display: flex;
   align-items: center;
-  margin: 0 100px;
   gap: 100px;
 }
 
@@ -281,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 .image-container img {
-  max-width: 450px;
+  max-width: 600px;
   max-height: 500px;
   height: auto;
 }
@@ -379,14 +378,14 @@ document.addEventListener("DOMContentLoaded", function () {
   display: flex;
   justify-content: space-between;
   gap: 100px;
-  padding: 50px 20px;
+  margin-top: 100px;
 }
 
 .column {
   flex: 1;
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
 .column h3 {
@@ -460,7 +459,6 @@ document.addEventListener("DOMContentLoaded", function () {
     auto-fit,
     minmax(250px, 1fr)
   ); /* Responsivt grid */
-  gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -486,8 +484,6 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 .slideshow-section {
   text-align: center;
-
-  padding: 50px 20px;
 }
 
 .slideshow-section h2 {

@@ -206,9 +206,7 @@ export default {
 .forside-container {
   display: flex;
   align-items: center;
-
   padding: 20px;
-  margin: 0 100px;
   gap: 100px;
 }
 .forside-container2 {
@@ -216,12 +214,7 @@ export default {
   align-items: center;
   flex-direction: row-reverse;
   padding: 20px;
-  margin: 0 100px;
   gap: 100px;
-}
-
-.text-container {
-  max-width: 50%;
 }
 
 .text-container h1 {
@@ -238,7 +231,7 @@ export default {
 }
 
 .image-container img {
-  max-width: 450px;
+  max-width: 600px;
   max-height: 500px;
   height: auto;
 }
@@ -254,10 +247,7 @@ export default {
 
 .values-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  ); /* Responsivt grid */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -388,7 +378,7 @@ export default {
   }
 
   .text-container {
-    max-width: 60%; /* Tilpas bredde */
+    max-width: 60%;
   }
 
   .image-container img {
@@ -402,11 +392,11 @@ export default {
   .forside-container2 {
     flex-direction: column;
     margin: 0 20px;
-    text-align: center; /* Centrer indhold */
+    text-align: center;
   }
 
   .text-container {
-    max-width: 100%; /* Fuld bredde */
+    max-width: 100%;
   }
 
   .image-container img {
@@ -423,7 +413,7 @@ export default {
   }
 
   .text-container h1 {
-    font-size: 30px; /* Mindre overskrift */
+    font-size: 30px;
   }
 
   .image-container img {
@@ -431,7 +421,7 @@ export default {
   }
 
   .values-container {
-    grid-template-columns: 1fr; /* Én kolonne layout */
+    grid-template-columns: 1fr;
   }
 
   .values-section h2 {

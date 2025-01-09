@@ -206,11 +206,11 @@ export default {
     },
   },
   methods: {
-    // Øger mængden i kurven
+    // Øger mængden af produktet
     increaseQuantity() {
       this.quantity++;
     },
-    // Sænker mængden i kurven, men mængden kan ikke være mindre end 1
+    // Sænker mængden af produktet, men mængden kan ikke være mindre end 1
     decreaseQuantity() {
       if (this.quantity > 1) {
         this.quantity--;

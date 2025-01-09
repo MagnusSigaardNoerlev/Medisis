@@ -1,21 +1,31 @@
 <template>
   <section class="sideIndhold">
+    <!-- Kategori-sektion -->
     <section class="products">
+      <!-- Her hentes produktkategorien dynamisk med vue's mustage syntaksen -->
       <h2>{{ categoryName }}</h2>
+
+      <!-- Her vises kategoribeskrivelsen -->
       <p v-if="categoryDescription" class="category-description">
         {{ categoryDescription }}
       </p>
+
+      <!-- Loading-indikator vises, mens produkterne indlæses -->
       <div v-if="loading" class="loading">Indlæser produkter...</div>
+
+      <!-- Når produkterne er indlæst, vises produktcardsne -->
       <div v-else class="products-container">
+        <!-- Her loopes der gennem produkterne med v-for -->
         <div class="product-card" v-for="product in products" :key="product.id">
-          <!-- Router-link til produkt -->
+          <!-- Router-link til produktsiden -->
           <router-link :to="`/produkt/${product.id}`" class="product-item">
             <img :src="product.images[0]?.src" :alt="product.name" />
+            <!-- Her bliver produktnavn og prisspænd dynamisk sat ind -->
             <h3>{{ product.name }}</h3>
             <p>{{ product.priceRange }}</p>
           </router-link>
 
-          <!-- Tilføj til kurv knap uden for produktcontaineren -->
+          <!-- "Tilføj til kurv"-knap -->
           <div class="product-btn-placeholder">
             <button class="product-btn">Tilføj til kurv</button>
           </div>
@@ -26,23 +36,24 @@
 </template>
 
 <script>
-import axios from "axios";
-import { ref, onMounted, watch } from "vue";
+import axios from "axios"; // Her importerer vi axios til at lave API-kald
+import { ref, onMounted, watch } from "vue"; // Her importeres vue-funktioner til at håndtere reaktive data og lifecycle-hooks
 
 export default {
   props: {
     id: {
-      type: String,
+      type: String, // Modtager kategori-ID som en prop fra routeren
       required: true,
     },
   },
   setup(props) {
-    const products = ref([]);
-    const categoryName = ref("");
-    const categoryDescription = ref("");
-    const loading = ref(true);
-    const error = ref(null);
+    const products = ref([]); // Liste over produkter
+    const categoryName = ref(""); // Navnet på den valgte kategori
+    const categoryDescription = ref(""); // Beskrivelse af kategorien
+    const loading = ref(true); // Indikerer om data stadig indlæses
+    const error = ref(null); // Gemmer fejlmeddelelser
 
+    // Henter detaljer om kategorien
     const fetchCategoryDetails = async () => {
       try {
         const response = await axios.get(
@@ -54,17 +65,18 @@ export default {
             },
           }
         );
-        categoryName.value = response.data.name;
-        categoryDescription.value = response.data.description;
+        categoryName.value = response.data.name; // Sætter kategorinavnet
+        categoryDescription.value = response.data.description; // Sætter kategoribeskrivelsen
       } catch (err) {
         console.error("Fejl ved hentning af kategori:", err);
         error.value = "Fejl ved hentning af kategori.";
       }
     };
 
+    // Henter produkter til den valgte kategori
     const fetchProducts = async () => {
       try {
-        loading.value = true;
+        loading.value = true; // Viser loading-indikator
         const response = await axios.get(
           `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products?category=${props.id}&per_page=20`,
           {
@@ -75,11 +87,10 @@ export default {
           }
         );
 
-        // Hent variationer for hvert produkt og beregn prisspænd
+        // Gennemgår hver produkt og beregner prisspænd
         const productsWithPrices = await Promise.all(
           response.data.map(async (product) => {
             if (product.variations && product.variations.length > 0) {
-              // Hent variationer
               const variationsResponse = await axios.get(
                 `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${product.id}/variations`,
                 {
@@ -90,18 +101,20 @@ export default {
                 }
               );
 
+              // Finder minimum og maksimumpris for variationer
               const prices = variationsResponse.data.map((variation) =>
                 parseFloat(variation.price)
               );
               const minPrice = Math.min(...prices);
               const maxPrice = Math.max(...prices);
 
+              // Returnerer produktet med prisspænd
               return {
                 ...product,
                 priceRange: `${minPrice} - ${maxPrice} kr`,
               };
             } else {
-              // Hvis der ikke er variationer, brug standardpris
+              // Hvis produktet ikke har variationer, bruges standardpris
               return {
                 ...product,
                 priceRange: `${product.price} kr`,
@@ -110,29 +123,31 @@ export default {
           })
         );
 
-        products.value = productsWithPrices;
+        products.value = productsWithPrices; // Sætter produkterne
       } catch (err) {
         console.error("Fejl ved hentning af produkter:", err);
         error.value = "Fejl ved hentning af produkter.";
       } finally {
-        loading.value = false;
+        loading.value = false; // Fjerner loading-indikator
       }
     };
 
+    // Denne funktion kører automatisk, når siden vises, og vi bruger den til at hente data til kategorier og produkter.
     onMounted(() => {
-      fetchCategoryDetails(); // Henter kategorioplysninger
-      fetchProducts(); // Henter produkter
+      fetchCategoryDetails();
+      fetchProducts();
     });
 
+    // Overvåger ændringer i kategori-ID og opdaterer data
     watch(
       () => props.id,
       () => {
-        fetchCategoryDetails(); // Opdater kategorioplysninger
-        fetchProducts(); // Opdater produkter
+        fetchCategoryDetails();
+        fetchProducts();
       }
     );
 
-    return { products, categoryName, categoryDescription, loading, error };
+    return { products, categoryName, categoryDescription, loading, error }; // Returnerer variabler
   },
 };
 </script>

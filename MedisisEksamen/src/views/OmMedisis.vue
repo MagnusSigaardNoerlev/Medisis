@@ -255,7 +255,6 @@ export default {
 
 .value-item {
   text-align: center;
-  padding: 20px;
 }
 
 .value-item img {

@@ -5,10 +5,10 @@
         <h1>Naturlig Kropspleje med Omtanke</h1>
         <p>
           Hos Medisis tilbyder vi et bredt udvalg af naturlige
-          kropsplejeprodukter, der er skabt med omtanke for både dig og
-          miljøet. Uanset om du søger massageolier, body lotions, eller
-          produkter til afslappende fodbad, finder du her kvalitetsprodukter,
-          der plejer din hud.
+          kropsplejeprodukter, der er skabt med omtanke for både dig og miljøet.
+          Uanset om du søger massageolier, body lotions, eller produkter til
+          afslappende fodbad, finder du her kvalitetsprodukter, der plejer din
+          hud.
         </p>
       </div>
       <img src="@/assets/medisis-image.jpg" alt="Billede af produkter" />
@@ -32,7 +32,6 @@
     </section>
   </section>
 </template>
-
 
 <script>
 import axios from "axios"; // Importerer Axios til at lave API-kald
@@ -81,7 +80,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .intro {
@@ -153,6 +151,8 @@ export default {
   background-color: white;
   transition: background-color 0.3s ease;
 }
+
+/* media qurrys */
 @media (max-width: 1024px) {
   .intro {
     flex-direction: column;

@@ -246,6 +246,8 @@ h2 {
   background-color: #3e7732;
 }
 
+/* media qurrys */
+
 @media (max-width: 1024px) {
   .products-container {
     grid-template-columns: repeat(2, 1fr);

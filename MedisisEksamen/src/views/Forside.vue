@@ -589,10 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 .values-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  ); /* Responsivt grid */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -745,7 +742,7 @@ document.addEventListener("DOMContentLoaded", function () {
   color: white;
 }
 
-/* Skærmstørrelser på 1024px eller mindre (tablets og små laptops) */
+/* Mediea qurrys */
 @media (max-width: 1024px) {
   .forside-container {
     flex-direction: column;
@@ -774,7 +771,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 }
 
-/* Skærmstørrelser på 768px eller mindre (tablets) */
 @media (max-width: 768px) {
   .forside-container {
     margin: 0 20px;
@@ -803,7 +799,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 }
 
-/* Skærmstørrelser på 480px eller mindre (mobiltelefoner) */
 @media (max-width: 480px) {
   .forside-container {
     margin: 0 10px;

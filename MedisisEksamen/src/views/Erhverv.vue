@@ -522,7 +522,6 @@ export default {
   }
 }
 
-/* Mobiltelefoner (480px) */
 @media (max-width: 480px) {
   .text-container h1 {
     font-size: 28px;

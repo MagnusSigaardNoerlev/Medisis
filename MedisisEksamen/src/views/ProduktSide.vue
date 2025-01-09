@@ -44,12 +44,23 @@
                 </button>
               </li>
             </ul>
-          </div>
+        </div>
           <!-- Her bliver produktbeskrivelsen dynamisk sat ind med vue directivet v-html fra WordPress -->
           <p v-if="product.description" v-html="product.description"></p>
           <!-- Her vises prisen på den valgte variant eller produktets standardpris -->
-          <h2>{{ selectedVariant?.price || product.price }} kr</h2>
+          <h2>{{ totalPrice }} kr</h2>
           <p class="moms">Inkl. moms</p>
+
+          <!-- Her bliver tilføjt til kurv sektionen sat ind -->
+          <div class="add-to-cart-container">
+          <button class="add-to-cart">Tilføj til kurv</button>
+          <div class="quantity-control">
+          <button class="quantity-btn" @click="decreaseQuantity">-</button>
+          <div class="quantity">{{ quantity }}</div>
+          <button class="quantity-btn" @click="increaseQuantity">+</button>
+          </div>
+          </div>
+
 
           <!-- Her bliver "indeholder" sektionen dynamisk sat ind -->
           <div class="product-indeholder">
@@ -108,8 +119,7 @@
     </section>
   </section>
 </template>
-  
-  
+    
 <script>
 // Her importeres axios, samt nogle ikoner vi bruger til FAQ
 import axios from "axios";
@@ -138,6 +148,7 @@ export default {
       variants: [], // Alle varianter af produktet (hvis det har nogen)
       selectedVariant: null, // Den variant, der er valgt lige nu
       selectedImage: null, // Det billede, der er valgt i galleriet
+      quantity: 1, // Antallet af produkter, som brugeren har valgt
       loading: true, // En indikator for, om vi stadig henter data
       relatedProducts: [], // Relaterede produkter, som vi henter fra API'et
 
@@ -188,8 +199,23 @@ export default {
         this.product?.images[0]?.src
       );
     },
+    // Beregner den totale pris baseret på valgt variant eller produkt og mængden
+    totalPrice() {
+      const price = this.selectedVariant?.price || this.product?.price || 0;
+      return (price * this.quantity).toFixed(2); // Total pris baseret på mængden
+    },
   },
   methods: {
+    // Øger mængden i kurven
+    increaseQuantity() {
+      this.quantity++;
+    },
+    // Sænker mængden i kurven, men mængden kan ikke være mindre end 1
+    decreaseQuantity() {
+      if (this.quantity > 1) {
+        this.quantity--;
+      }
+    },
     // Henter data for det valgte produkt
     async fetchProduct() {
       try {
@@ -311,7 +337,6 @@ export default {
   },
 };
 </script>
-  
 
 <style scoped>
 .loading,
@@ -389,6 +414,57 @@ export default {
 .moms {
   padding: 0;
   margin: 0;
+}
+
+.add-to-cart-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.add-to-cart {
+  background-color: #5f6622;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart:hover {
+  background-color: #3e7732;
+  transform: scale(1.05);
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.quantity-btn {
+  background-color: #5f6622;
+  color: white;
+  border: none;
+  width: 37px;
+  height: 37px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.quantity-btn:hover {
+  background-color: #3e7732;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 40px;
+  background-color: white;
+  font-size: 1rem;
 }
 
 h2 {

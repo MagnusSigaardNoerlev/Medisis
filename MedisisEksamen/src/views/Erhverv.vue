@@ -125,11 +125,14 @@
 </template>
 
 <script>
-import axios from "axios"; // Importerer Axios til at lave API-kald
+// Importerer Axios til at lave API-kald
+import axios from "axios";
+// Importerer ikoner, der bruges i FAQ-sektionen
 import kortIkon from "@/assets/kasse-ikon.png";
 import returIkon from "@/assets/undo-solid.png";
 import leveringIkon from "@/assets/baeredygtighed-ikon.png";
 
+// Her definerer komponentens props
 export default {
   props: {
     id: {
@@ -138,12 +141,13 @@ export default {
     },
   },
   data() {
+    // Her returneres et objekt, der indeholder komponentens startdata.
     return {
-      product: null,
-      variants: [],
-      selectedVariant: null,
-      loading: true,
-      error: null,
+      product: null, // Her gemmes oplysninger om produktet hentet fra API'et
+      variants: [], // Indeholder forskellige varianter af produktet
+      selectedVariant: null, // Holder styr på den valgte variant
+      loading: true, // Indikerer, om data stadig indlæses
+      error: null, // Her gemmes eventuelle fejlmeddelelser fra API-kald
       kategorier: [], // Her gemmer vi de kategorier, vi henter fra API'et
       faq: [
         {
@@ -490,7 +494,7 @@ export default {
 }
 
 /* Media Queries */
-/* Tablet og mindre skærme (1024px) */
+
 @media (max-width: 1024px) {
   .forside-container {
     flex-direction: column;

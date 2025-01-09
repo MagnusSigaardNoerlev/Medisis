@@ -87,7 +87,6 @@ export default {
 </script>
 
 <style scoped>
-/* Default styling */
 .medisis-header {
   background-color: #f2f3ee;
   padding: 10px 0;
@@ -190,7 +189,7 @@ export default {
   display: none;
 }
 
-/* Burger menu styles for smaller screens */
+/* media qurrys */
 
 @media (max-width: 1000px) {
   .nav-links {

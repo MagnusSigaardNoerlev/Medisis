@@ -37,7 +37,7 @@
 
 <script>
 import axios from "axios"; // Her importerer vi axios til at lave API-kald
-import { ref, onMounted, watch } from "vue"; // Her importeres vue-funktioner til at håndtere reaktive data og lifecycle-hooks
+import { ref, onMounted, watch } from "vue"; // Her importeres vue-funktioner til at håndtere reaktive data
 
 export default {
   props: {

@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header />
+    <!-- Her viser vi dynamisk indhold baseret på ruten -->
     <router-view />
     <Footer />
   </div>

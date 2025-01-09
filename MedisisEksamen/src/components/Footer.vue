@@ -18,7 +18,9 @@
             >Salgs- og leveringsbetingelser</router-link
           >
         </p>
-        <p>FAQ</p>
+        <p>
+          <router-link to="/Erhverv">FAQ for virksomheder</router-link>
+        </p>
       </div>
       <div class="vertikal-linje2"></div>
       <div class="footer-section">

@@ -2,7 +2,9 @@
   <header class="medisis-header">
     <div class="top-bar">
       <div class="logo-container">
-        <img :src="logo" alt="Medisis Logo" />
+        <router-link to="/">
+          <img :src="logo" alt="Medisis Logo" />
+        </router-link>
       </div>
       <div class="icons">
         <button class="icon-btn">

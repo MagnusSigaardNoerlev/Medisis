@@ -52,8 +52,8 @@ export default {
           "https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/categories",
           {
             auth: {
-              username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692", // API Consumer Key
-              password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2", // API Consumer Secret
+              username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+              password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
             },
           }
         );
@@ -66,7 +66,7 @@ export default {
             description: kategori.description,
             image: kategori.image?.src,
           }))
-          .reverse(); // Vend rækkefølgen, så den sidste kategori vises først
+          .reverse();
       } catch (error) {
         console.error("Fejl ved hentning af kategorier:", error);
       }

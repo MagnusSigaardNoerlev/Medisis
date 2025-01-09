@@ -1,17 +1,14 @@
 <template>
   <section class="sideIndhold">
-    <!-- Loading-indikator -->
+    <!-- Viser en loading-indikator, indtil produktet bliver indlæst -->
     <div v-if="loading" class="loading">Indlæser produkt...</div>
-    
-    <!-- Fejlmeddelelse -->
-    <div v-else-if="error" class="error">{{ error }}</div>
-
-    <!-- Produktdetaljer -->
+    <!-- Produktet vises, når data er korrekt indlæst -->
     <section v-else class="product-detail">
       <div class="product-header">
-        <!-- Produktbillede og galleri -->
         <div class="product-image-container">
+          <!-- Varebilledet bindes dynamisk baseret på valgt variant eller galleribillede -->
           <img :src="mainImage" alt="Produktbillede" class="main-image" />
+          <!-- Brugeren kan vælge et galleribillede, som opdaterer hovedbilledet -->
           <div class="product-gallery">
             <img
               v-for="(galleryImage, index) in product.images"
@@ -27,11 +24,12 @@
           </div>
         </div>
 
-        <!-- Produktinformation -->
+        <!-- Sektionen til produktinformation -->
+        <!-- Indeholder navn, pris, beskrivelse og varianter -->
         <div class="product-info">
+          <!-- Produktnavn -->
           <h1>{{ product.name }}</h1>
-
-          <!-- Produktvarianter -->
+          <!-- Brugeren kan vælge forskellige varianter af produktet -->
           <div
             v-if="product.variations && product.variations.length > 0"
             class="variants"
@@ -47,13 +45,13 @@
               </li>
             </ul>
           </div>
-
-          <!-- Produktbeskrivelse -->
+          <!-- Her bliver produktbeskrivelsen dynamisk sat ind med vue directivet v-html fra WordPress -->
           <p v-if="product.description" v-html="product.description"></p>
+          <!-- Her vises prisen på den valgte variant eller produktets standardpris -->
           <h2>{{ selectedVariant?.price || product.price }} kr</h2>
           <p class="moms">Inkl. moms</p>
 
-          <!-- Produktindhold -->
+          <!-- Her bliver "indeholder" sektionen dynamisk sat ind -->
           <div class="product-indeholder">
             <h3>Indeholder:</h3>
             <div
@@ -69,6 +67,7 @@
     <section class="faq">
       <h2>Ofte stillede spørgsmål</h2>
       <div class="faq-container">
+        <!-- Her oprettes FAQ indholdet dynamisk -->
         <div class="kort" v-for="item in faq" :key="item.id">
           <div class="ikon">
             <img :src="item.ikon" :alt="item.overskrift" />
@@ -80,14 +79,17 @@
     </section>
 
     <!-- Relaterede produkter -->
+    <!-- Her vises relaterede produkter, der kommer fra samme kategori som det produkt man er inde på -->
     <section class="related-products">
       <h2>Du ville måske synes om:</h2>
       <div class="related-products-container">
+        <!-- Her bliver relaterede produkter dynamisk oprettet. Produkterne hentes fra WordPress API baseret på kategori -->
         <div
           class="related-product"
           v-for="related in relatedProducts"
           :key="related.id"
         >
+          <!-- Router-link bruges til at navigere til det valgte produkt -->
           <router-link
             :to="{ name: 'ProduktSide', params: { id: related.id } }"
             class="related-product-item"
@@ -96,6 +98,8 @@
             <h3>{{ related.name }}</h3>
             <p>{{ related.priceRange || `${related.price} kr` }}</p>
           </router-link>
+
+          <!-- "Tilføj til kurv"-knap -->
           <div class="related-product-btn-placeholder">
             <button class="related-product-btn">Tilføj til kurv</button>
           </div>
@@ -107,18 +111,20 @@
   
   
 <script>
+// Her importeres axios, samt nogle ikoner vi bruger til FAQ
 import axios from "axios";
 import kortIkon from "@/assets/credit-card-solid.png";
 import returIkon from "@/assets/undo-solid.png";
 import leveringIkon from "@/assets/levering-ikon.png";
 
-// Her gemmer vi API-autorisering som en konstant
+// Her laver vi API-autorisering, som giver os adgang til WooCommerce og sikrer, at vi kan hente og sende data sikkert.
 const API_AUTH = {
   username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
   password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
 };
 
 export default {
+  // Her får vi produkt-ID fra routeren, så vi kan finde det rigtige produkt
   props: {
     id: {
       type: String,
@@ -127,13 +133,15 @@ export default {
   },
   data() {
     return {
-      product: null,
-      variants: [],
-      selectedVariant: null,
-      selectedImage: null,
-      loading: true,
-      error: null,
-      relatedProducts: [],
+      // Her gemmer vi data, som vi skal bruge på siden
+      product: null, // Det valgte produkt
+      variants: [], // Alle varianter af produktet (hvis det har nogen)
+      selectedVariant: null, // Den variant, der er valgt lige nu
+      selectedImage: null, // Det billede, der er valgt i galleriet
+      loading: true, // En indikator for, om vi stadig henter data
+      relatedProducts: [], // Relaterede produkter, som vi henter fra API'et
+
+      // Ofte stillede spørgsmål, som vises i FAQ-sektionen
       faq: [
         {
           id: 1,
@@ -160,6 +168,7 @@ export default {
     };
   },
   computed: {
+    // Sorterer produktets varianter efter deres værdi
     sortedVariants() {
       return [...this.variants].sort((a, b) => {
         const valueA = parseFloat(
@@ -171,6 +180,7 @@ export default {
         return valueA - valueB;
       });
     },
+    // Finder det rigtige billede at vise (varedbillede, variantbillede eller valgt billede fra galleriet)
     mainImage() {
       return (
         this.selectedImage ||
@@ -180,49 +190,57 @@ export default {
     },
   },
   methods: {
+    // Henter data for det valgte produkt
     async fetchProduct() {
       try {
-        this.loading = true;
-        this.selectedVariant = null;
-        this.selectedImage = null;
+        this.loading = true; // Vi starter med at vise loading
+        this.selectedVariant = null; // Nulstiller valgt variant
+        this.selectedImage = null; // Nulstiller valgt billede
 
+        // Henter produktdata fra WooCommerce API'et
         const response = await axios.get(
           `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}`,
           { auth: API_AUTH }
         );
-        this.product = response.data;
+        this.product = response.data; // Gemmer produktdata
 
+        // Hvis produktet har varianter, henter vi dem også
         if (this.product.type === "variable") {
           await this.fetchVariations();
         }
+
+        // Henter relaterede produkter baseret på produktets kategori
         this.fetchRelatedProducts(this.product.categories[0]?.id);
       } catch (err) {
-        console.error("Fejl ved hentning af produkt:", err);
-        this.error = "Kunne ikke hente produktdata.";
+        console.error("Fejl ved hentning af produkt:", err); // Logger fejl i konsollen
+        this.error = "Kunne ikke hente produktdata."; // Viser en fejlmeddelelse
       } finally {
-        this.loading = false;
+        this.loading = false; // Fjerner loading-indikatoren
       }
     },
+    // Henter varianterne for det valgte produkt
     async fetchVariations() {
       try {
         const variationsResponse = await axios.get(
           `https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/${this.id}/variations`,
           { auth: API_AUTH }
         );
-        this.variants = variationsResponse.data;
+        this.variants = variationsResponse.data; // Gemmer varianterne
 
+        // Hvis der er varianter, vælger vi den første som standard
         if (this.variants.length > 0) {
           this.selectedVariant = this.sortedVariants[0];
           this.selectedImage = this.sortedVariants[0]?.image?.src || null;
         }
       } catch (err) {
-        console.error("Fejl ved hentning af variationer:", err);
+        console.error("Fejl ved hentning af variationer:", err); // Logger fejl i konsollen
       }
     },
+    // Henter relaterede produkter fra samme kategori
     async fetchRelatedProducts(categoryId) {
       if (!categoryId) {
         console.error("Kategori-ID er ikke tilgængeligt for relaterede produkter.");
-        return;
+        return; // Hvis vi ikke har et kategori-ID, gør vi ingenting
       }
 
       try {
@@ -231,13 +249,14 @@ export default {
           {
             auth: API_AUTH,
             params: {
-              per_page: 4,
-              exclude: [this.id],
-              category: categoryId,
+              per_page: 4, // Henter maks. 4 produkter
+              exclude: [this.id], // Udelukker det aktuelle produkt
+              category: categoryId, // Bruger kategori-ID til at finde relaterede produkter
             },
           }
         );
 
+        // Henter variationer og beregner prisspænd for hvert relateret produkt
         const productsWithPrices = await Promise.all(
           response.data.map(async (product) => {
             if (product.type === "variable") {
@@ -256,40 +275,42 @@ export default {
                   ? `${minPrice} kr`
                   : `${minPrice} - ${maxPrice} kr`;
             } else {
-              product.priceRange = `${product.price} kr`;
+              product.priceRange = `${product.price} kr`; // Hvis der ikke er varianter
             }
             return product;
           })
         );
 
-        this.relatedProducts = productsWithPrices;
+        this.relatedProducts = productsWithPrices; // Gemmer de relaterede produkter
       } catch (err) {
-        console.error("Fejl ved hentning af relaterede produkter:", err);
+        console.error("Fejl ved hentning af relaterede produkter:", err); // Logger fejl i konsollen
       }
     },
+    // Opdaterer den valgte variant og dens billede
     selectVariant(variant) {
       this.selectedVariant = variant;
       this.selectedImage = variant.image?.src || null;
     },
+    // Opdaterer billedet, når der klikkes på et billede i galleriet
     selectGalleryImage(imageSrc) {
       this.selectedImage = imageSrc;
     },
   },
   watch: {
+    // Når produkt-ID ændres, henter vi nyt data
     id: {
       immediate: true,
       handler() {
-        this.fetchProduct();
+        this.fetchProduct(); // Henter det nye produkt
         window.scrollTo({
           top: 0,
-          behavior: "smooth",
+          behavior: "smooth", // Ruller til toppen af siden
         });
       },
     },
   },
 };
 </script>
-
   
 
 <style scoped>
@@ -640,5 +661,4 @@ h2 {
     justify-content: center;
   }
 }
-
 </style>

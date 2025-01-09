@@ -6,6 +6,9 @@
           <img :src="logo" alt="Medisis Logo" />
         </router-link>
       </div>
+      <button class="burger-menu" @click="toggleMenu">
+        <i :class="menuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
+      </button>
       <div class="icons">
         <button class="icon-btn">
           <i class="fas fa-search"></i>
@@ -19,7 +22,7 @@
       </div>
     </div>
     <div class="nav-container">
-      <nav class="nav-links">
+      <nav :class="['nav-links', { active: menuOpen }]">
         <router-link to="/" class="nav-link">Forside</router-link>
         <div
           class="dropdown"
@@ -66,6 +69,7 @@ export default {
     return {
       logo: logoGreen,
       dropdownVisible: false,
+      menuOpen: false,
     };
   },
   methods: {
@@ -75,11 +79,15 @@ export default {
     hideDropdown() {
       this.dropdownVisible = false;
     },
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
+    },
   },
 };
 </script>
 
 <style scoped>
+/* Default styling */
 .medisis-header {
   background-color: #f2f3ee;
   padding: 10px 0;
@@ -142,11 +150,13 @@ export default {
 .nav-links a:hover {
   text-decoration: underline;
 }
+
 .nav-container {
   display: flex;
   justify-content: center;
 }
-/* Dropdown-styling */
+
+/* Dropdown styling */
 .dropdown {
   position: relative;
 }
@@ -175,5 +185,58 @@ export default {
 
 .dropdown-item:hover {
   background-color: #f2f3ee;
+}
+.burger-menu {
+  display: none;
+}
+
+/* Burger menu styles for smaller screens */
+
+@media (max-width: 1000px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2f3ee;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .burger-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #4a4a2a;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+  }
+
+  .burger-menu:hover {
+    color: #6b6b3e;
+  }
+
+  .top-bar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .icons {
+    margin-left: 0;
+  }
+
+  .logo-container {
+    grid-column: 1 / span 1;
+  }
 }
 </style>

@@ -51,41 +51,24 @@
         </div>
       </div>
     </section>
-    <section class="popular-products">
-      <h3>Produktoversigt</h3>
-      <div class="products-container">
-        <div class="product-item">
-          <img src="@/assets/fodbadesalt.png" alt="Fodbadssalt" />
-          <h3>Fodbadesalt</h3>
-          <p>Med kamille (25ml)</p>
-          <p>65,-</p>
-          <button class="product-btn">Tilføj til kurv</button>
-        </div>
-        <div class="product-item">
-          <img src="@/assets/kokus.png" alt="Body Lotion" />
-          <h3>Body Lotion</h3>
-          <p>Med kamille (25ml)</p>
-          <p>55,-</p>
-          <button class="product-btn">Tilføj til kurv</button>
-        </div>
-        <div class="product-item">
-          <img src="@/assets/BodyLotion.png" alt="Body Lotion" />
-          <h3>Body Lotion</h3>
-          <p>Med kamille (25ml)</p>
-          <p>55,-</p>
-          <button class="product-btn">Tilføj til kurv</button>
-        </div>
 
-        <div class="product-item">
-          <img src="@/assets/body-lotion.png" alt="Body Lotion" />
-          <h3>Body Lotion</h3>
-          <p>Med kamille (25ml)</p>
-          <p>55,-</p>
-          <button class="product-btn">Tilføj til kurv</button>
-        </div>
-      </div>
-      <button class="view-all-btn">Se Alle produkter</button>
+      <!-- Sektion med produktkategorier -->
+      <section class="produktkategorier">
+      <h3>Produktoversigt</h3>
+      <ul>
+        <!-- Her looper vi gennem kategorierne og viser dem som cards -->
+        <li v-for="kategori in kategorier" :key="kategori.id">
+          <router-link :to="'/produkter/' + kategori.id" class="kategoriCard">
+            <!-- Viser billedet og navnet på hver kategori -->
+            <img :src="kategori.image" :alt="kategori.name" />
+            <div class="kateogriCard-content">
+              <h4>{{ kategori.name }}</h4>
+            </div>
+          </router-link>
+        </li>
+      </ul>
     </section>
+
     <section class="proevepakke-sektion">
       <div class="tekst-indhold">
         <h2>Prøv vores prøvepakker og oplev forskellen</h2>
@@ -107,6 +90,7 @@
         </div>
       </div>
     </section>
+
     <!-- FAQ sektion -->
     <section class="faq">
       <h2>Ofte stillede spørgsmål</h2>
@@ -141,6 +125,7 @@
 </template>
 
 <script>
+import axios from "axios"; // Importerer Axios til at lave API-kald
 import kortIkon from "@/assets/kasse-ikon.png";
 import returIkon from "@/assets/undo-solid.png";
 import leveringIkon from "@/assets/baeredygtighed-ikon.png";
@@ -159,6 +144,7 @@ export default {
       selectedVariant: null,
       loading: true,
       error: null,
+      kategorier: [], // Her gemmer vi de kategorier, vi henter fra API'et
       faq: [
         {
           id: 1,
@@ -172,20 +158,56 @@ export default {
           ikon: returIkon,
           overskrift: "Hvordan kontakter vi jer?",
           beskrivelse:
-            " Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15",
+            "Kontakt os venligst på info@medisis.dk eller telefon 86 46 72 15",
         },
         {
           id: 3,
           ikon: leveringIkon,
           overskrift: "Allergi",
           beskrivelse:
-            "vores produkter er udviklet med få ingredienser og rene råvarer for at minimere risikoen for allergiske reaktioner. De er helt fri for parfume.",
+            "Vores produkter er udviklet med få ingredienser og rene råvarer for at minimere risikoen for allergiske reaktioner. De er helt fri for parfume.",
         },
       ],
     };
   },
+  mounted() {
+    // Når siden indlæses, henter vi kategorier fra API'et
+    this.fetchKategorier();
+  },
+  methods: {
+    // Funktion til at hente kategorier fra WooCommerce API
+    async fetchKategorier() {
+      try {
+        const response = await axios.get(
+          "https://medisis.magnusnoerlev.com/wp-json/wc/v3/products/categories",
+          {
+            auth: {
+              // API-login til WooCommerce
+              username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
+              password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
+            },
+          }
+        );
+
+        // Filtrerer kategorierne for at fjerne "ukategoriseret" og formaterer data
+        this.kategorier = response.data
+          .filter((kategori) => kategori.slug !== "ukategoriseret") // Udelader ukategoriserede produkter
+          .map((kategori) => ({
+            id: kategori.id, // ID for kategorien
+            name: kategori.name, // Navn på kategorien
+            description: kategori.description, // Beskrivelse af kategorien
+            image: kategori.image?.src, // Billede til kategorien
+          }))
+          .reverse(); // Vender rækkefølgen, så nyeste kategorier vises først
+      } catch (error) {
+        // Logger en fejl, hvis noget går galt
+        console.error("Fejl ved hentning af kategorier:", error);
+      }
+    },
+  },
 };
 </script>
+
 
 <style scoped>
 .forside-container {
@@ -216,80 +238,58 @@ export default {
   height: auto;
 }
 
-.popular-products {
+.produktkategorier h3 {
+  margin-top: 75px;
   text-align: center;
-  padding: 50px 0;
-  background-color: #f2f3ee;
 }
 
-.popular-products h2 {
-  font-size: 2rem;
-  margin-bottom: 40px;
-  font-weight: bold;
+.produktkategorier ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.products-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+.produktkategorier li {
+  flex: 1 1 calc(25% - 20px);
+  margin: 10px;
+  max-width: calc(25% - 20px);
 }
-.product-item:hover {
+
+.kategoriCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 75px;
+}
+
+.kategoriCard:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
-.product-item {
-  background-color: white;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.product-item img {
+.kategoriCard img {
   width: 100%;
   height: 300px;
-  margin-bottom: 20px;
+  object-fit: cover;
+  margin: 0;
 }
 
-.product-item h3 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-
-.product-item p {
-  font-size: 1rem;
-  color: #333;
-}
-.product-btn {
-  display: block;
+.kategoriCard-content {
   width: 100%;
-  background-color: #5f6622;
-  color: white;
-  border: none;
-  padding: 10px 0;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.product-btn:hover {
-  background-color: #3e7732;
-}
-
-.view-all-btn {
-  background-color: #5f6622;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 30px;
-}
-
-.view-all-btn:hover {
-  background-color: #3e7732;
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  padding: 10px;
+  background-color: white;
+  transition: background-color 0.3s ease;
 }
 
 .proevepakke-sektion {
@@ -325,7 +325,6 @@ export default {
 
 .pakke-detaljer h3 {
   margin-bottom: 10px;
-
   margin-top: 10px;
 }
 .pakke-detaljer {
@@ -341,7 +340,6 @@ export default {
   padding: 10px 20px;
   width: 450px;
   margin-top: 10px;
-
   cursor: pointer;
 }
 
@@ -361,10 +359,7 @@ export default {
 
 .values-container {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(250px, 1fr)
-  ); /* Responsivt grid */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -388,6 +383,7 @@ export default {
   color: #333;
   text-align: left;
 }
+
 /* FAQ sektion */
 .faq {
   padding: 40px 0;
@@ -402,42 +398,43 @@ export default {
 
 .faq-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  flex-wrap: wrap;
+  padding: 20px;
 }
 
 .kort {
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 40px;
-  max-width: 300px;
-  flex: 1;
+  width: 300px;
   text-align: left;
-}
-
-.ikon {
-  text-align: center;
-  margin-bottom: 15px;
+  flex: 1;
+  border-radius: 5px;
 }
 
 .ikon img {
+  display: block;
+  margin: 0 auto;
   width: 60px;
   height: auto;
+  object-fit: contain;
 }
 
 .kort h3 {
   font-size: 1.2rem;
-  margin-bottom: 10px;
   color: #333;
+  margin-bottom: 10px;
   text-align: center;
 }
 
 .kort p {
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 1rem;
   color: #666;
+  line-height: 1.4;
 }
+
 .medisis-section {
   display: flex;
   gap: 40px;
@@ -448,7 +445,6 @@ export default {
 .card {
   position: relative;
   height: 400px;
-
   overflow: hidden;
 }
 
@@ -493,6 +489,7 @@ export default {
   text-decoration: none;
   color: white;
 }
+
 /* Media Queries */
 /* Tablet og mindre skærme (1024px) */
 @media (max-width: 1024px) {
@@ -507,84 +504,25 @@ export default {
     max-width: 100%;
   }
 
-  .products-container {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-  }
-
-  .image-container img {
-    max-width: 400px;
-    max-height: 450px;
-  }
-  .proevepakke-sektion {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Små tablets (768px) */
-@media (max-width: 768px) {
-  .forside-container {
-    margin: 0 20px;
-    gap: 20px;
-  }
-
-  .text-container h1 {
-    font-size: 35px;
-  }
-
-  .text-container p {
-    font-size: 1rem;
-  }
-
-  .products-container {
+  .produktkategorier ul {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .image-container img {
-    max-width: 350px;
-    max-height: 400px;
-  }
   .proevepakke-sektion {
     grid-template-columns: 1fr;
-    justify-content: center;
   }
+
   .faq-container {
     flex-direction: column;
-    align-items: center;
   }
 }
 
 /* Mobiltelefoner (480px) */
 @media (max-width: 480px) {
-  .forside-container {
-    margin: 0 10px;
-    gap: 10px;
-  }
-
   .text-container h1 {
     font-size: 28px;
   }
 
-  .text-container p {
-    font-size: 0.9rem;
-  }
-
-  .products-container {
-    grid-template-columns: 1fr;
-  }
-
-  .image-container img {
-    max-width: 300px;
-    max-height: 350px;
-  }
-
-  .view-all-btn {
-    padding: 8px 16px;
-    font-size: 0.9rem;
-  }
-  .proevepakke-sektion {
-    grid-template-columns: 1fr;
-  }
   .faq-container {
     flex-direction: column;
   }

@@ -186,7 +186,7 @@
       <div class="card">
         <img src="@/assets/enhverv.png" alt="Enhverv" class="card-image" />
         <div class="card-content">
-          <h1>ENHVERV</h1>
+          <h1>Erhverv</h1>
           <a href="#" class="card-button"
             ><router-link to="/erhverv">Læs mere om ehverskunde</router-link></a
           >
@@ -358,7 +358,6 @@ export default {
   background-color: #5f6622;
   padding: 10px 20px;
   font-size: 1rem;
-  border-radius: 5px;
   transition: background-color 0.3s ease;
 }
 

@@ -38,37 +38,37 @@
       </div>
     </section>
     <section class="newest-products">
-  <h3>Se nogle af vores produkter</h3>
-  <div v-if="loading" class="loading">Indlæser produkter...</div>
-  <div v-else class="newest-products-container">
-    <!-- Loop gennem de nyeste produkter -->
-    <div
-      class="newest-product"
-      v-for="product in productsForForside"
-      :key="product.id"
-    >
-      <router-link
-        :to="{ name: 'ProduktSide', params: { id: product.id } }"
-        class="newest-product-item"
-      >
-        <img
-          :src="product.images[0]?.src"
-          :alt="product.name"
-          class="newest-product-image"
-        />
-        <h4 class="newest-product-title">{{ product.name }}</h4>
-        <p class="newest-product-price">{{ product.priceRange }}</p>
-      </router-link>
-      <!-- Tilføj til kurv knap -->
-      <div class="newest-product-btn-placeholder">
-        <button class="newest-product-btn">Tilføj til kurv</button>
+      <h3>Se nogle af vores produkter</h3>
+      <div v-if="loading" class="loading">Indlæser produkter...</div>
+      <div v-else class="newest-products-container">
+        <!-- Loop gennem de nyeste produkter -->
+        <div
+          class="newest-product"
+          v-for="product in productsForForside"
+          :key="product.id"
+        >
+          <router-link
+            :to="{ name: 'ProduktSide', params: { id: product.id } }"
+            class="newest-product-item"
+          >
+            <img
+              :src="product.images[0]?.src"
+              :alt="product.name"
+              class="newest-product-image"
+            />
+            <h4 class="newest-product-title">{{ product.name }}</h4>
+            <p class="newest-product-price">{{ product.priceRange }}</p>
+          </router-link>
+          <!-- Tilføj til kurv knap -->
+          <div class="newest-product-btn-placeholder">
+            <button class="newest-product-btn">Tilføj til kurv</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <button class="view-all-btn">
-    <router-link to="/produkter">Se alle vores produkter</router-link>
-  </button>
-</section>
+      <button class="view-all-btn">
+        <router-link to="/produkter">Se alle vores produkter</router-link>
+      </button>
+    </section>
 
     <div class="forside-container-NaturligPleje">
       <div class="text-container">
@@ -226,7 +226,6 @@
   </section>
 </template>
 
-
 <script>
 import axios from "axios";
 
@@ -341,7 +340,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 2000);
 });
 </script>
-
 
 <style scoped>
 .forside-container {
@@ -762,6 +760,9 @@ document.addEventListener("DOMContentLoaded", function () {
   .two-columns {
     flex-direction: column;
   }
+  .newest-products-container {
+    grid-template-columns: repeat(2, 2fr);
+  }
 }
 
 /* Skærmstørrelser på 768px eller mindre (tablets) */
@@ -820,6 +821,9 @@ document.addEventListener("DOMContentLoaded", function () {
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+  .newest-products-container {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 </style>

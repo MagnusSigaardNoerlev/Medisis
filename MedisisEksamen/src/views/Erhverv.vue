@@ -52,8 +52,8 @@
       </div>
     </section>
 
-      <!-- Sektion med produktkategorier -->
-      <section class="produktkategorier">
+    <!-- Sektion med produktkategorier -->
+    <section class="produktkategorier">
       <h3>Produktoversigt</h3>
       <ul>
         <!-- Her looper vi gennem kategorierne og viser dem som cards -->
@@ -207,7 +207,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .forside-container {
@@ -504,16 +503,18 @@ export default {
     max-width: 100%;
   }
 
-  .produktkategorier ul {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .proevepakke-sektion {
     grid-template-columns: 1fr;
   }
 
   .faq-container {
     flex-direction: column;
+    align-content: center;
+  }
+
+  .produktkategorier li {
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc(50% - 20px);
   }
 }
 
@@ -525,6 +526,14 @@ export default {
 
   .faq-container {
     flex-direction: column;
+  }
+  .produktkategorier ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  .kategoriCard img {
+    height: 200px;
+    width: 400px;
   }
 }
 </style>

@@ -38,37 +38,42 @@
       </div>
     </section>
     <section class="newest-products">
-  <h3>Se nogle af vores produkter</h3>
-  <div v-if="loading" class="loading">Indlæser produkter...</div>
-  <div v-else class="newest-products-container">
-    <!-- Loop gennem de nyeste produkter -->
-    <div
-      class="newest-product"
-      v-for="product in productsForForside"
-      :key="product.id"
-    >
-      <router-link
-        :to="{ name: 'ProduktSide', params: { id: product.id } }"
-        class="newest-product-item"
-      >
-        <img
-          :src="product.images[0]?.src"
-          :alt="product.name"
-          class="newest-product-image"
-        />
-        <h4 class="newest-product-title">{{ product.name }}</h4>
-        <p class="newest-product-price">{{ product.priceRange }}</p>
-      </router-link>
-      <!-- Tilføj til kurv knap -->
-      <div class="newest-product-btn-placeholder">
-        <button class="newest-product-btn">Tilføj til kurv</button>
+      <h3>Se nogle af vores produkter</h3>
+      <!-- Viser en indlæsningsikonet, hvis produkterne stadig hentes -->
+      <div v-if="loading" class="loading">Indlæser produkter...</div>
+      <!-- Hvis produkterne er hentet, vises produkterne i en container -->
+      <div v-else class="newest-products-container">
+        <!-- Loop gennem de nyeste produkter -->
+        <div
+          class="newest-product"
+          v-for="product in productsForForside"
+          :key="product.id"
+        >
+          <!-- Her linker vi til produktsiden for det specifikke produkt -->
+          <router-link
+            :to="{ name: 'ProduktSide', params: { id: product.id } }"
+            class="newest-product-item"
+          >
+            <!-- her viser vi vores produktbillede  -->
+            <img
+              :src="product.images[0]?.src"
+              :alt="product.name"
+              class="newest-product-image"
+            />
+            <!-- her bruger vi produkt.name altså navenet på produktet -->
+            <h4 class="newest-product-title">{{ product.name }}</h4>
+            <p class="newest-product-price">{{ product.priceRange }}</p>
+          </router-link>
+          <!-- Tilføj til kurv knap -->
+          <div class="newest-product-btn-placeholder">
+            <button class="newest-product-btn">Tilføj til kurv</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <button class="view-all-btn">
-    <router-link to="/produkter">Se alle vores produkter</router-link>
-  </button>
-</section>
+      <button class="view-all-btn">
+        <router-link to="/produkter">Se alle vores produkter</router-link>
+      </button>
+    </section>
 
     <div class="forside-container-NaturligPleje">
       <div class="text-container">
@@ -226,11 +231,10 @@
   </section>
 </template>
 
-
 <script>
 import axios from "axios";
 
-// API-autentificering
+// API- til WooCommerce
 const API_AUTH = {
   username: "ck_3d9e99e11d33b04135d3fcc9366920ff0e04a692",
   password: "cs_1207b0416dac2f9412347e9cf80a3714a3a33ef2",
@@ -254,10 +258,10 @@ export default {
         );
         const prices = response.data.map((variation) =>
           parseFloat(variation.price)
-        );
+        ); // Saml priser fra variationerne
         const minPrice = Math.min(...prices);
         const maxPrice = Math.max(...prices);
-
+        // Returner prisspændet, eller én pris hvis den er ens
         return minPrice === maxPrice
           ? `${minPrice} kr`
           : `${minPrice} - ${maxPrice} kr`;
@@ -295,7 +299,7 @@ export default {
             } else {
               product.priceRange = `${product.price} kr`;
             }
-            return product;
+            return product; // Gem de hentede og opdaterede produkter i komponentens state
           })
         );
 
@@ -312,21 +316,25 @@ export default {
     this.fetchNewestProducts();
   },
 };
-
+// Lytter efter, at DOM'en er fuldt indlæst, før slideshow-funktionaliteten aktiveres
 document.addEventListener("DOMContentLoaded", function () {
+  // Henter alle slides og dots (navigationselementer) fra DOM'en
   const slides = document.querySelectorAll(".slideshow-slide");
   const dots = document.querySelectorAll(".slideshow-dot");
-  let currentIndex = 0;
+  let currentIndex = 0; // Holder styr på den aktuelle slide, der vises
 
+  // Funktion til at vise en slide baseret på den aktuelle index
   function showSlide(index) {
+    // Gennemgår alle slides og viser den, der matcher indexet
     slides.forEach((slide, i) => {
-      slide.classList.toggle("active", i === index);
+      slide.classList.toggle("active", i === index); // Tilføjer/fjerner 'active' klasse for den aktuelle slide
     });
+    // Gennemgår alle dots og opdaterer den, der matcher indexet
     dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === index);
+      dot.classList.toggle("active", i === index); // Tilføjer/fjerner 'active' klasse for den aktuelle dot
     });
   }
-
+  // Tilføjer klik-lytter på hver dot, så når brugeren klikker på en dot, vises den tilhørende slide
   dots.forEach((dot, index) => {
     dot.addEventListener("click", () => {
       currentIndex = index;
@@ -336,12 +344,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Automatisk slideshow
   setInterval(() => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    showSlide(currentIndex);
+    currentIndex = (currentIndex + 1) % slides.length; // Opdaterer currentIndex til det valgte index
+    showSlide(currentIndex); // Kald showSlide for at opdatere visningen
   }, 2000);
 });
 </script>
-
 
 <style scoped>
 .forside-container {
@@ -762,6 +769,9 @@ document.addEventListener("DOMContentLoaded", function () {
   .two-columns {
     flex-direction: column;
   }
+  .newest-products-container {
+    grid-template-columns: repeat(2, 2fr);
+  }
 }
 
 /* Skærmstørrelser på 768px eller mindre (tablets) */
@@ -820,6 +830,9 @@ document.addEventListener("DOMContentLoaded", function () {
     flex-direction: column;
     align-items: center;
     text-align: center;
+  }
+  .newest-products-container {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 </style>

@@ -368,7 +368,7 @@ export default {
   text-decoration: none;
   color: white;
 }
-/* Tablet og mindre skærme (1024px) */
+/* media qurrys (1024px) */
 @media (max-width: 1024px) {
   .forside-container,
   .forside-container2 {
@@ -385,7 +385,6 @@ export default {
   }
 }
 
-/* Små tablets (768px) */
 @media (max-width: 768px) {
   .forside-container,
   .forside-container2 {
@@ -403,7 +402,6 @@ export default {
   }
 }
 
-/* Mobiltelefoner (480px) */
 @media (max-width: 480px) {
   .forside-container,
   .forside-container2 {
